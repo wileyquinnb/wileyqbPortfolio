@@ -1,0 +1,15 @@
+.sectionScroller {
+    -webkit-scroll-snap-type: y mandatory;
+        -ms-scroll-snap-type: y mandatory;
+            scroll-snap-type: y mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.sectionScroller::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollActive {
+    scroll-snap-align: center;
+}

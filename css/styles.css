@@ -17,9 +17,11 @@
 
 
 .section {
-    height: 80vh;
-    margin-right: 2%;
-    margin-left: 2%;
+    height: 76vh;
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     border-radius: 10vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
     display: flex;
@@ -29,6 +31,11 @@
     overflow: visible;
 }
 
+#section4 {
+    background-color: rgb(25, 152, 80);
+    margin-top: calc(50vh - 14vw);
+}
+
 #section0 {
     background-color: rgb(255, 255, 255);
     box-shadow: none;
@@ -36,6 +43,7 @@
 
 #section1 {
     background-color: rgb(255, 183, 0);
+
 }
 
 #section2 {
@@ -44,11 +52,10 @@
 
 #section3 {
     background-color: rgb(150, 52, 150);
+    margin-bottom: calc(50vh - 14vw);
 }
 
-#section4 {
-    background-color: rgb(25, 152, 80);
-}
+
 
 
 .title {
@@ -63,7 +70,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation:appear .4s ease-in-out;
+    animation:slideLeft .4s ease-in-out;
 }
 
 .mainTitle {
@@ -86,13 +93,13 @@
     overflow-x: scroll;
 }
 
-@keyframes appear {
+@keyframes slideLeft {
     0%{
-        transform: translateY(-60vh);
+        transform: translateX(-100vw);
         opacity: .1;
     }
     100%{
-        transform: translateY(0vh);
+        transform: translateX(0vw);
         opacity: 1;
     }
 }
