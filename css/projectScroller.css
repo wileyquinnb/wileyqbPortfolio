@@ -1,20 +1,3 @@
-.scroller {
-    height: 64%;
-    width: 104%;
-    display: flex;
-    /* justify-content: center; */
-    align-items: center;
-    z-index: 5;
-    position: relative;
-    overflow-x: scroll;
-    -webkit-scroll-snap-type: x mandatory;
-        -ms-scroll-snap-type: x mandatory;
-            scroll-snap-type: x mandatory;
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-    animation: appearRight .4s ease-in-out;
-}
-
 .box {
     overflow: visible;
     scroll-snap-align: center;
@@ -39,4 +22,34 @@
 
 .lastBox {
     margin-right: calc(50vw - 15vw);
+}
+
+.slideRight {
+    animation: slideRight .4s ease-in-out;
+}
+
+.slideRightBack {
+    animation: slideRightBack .2s ease-in-out;
+}
+
+@keyframes slideRight {
+    0%{
+        transform: translateX(100vw);
+        opacity: .1;
+    }
+    100%{
+        transform: translateX(0vw);
+        opacity: 1;
+    }
+}
+
+@keyframes slideRightBack {
+    0%{
+        transform: translateX(0vw);
+        opacity: 1;
+    }
+    100%{
+        transform: translateX(100vw);
+        opacity: .1;
+    }
 }

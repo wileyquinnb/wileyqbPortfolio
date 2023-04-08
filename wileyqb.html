@@ -8,19 +8,21 @@
     <!-- <script defer src="javascript/transitions.js"></script> -->
     <!-- <script defer src="javascript/accessibleMode.js"></script> -->
     <script defer src="js/onLoad.js"></script>
+    <script defer src="js/scroller.js"></script>
     <title>WileyQB</title>
     <link rel="stylesheet" href="css/styles.css">
     <!-- <link rel="stylesheet" href="css/circles.css"> -->
     <!-- <link rel="stylesheet" href="css/transitions.css"> -->
-    <!-- <link rel="stylesheet" href="css/textCard.css"> -->
+    <link rel="stylesheet" href="css/card.css">
     <link rel="stylesheet" href="css/sectionScroller.css">
+    <link rel="stylesheet" href="css/projectScroller.css">
 </head>
 
 <body>
     <div id="container" class="sectionScroller">
+        <div id="cardDesktop" class="card"></div>
         <div id="section4" class="section scrollActive">
-            <div class="title">Secret</div>
-            <div id="card"></div>
+            <div class="title">Info</div>
             <div id="info"></div>
         </div>
         <div id="section0" class="section scrollActive">
@@ -29,58 +31,17 @@
         </div>
         <div id="section1" class="section scrollActive">
             <div class="title">Build</div>
-            <div id="card"></div>
-            <div id="scroller">
-                <div class="box firstBox">
-                    <img src="./1img/project0.jpg">
-                </div>
-                <div class="box">
-                    <img src="./1img/project1.jpg">
-                </div>
-                <div class="box">
-                    <img src="./1img/project2.jpg">
-                </div>
-                <div class="box lastBox">
-                    <img src="./1img/project3.jpg">
-                </div>
-            </div>
+            <div class="scroller"></div>
         </div>
         <div id="section2" class="section scrollActive">
             <div class="title">Play</div>
-            <div id="card"></div>
-            <div id="scroller">
-                <div class="box firstBox">
-                    <img src="./2img/project0.jpg">
-                </div>
-                <div class="box">
-                    <img src="./2img/project1.jpg">
-                </div>
-                <div class="box">
-                    <img src="./2img/project2.jpg">
-                </div>
-                <div class="box lastBox">
-                    <img src="./2img/project3.jpg">
-                </div>
-            </div>
+            <div class="scroller"></div>
         </div>
         <div id="section3" class="section scrollActive">
             <div class="title">Draw</div>
-            <div id="card"></div>
-            <div id="scroller">
-                <div class="box firstBox">
-                    <img src="./3img/project0.jpg">
-                </div>
-                <div class="box">
-                    <img src="./3img/project1.jpg">
-                </div>
-                <div class="box">
-                    <img src="./3img/project2.jpg">
-                </div>
-                <div class="box lastBox">
-                    <img src="./3img/project3.jpg">
-                </div>
-            </div>
+            <div class="scroller"></div>
         </div>
+        <div id="cardMobile" class="card"></div>
     </div>
 </body>
 
