@@ -1,0 +1,42 @@
+.scroller {
+    height: 64%;
+    width: 104%;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    z-index: 5;
+    position: relative;
+    overflow-x: scroll;
+    -webkit-scroll-snap-type: x mandatory;
+        -ms-scroll-snap-type: x mandatory;
+            scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    animation: appearRight .4s ease-in-out;
+}
+
+.box {
+    overflow: visible;
+    scroll-snap-align: center;
+    display: flex;
+    color: white;
+    width: 60vw;
+    height: 60vw;
+    padding: 3vw;
+}
+
+.box > img {
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+    filter: grayscale(100%);
+    cursor: pointer;
+}
+
+.firstBox {
+    margin-left: calc(50vw - 15vw);
+}
+
+.lastBox {
+    margin-right: calc(50vw - 15vw);
+}

@@ -28,6 +28,7 @@
     align-items: center;
     position: relative;
     overflow: visible;
+    animation: sectionSlide .4s ease-in-out;
 }
 
 #section4 {
@@ -86,6 +87,17 @@
     display: flex;
     position: relative;
     overflow-x: scroll;
+}
+
+@keyframes sectionSlide {
+    0%{
+        margin-top: 20vh;
+        margin-bottom: 20vh;
+    }
+    100%{
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
 }
 
 @keyframes slideLeft {
