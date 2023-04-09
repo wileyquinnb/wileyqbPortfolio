@@ -7,7 +7,7 @@ const pageTitle = document.getElementById('.titleText');
 
 let visibleSection = getCalledSection(sections);
 let oldContent;
-let originalScroller = '';
+let originalScrollers = {};
 
 
 container.addEventListener("click", async (event) => {
@@ -27,6 +27,10 @@ container.addEventListener("click", async (event) => {
 
 async function loadScroller(visibleSection) {
     if (!visibleSection) {
+        return;
+    }
+
+    if (hasScrollerContent(visibleSection)) {
         return;
     }
 
@@ -126,7 +130,7 @@ async function loadProjectScroller(event) {
         scrollerDiv.classList.add('fadeOut');
     }, 100);
 
-    originalScroller = scrollerDiv.innerHTML;
+    originalScrollers[visibleSection.id] = scrollerDiv.innerHTML;
 
     setTimeout(() => {
         scrollerDiv.innerHTML = '';
@@ -151,14 +155,24 @@ function hasProjectScrollerContent(visibleSection) {
     return projectScrollerDiv.innerHTML.trim() !== '';
 }
 
+function hasScrollerContent(visibleSection) {
+    if (!visibleSection) {
+        return false;
+    }
+
+    const projectScrollerDiv = visibleSection.querySelector('.scroller');
+
+    return projectScrollerDiv.innerHTML.trim() !== '';
+}
+
 async function removeProjectScrollerContent(visibleSection) {
     if (!visibleSection) {
         return;
     }
 
     const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
-    projectScrollerDiv.classList.remove('fadeIn');
-    projectScrollerDiv.classList.add('fadeOut');
+    // projectScrollerDiv.classList.remove('fadeIn');
+    // projectScrollerDiv.classList.add('fadeOut');
 
     setTimeout(() => {
         projectScrollerDiv.innerHTML = '';
@@ -172,6 +186,7 @@ function restoreScroller(visibleSection) {
     }
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
-    scrollerDiv.innerHTML = originalScroller;
+    scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
     scrollerDiv.classList.remove('fadeOut');
+    scrollerDiv.classList.add('fadeIn');
 }
