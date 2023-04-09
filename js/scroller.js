@@ -2,12 +2,12 @@ const container = document.getElementById("container");
 const sections = document.querySelectorAll('.section');
 const scrollers = document.querySelectorAll('.scroller');
 
-const card = document.getElementById('.card');
-const pageTitle = document.getElementById('.titleText');
+const card = document.getElementById('card');
 
 let visibleSection = getCalledSection(sections);
 let oldContent;
 let originalScrollers = {};
+let originalTitleContent = {};
 
 
 container.addEventListener("click", async (event) => {
@@ -24,7 +24,6 @@ container.addEventListener("click", async (event) => {
         await loadProjectScroller(event);
     }
 
-    modifyTitleAndSection(visibleSection);
 });
 
 async function loadScroller(visibleSection) {
@@ -102,6 +101,8 @@ async function loadProjectScroller(event) {
     if (!targetImage.matches('.scroller img')) {
         return;
     }
+
+    expandTitleAndSection(visibleSection);
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
@@ -183,6 +184,7 @@ async function removeProjectScrollerContent(visibleSection) {
     projectScrollerDiv.classList.add('fadeOut');
 
     restoreScroller(visibleSection);
+    collapseTitleAndSection(visibleSection);
 
     setTimeout(() => {
         projectScrollerDiv.classList.remove('fadeOut');
@@ -201,7 +203,7 @@ function restoreScroller(visibleSection) {
     scrollerDiv.classList.add('fadeIn');
 }
 
-function modifyTitleAndSection(visibleSection) {
+function expandTitleAndSection(visibleSection) {
     if (!visibleSection) {
         return;
     }
@@ -212,11 +214,64 @@ function modifyTitleAndSection(visibleSection) {
         return;
     }
 
-    titleDiv.classList.add('card');
+    container.style.overflow = 'hidden';
+    titleDiv.classList.add('hideTitle');
+    card.classList.add('cardShow');
+    visibleSection.classList.add('sectionGrow');
+
+    for (const section of sections) {
+        if (section !== visibleSection) {
+            section.classList.add('hidden');
+        }
+    }
+
+    for (const scroller of scrollers) {
+        scroller.classList.remove('scroller106');
+        scroller.classList.add('scroller100');
+    }
+
+    originalTitleContent[visibleSection.id] = titleDiv.innerHTML;
 
     setTimeout(() => {
         titleDiv.innerHTML = '';
     }, 400);
+}
 
-    visibleSection.classList.add('sectionGrow');
+function collapseTitleAndSection(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
+
+    const titleDiv = visibleSection.querySelector('.title');
+
+    if (!titleDiv) {
+        return;
+    }
+
+    card.classList.remove('cardShow');
+    card.classList.add('cardHide');
+    titleDiv.classList.remove('hideTitle');
+    titleDiv.classList.add('showTitle');
+
+    setTimeout(() => {
+        visibleSection.classList.add('sectionShrink');
+    }, 250);
+
+    setTimeout(() => {
+        for (const section of sections) {
+            section.classList.remove('hidden');
+        }
+        container.style.overflow = 'auto';
+        card.classList.remove('cardHide');
+        titleDiv.classList.remove('showTitle');
+        visibleSection.classList.remove('sectionGrow');
+        visibleSection.classList.remove('sectionShrink');
+        titleDiv.innerHTML = originalTitleContent[visibleSection.id];
+    }, 400);
+
+
+    for (const scroller of scrollers) {
+        scroller.classList.remove('scroller100');
+        scroller.classList.add('scroller106');
+    }
 }

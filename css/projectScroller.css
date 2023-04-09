@@ -5,7 +5,7 @@
     color: white;
     width: 60vw;
     height: 60vw;
-    padding: 3vw;
+    padding: 5vw;
 }
 
 .box > img {
@@ -17,7 +17,7 @@
 
 .projectScroller {
     height: 70%;
-    width: 104%;
+    width: 100%;
     z-index: 50;
     display: flex;
     align-items: center;

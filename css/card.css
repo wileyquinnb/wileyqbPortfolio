@@ -1,23 +1,82 @@
-.card {
+.hideTitle {
+    height: 35%;
+    animation: titleGrow .4s ease-in-out;
+}
+
+.showTitle {
+    height: 30%;
+    animation: titleShrink .4s ease-in-out;
+}
+
+.cardShow {
+    position: fixed;
     background-color: white;
     opacity: 1;
+    top: 0px;
+    left: 10vw;
+    height: 40vh;
+    width: 80vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-    animation: cardReveal .5s ease-in-out;
+    animation: cardReveal .4s ease-in-out;
+}
+
+.cardHide {
+    position: fixed;
+    background-color: white;
+    opacity: 0;
+    top: 0px;
+    left: 10vw;
+    height: 40vh;
+    width: 80vw;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+    animation: cardHide .4s ease-in-out;
 }
 
 .sectionGrow {
     height: 100%;
     margin-right: 0;
     margin-left: 0;
-    margin-top: 0;
-    margin-bottom: 0;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
     border-radius: 0;
-    animation: sectionGrow .3s ease-in-out;
+    animation: sectionGrow .4s ease-in-out;
+}
+
+.sectionShrink {
+    height: 76vh;
+    margin-right: 3%;
+    margin-left: 3%;
+    margin-top: 5vh;
+    margin-bottom: 5vh;
+    border-radius: 10vw;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    animation: sectionShrink .15s ease-in-out;
+}
+
+@keyframes titleGrow {
+    0%{
+        height: 30%;
+    }
+    100%{
+        height: 35%
+    }
+}
+
+@keyframes titleShrink {
+    0%{
+        height: 35%;
+    }
+    100%{
+        height: 30%
+    }
 }
 
 @keyframes cardReveal {
     0%{
-        opacity: 1;
+        opacity: 0;
         background-color: none;
     }
     50%{
@@ -36,13 +95,57 @@
     }
 }
 
+@keyframes cardHide {
+    0%{
+        opacity: 1;
+        transform: translateY(0%);
+        background-color: white;
+    }
+    51%{
+        opacity: 1;
+        transform: translateY(-200%);
+        background-color: white;
+    }
+    50%{
+        opacity: 0;
+        transform: translateY(-200%);
+        background-color: none;
+    }
+    100%{
+        opacity: 0;
+        transform: translateY(-200%);
+        background-color: none;
+    }
+}
+
 @keyframes sectionGrow {
     0%{
         height: 76vh;
         border-radius: 10vw;
     }
-    100%{
-        height: 130%;
+    80%{
+        height: 100%;
         border-radius: 10vw;
+    }
+    100%{
+        height: 100%;
+        border-radius: 0vw;
+        margin-top: 50;
+        margin-bottom: 50;
+    }
+}
+
+@keyframes sectionShrink {
+    0%{
+        height: 100%;
+        border-radius: 0vw;
+        margin-right: 0%;
+        margin-left: 0%;
+    }
+    100%{
+        height: 76vh;
+        border-radius: 10vw;
+        margin-right: 3%;
+        margin-left: 3%;
     }
 }

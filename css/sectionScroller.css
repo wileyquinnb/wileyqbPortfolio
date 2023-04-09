@@ -13,3 +13,7 @@
 .scrollActive {
     scroll-snap-align: center;
 }
+
+.stopScroll {
+    overflow: hidden;
+}

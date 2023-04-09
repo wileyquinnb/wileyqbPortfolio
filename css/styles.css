@@ -81,7 +81,6 @@
 
 .scroller {
     height: 70%;
-    width: 104%;
     z-index: 5;
     position: absolute;
     display: flex;
@@ -92,6 +91,21 @@
         scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+.scroller106 {
+    width: 106.4%;
+    left: -3.2%;
+}
+
+.scroller100 {
+    width: 100%;
+}
+
+.hidden {
+    opacity: 0;
+    background-color: none;
+    box-shadow: none;
 }
 
 @keyframes sectionSlide {
