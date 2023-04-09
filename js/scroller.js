@@ -3,6 +3,8 @@ const sections = document.querySelectorAll('.section');
 const scrollers = document.querySelectorAll('.scroller');
 
 const card = document.getElementById('card');
+const cardTitle = document.getElementById('cardTitle');
+const cardText = document.getElementById('cardText');
 
 let visibleSection = getCalledSection(sections);
 let oldContent;
@@ -102,7 +104,7 @@ async function loadProjectScroller(event) {
         return;
     }
 
-    expandTitleAndSection(visibleSection);
+    expandTitleAndSection(visibleSection, targetImage);
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
@@ -203,7 +205,7 @@ function restoreScroller(visibleSection) {
     scrollerDiv.classList.add('fadeIn');
 }
 
-function expandTitleAndSection(visibleSection) {
+async function expandTitleAndSection(visibleSection, targetImage) {
     if (!visibleSection) {
         return;
     }
@@ -235,6 +237,23 @@ function expandTitleAndSection(visibleSection) {
     setTimeout(() => {
         titleDiv.innerHTML = '';
     }, 400);
+
+    const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
+
+    const titlesResponse = await fetch(`./images/${primaryParentFolder}/titles.json`);
+    const titles = await titlesResponse.json();
+    const textResponse = await fetch(`./images/${primaryParentFolder}/text.json`);
+    const texts = await textResponse.json();
+
+    const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
+    const clickedImageIndex = parseInt(clickedImageName.replace('project', ''));
+
+    setTimeout(() => {
+        cardTitle.classList.add('cardTitle');
+        cardTitle.textContent = titles[clickedImageIndex];
+        cardText.classList.add('cardText');
+        cardText.textContent = texts[clickedImageIndex];
+    }, 100);
 }
 
 function collapseTitleAndSection(visibleSection) {
