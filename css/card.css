@@ -1,3 +1,48 @@
 .card {
-    height: 0%;
+    background-color: white;
+    opacity: 1;
+    box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+    animation: cardReveal .5s ease-in-out;
+}
+
+.sectionGrow {
+    height: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    border-radius: 0;
+    animation: sectionGrow .3s ease-in-out;
+}
+
+@keyframes cardReveal {
+    0%{
+        opacity: 1;
+        background-color: none;
+    }
+    50%{
+        opacity: 0;
+        background-color: none;
+    }
+    51%{
+        opacity: 1;
+        transform: translateY(-200%);
+        background-color: white;
+    }
+    100%{
+        opacity: 1;
+        transform: translateY(0%);
+        background-color: white;
+    }
+}
+
+@keyframes sectionGrow {
+    0%{
+        height: 76vh;
+        border-radius: 10vw;
+    }
+    100%{
+        height: 130%;
+        border-radius: 10vw;
+    }
 }

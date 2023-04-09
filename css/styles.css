@@ -65,7 +65,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation:slideLeft .4s ease-in-out;
+    animation: slideLeft .4s ease-in-out;
 }
 
 .mainTitle {

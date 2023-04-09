@@ -23,6 +23,8 @@ container.addEventListener("click", async (event) => {
     } else {
         await loadProjectScroller(event);
     }
+
+    modifyTitleAndSection(visibleSection);
 });
 
 async function loadScroller(visibleSection) {
@@ -67,7 +69,6 @@ async function loadScroller(visibleSection) {
     scrollerDiv.innerHTML = newContent;
 
 }
-
 
 function getCalledSection(sections, threshold = 0.5) {
     const viewportHeight = window.innerHeight;
@@ -144,13 +145,16 @@ async function loadProjectScroller(event) {
     visibleSection.appendChild(projectScrollerDiv);
 }
 
-
 function hasProjectScrollerContent(visibleSection) {
     if (!visibleSection) {
         return false;
     }
 
     const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+
+    if (!projectScrollerDiv) {
+        return false;
+    }
 
     return projectScrollerDiv.innerHTML.trim() !== '';
 }
@@ -160,9 +164,13 @@ function hasScrollerContent(visibleSection) {
         return false;
     }
 
-    const projectScrollerDiv = visibleSection.querySelector('.scroller');
+    const scrollerDiv = visibleSection.querySelector('.scroller');
 
-    return projectScrollerDiv.innerHTML.trim() !== '';
+    if (!scrollerDiv) {
+        return false;
+    }
+
+    return scrollerDiv.innerHTML.trim() !== '';
 }
 
 async function removeProjectScrollerContent(visibleSection) {
@@ -171,12 +179,14 @@ async function removeProjectScrollerContent(visibleSection) {
     }
 
     const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
-    // projectScrollerDiv.classList.remove('fadeIn');
-    // projectScrollerDiv.classList.add('fadeOut');
+    projectScrollerDiv.classList.remove('fadeIn');
+    projectScrollerDiv.classList.add('fadeOut');
+
+    restoreScroller(visibleSection);
 
     setTimeout(() => {
+        projectScrollerDiv.classList.remove('fadeOut');
         projectScrollerDiv.innerHTML = '';
-        restoreScroller(visibleSection);
     }, 400);
 }
 
@@ -189,4 +199,24 @@ function restoreScroller(visibleSection) {
     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
     scrollerDiv.classList.remove('fadeOut');
     scrollerDiv.classList.add('fadeIn');
+}
+
+function modifyTitleAndSection(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
+
+    const titleDiv = visibleSection.querySelector('.title');
+
+    if (!titleDiv) {
+        return;
+    }
+
+    titleDiv.classList.add('card');
+
+    setTimeout(() => {
+        titleDiv.innerHTML = '';
+    }, 400);
+
+    visibleSection.classList.add('sectionGrow');
 }
