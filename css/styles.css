@@ -23,6 +23,7 @@
     margin-bottom: 5vh;
     border-radius: 10vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+    position: relative;
     align-items: center;
     justify-content: center;
     overflow: visible;
@@ -82,6 +83,7 @@
     height: 70%;
     width: 104%;
     z-index: 5;
+    position: absolute;
     display: flex;
     align-items: center;
     overflow-x: scroll;

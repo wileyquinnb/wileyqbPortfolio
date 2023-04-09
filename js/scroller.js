@@ -5,31 +5,43 @@ const scrollers = document.querySelectorAll('.scroller');
 const card = document.getElementById('.card');
 const pageTitle = document.getElementById('.titleText');
 
-let currentVisibleSection = getVisibleSection(sections);
+let visibleSection = getCalledSection(sections);
 let oldContent;
+let originalScroller = '';
 
-async function loadScroller(currentVisibleSection) {
-    if (!currentVisibleSection) {
+
+container.addEventListener("click", async (event) => {
+    const targetElement = event.target;
+
+    if (hasProjectScrollerContent(visibleSection)) {
+        const boxDivs = visibleSection.querySelectorAll(".projectScroller .box");
+        const outsideClick = !Array.from(boxDivs).some((boxDiv) => boxDiv.contains(targetElement));
+
+        if (outsideClick) {
+            await removeProjectScrollerContent(visibleSection);
+        }
+    } else {
+        await loadProjectScroller(event);
+    }
+});
+
+async function loadScroller(visibleSection) {
+    if (!visibleSection) {
         return;
     }
 
-    const visibleSectionId = currentVisibleSection.id;
+    const calledSectionId = visibleSection.id;
 
-    if (visibleSectionId === "section0" || visibleSectionId === "section4") {
+    if (calledSectionId === "section0" || calledSectionId === "section4") {
         return;
     }
 
-    // if (oldContent && oldContent !== currentVisibleSection) {
-    //     const lastScrollerDiv = oldContent.querySelector('.scroller');
-    //     lastScrollerDiv.classList.remove('slideRight');
-    //     lastScrollerDiv.classList.add('slideRightBack');
+    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+    if (projectScrollerDiv.innerHTML.trim() !== '') {
+        return;
+    }
 
-    //     setTimeout(() => {
-    //         lastScrollerDiv.innerHTML = '';
-    //     }, 200);
-    // }
-
-    const primaryParentFolder = visibleSectionId.replace("section", "") + "img";
+    const primaryParentFolder = calledSectionId.replace("section", "") + "img";
     const manifestUrl = `./images/${primaryParentFolder}/manifest.json`;
 
     const response = await fetch(manifestUrl);
@@ -39,22 +51,21 @@ async function loadScroller(currentVisibleSection) {
     for (let i = 0; i < projects.length; i++) {
         const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
         newContent += `
-            <div class="box ${firstOrLast}">
+            <div class="box grey ${firstOrLast}">
                 <img src="./images/${primaryParentFolder}/${projects[i]}">
             </div>
         `;
         console.log(`Image URL: ./images/${primaryParentFolder}/${projects[i]}`);
     }
 
-    const scrollerDiv = currentVisibleSection.querySelector('.scroller');
+    const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.classList.add('slideRight');
     scrollerDiv.innerHTML = newContent;
 
-    // oldContent = currentVisibleSection;
 }
 
 
-function getVisibleSection(sections, threshold = 0.5) {
+function getCalledSection(sections, threshold = 0.5) {
     const viewportHeight = window.innerHeight;
 
     for (let section of sections) {
@@ -69,249 +80,98 @@ function getVisibleSection(sections, threshold = 0.5) {
 }
 
 container.addEventListener("scroll", async () => {
-    const visibleSection = getVisibleSection(sections);
+    const calledSection = getCalledSection(sections);
 
-    if (visibleSection !== currentVisibleSection) {
-        currentVisibleSection = visibleSection;
-        const visibleSectionId = currentVisibleSection ? currentVisibleSection.id : 'none';
-        console.log("Current visible section:", visibleSectionId);
-        await loadScroller(currentVisibleSection);
+    if (calledSection !== visibleSection) {
+        visibleSection = calledSection;
+        const calledSectionId = visibleSection ? visibleSection.id : 'none';
+        console.log("Current visible section:", calledSectionId);
+        await loadScroller(visibleSection);
     }
 });
 
-function handleClick(event) {
-    if (isAnimating) return;
 
-    try {
-        if (event.target.tagName === 'IMG') {
-            isAnimating = true;
-            const value = event.target.getAttribute('data-value');
+async function loadProjectScroller(event) {
+    const targetImage = event.target;
 
-            if (!value) throw new Error('Value does not exist');
-
-            if (document.head.id == 'page3') {
-                textCard.classList.add('cardShowLeft');
-            } else {
-                textCard.classList.add('cardShow');
-            }
-
-            pageTitle.classList.add('hide');
-
-            loadProjectScroller(value);
-
-            images.forEach(image => {
-                image.classList.add('hide');
-            });
-
-            setTimeout(() => {
-                mainScroller.style.display = 'none';
-                isAnimating = false;
-            }, 400);
-        }
-    } catch (error) {
-        console.error(error)
+    if (!targetImage.matches('.scroller img')) {
+        return;
     }
+
+    const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
+    const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
+    const clickedImageIndex = clickedImageName.replace('project', '');
+    const secondaryParentFolder = primaryParentFolder + "/img" + clickedImageIndex;
+
+    const manifestUrl = `./images/${secondaryParentFolder}/manifest.json`;
+
+    const response = await fetch(manifestUrl);
+    const projects = await response.json();
+
+    let newContent = '';
+    for (let i = 0; i < projects.length; i++) {
+        const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
+        newContent += `
+            <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+                <img src="./images/${secondaryParentFolder}/${projects[i]}">
+            </div>
+        `;
+        console.log(`Image URL: ./images/${secondaryParentFolder}/${projects[i]}`);
+    }
+
+    const scrollerDiv = visibleSection.querySelector('.scroller');
+    scrollerDiv.classList.remove('slideRight');
+
+    setTimeout(() => {
+        scrollerDiv.classList.add('fadeOut');
+    }, 100);
+
+    originalScroller = scrollerDiv.innerHTML;
+
+    setTimeout(() => {
+        scrollerDiv.innerHTML = '';
+        scrollerDiv.className = 'scroller';
+    }, 400);
+
+    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+    projectScrollerDiv.classList.add('fadeIn');
+    projectScrollerDiv.innerHTML = newContent;
+
+    visibleSection.appendChild(projectScrollerDiv);
 }
 
-// old variables
 
-// const mainScroller = document.getElementById('mainScroller');
-// const textCard = document.getElementById('card');
+function hasProjectScrollerContent(visibleSection) {
+    if (!visibleSection) {
+        return false;
+    }
 
-// const images = mainScroller.querySelectorAll('.box img');
-// const imagesColored = projectScroller.querySelectorAll('.boxColored img');
+    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
 
-// const projectTitle = document.getElementById('projectTitle');
-// const projectBody = document.getElementById('projectBody');
+    return projectScrollerDiv.innerHTML.trim() !== '';
+}
 
-// const projectTitleWrapper = document.getElementById('projectTitleWrapper');
-// const projectBodyWrapper = document.getElementById('projectBodyWrapper');
+async function removeProjectScrollerContent(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
 
-// let isAnimating = false;
+    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+    projectScrollerDiv.classList.remove('fadeIn');
+    projectScrollerDiv.classList.add('fadeOut');
 
+    setTimeout(() => {
+        projectScrollerDiv.innerHTML = '';
+        restoreScroller(visibleSection);
+    }, 400);
+}
 
-// mainScroller.addEventListener('click', handleClick);
+function restoreScroller(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
 
-// for (let i = 0; i < images.length; i++) {
-//     images[i].setAttribute('data-value', i);
-// }
-
-
-// async function loadProjectScroller(value) {
-//     isAnimating = true;
-
-//     const primaryParentFolder = section.id.replace("section", "") + "img";
-//     const secondaryParentFolder = `./images/${primaryParentFolder}/img${value}`;
-
-//     const response = await fetch(`${secondaryParentFolder}/manifest.json`);
-//     const imageNames = await response.json();
-
-//     const titleResponse = await fetch(`./${primaryParentFolder}/titles.json`);
-//     const projectTitles = await titleResponse.json();
-
-//     const BodyResponse = await fetch(`./${primaryParentFolder}/text.json`);
-//     const projectText = await BodyResponse.json();
-
-//     let newContent = '';
-//     for (let i = 0; i < imageNames.length; i++) {
-//         const firstOrLast = i === 0 ? 'firstBox' : (i === imageNames.length - 1 ? 'lastBox' : '');
-//         newContent += `
-//             <div class="boxColored ${firstOrLast}">
-//                 <img src="${secondaryParentFolder}/${imageNames[i]}">
-//             </div>
-//         `;
-//     }
-
-//     projectScroller.innerHTML = newContent;
-
-    // if (section.id === 'section3') {
-    //     projectScroller.classList.add('scrollerLeftColored');
-    // } else {
-    //     projectScroller.classList.add('scrollerRightColored');
-    // }
-
-    // projectScroller.classList.add('fadeIn');
-
-    // document.addEventListener('click', handleOutsideClick);
-    // document.addEventListener('keydown', handleEscapePress);
-
-    // setTimeout(() => {
-
-    //     projectTitle.textContent = projectTitles[value];
-    //     projectBody.textContent = projectText[value];
-
-    //     if (document.head.id == 'page3') {
-    //         projectTitleWrapper.classList.add('projectTitleWrapper');
-    //         projectBodyWrapper.classList.add('projectBodyWrapper');
-    //         projectTitle.classList.add('projectTitleLeft');
-    //         projectBody.classList.add('projectBodyLeft');
-    //     } else {
-    //         projectTitle.classList.add('projectTitle');
-    //         projectBody.classList.add('projectBody');
-    //     }
-
-    //     isAnimating = false;
-    // }, 400);
-// }
-
-
-// function handleClick(event) {
-//     if (isAnimating) return;
-
-//     try {
-//         if (event.target.tagName === 'IMG') {
-//             isAnimating = true;
-//             const value = event.target.getAttribute('data-value');
-
-//             if (!value) throw new Error('Value does not exist');
-
-//             if (document.head.id == 'page3') {
-//                 textCard.classList.add('cardShowLeft');
-//             } else {
-//                 textCard.classList.add('cardShow');
-//             }
-
-//             pageTitle.classList.add('hide');
-
-//             loadProjectScroller(value);
-
-//             images.forEach(image => {
-//                 image.classList.add('hide');
-//             });
-
-//             setTimeout(() => {
-//                 mainScroller.style.display = 'none';
-//                 isAnimating = false;
-//             }, 400);
-//         }
-//     } catch (error) {
-//         console.error(error)
-//     }
-// }
-
-
-// function revertPage() {
-//     isAnimating = true;
-
-//     projectTitle.classList.add('hide');
-//     projectBody.classList.add('hide');
-
-//     if (document.head.id == 'page3') {
-//         projectBodyWrapper.classList.remove('projectBodyWrapper');
-//         projectTitleWrapper.classList.remove('projectTitleWrapper');
-//         mainScroller.classList.remove('scrollerLeft');
-//         mainScroller.classList.add('scrollerLeftFade');
-//     } else {
-//         mainScroller.classList.remove('scrollerRight');
-//         mainScroller.classList.add('scrollerRightFade');
-//     }
-
-//     mainScroller.style.display = '';
-
-//     if (document.head.id == 'page3') {
-//         textCard.classList.add('cardHideLeft');
-//     } else {
-//         textCard.classList.add('cardHide');
-//     }
-
-//     pageTitle.classList.remove('hide');
-//     projectScroller.classList.remove('fadeIn');
-
-//     projectScroller.classList.add('hide');
-
-//     images.forEach(image => {
-//         image.classList.remove('hide');
-//     });
-
-//     setTimeout(() => {
-//         projectScroller.scrollTop = 0;
-//         projectScroller.innerHTML = '';
-
-//         projectTitle.textContent = '';
-//         projectBody.textContent = '';
-//         if (document.head.id === 'page3') {
-//             projectTitle.classList.remove('projectTitleLeft');
-//             projectTitle.classList.remove('hide');
-
-//             projectBody.classList.remove('projectBodyLeft');
-//             projectBody.classList.remove('hide');
-
-//             projectScroller.classList.remove('scrollerLeftColored');
-//             projectScroller.classList.remove('hide');
-
-//             textCard.classList.remove('cardShowLeft');
-//             textCard.classList.remove('cardHideLeft');
-//         } else {
-//             projectTitle.classList.remove('projectTitle');
-//             projectTitle.classList.remove('hide');
-
-//             projectBody.classList.remove('projectBody');
-//             projectBody.classList.remove('hide');
-
-//             projectScroller.classList.remove('scrollerRightColored');
-//             projectScroller.classList.remove('hide');
-
-//             textCard.classList.remove('cardShow');
-//             textCard.classList.remove('cardHide');
-//         }
-//         isAnimating = false;
-//     }, 500);
-// }
-
-
-// function handleOutsideClick(event) {
-//     if (isAnimating) return;
-//     if (!projectScroller.contains(event.target)) {
-//         revertPage();
-//         document.removeEventListener('click', handleOutsideClick);
-//         document.removeEventListener('keydown', handleEscapePress);
-//     }
-// }
-// function handleEscapePress(event) {
-//     if (isAnimating) return;
-//     if (event.key === 'Escape' || event.code === 'Escape') {
-//         revertPage();
-//         document.removeEventListener('click', handleOutsideClick);
-//         document.removeEventListener('keydown', handleEscapePress);
-//     }
-// }
+    const scrollerDiv = visibleSection.querySelector('.scroller');
+    scrollerDiv.innerHTML = originalScroller;
+    scrollerDiv.classList.remove('fadeOut');
+}

@@ -12,8 +12,25 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .2);
-    filter: grayscale(100%);
     cursor: pointer;
+}
+
+.projectScroller {
+    height: 70%;
+    width: 104%;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    -webkit-scroll-snap-type: x mandatory;
+    -ms-scroll-snap-type: x mandatory;
+        scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.grey {
+    filter: grayscale(100%);
 }
 
 .firstBox {
@@ -30,6 +47,14 @@
 
 .slideRightBack {
     animation: slideRightBack .2s ease-in-out;
+}
+
+.fadeIn {
+    animation: fadeIn .4s ease-in-out;
+}
+
+.fadeOut {
+    animation: fadeOut .4s ease-in-out;
 }
 
 @keyframes slideRight {
@@ -51,5 +76,23 @@
     100%{
         transform: translateX(100vw);
         opacity: .1;
+    }
+}
+
+@keyframes fadeIn {
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    0%{
+        opacity: 1;
+    }
+    100%{
+        opacity: 0;
     }
 }
