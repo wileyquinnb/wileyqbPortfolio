@@ -6,6 +6,12 @@
     width: 60vw;
     height: 60vw;
     padding: 5vw;
+    transition: height .2s ease-in-out, width .2s ease-in-out;
+}
+
+.enlargeBox {
+    width: 80vw;
+    height: 80vw;
 }
 
 .box > img {
@@ -54,7 +60,7 @@
 }
 
 .fadeOut {
-    animation: fadeOut .5s ease-in-out;
+    animation: fadeOut .4s ease-in-out;
 }
 
 @keyframes slideRight {
@@ -91,6 +97,9 @@
 @keyframes fadeOut {
     0%{
         opacity: 1;
+    }
+    80%{
+        opacity: .5;
     }
     100%{
         opacity: 0;

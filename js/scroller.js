@@ -12,6 +12,26 @@ let originalScrollers = {};
 let originalTitleContent = {};
 
 
+//Checks window proportions
+
+function windowProportions() {
+    const windowProportion = window.innerWidth / window.innerHeight;
+
+    return windowProportion > 5 / 6;
+}
+function resize() {
+    if (windowProportions()) {
+        console.log('greaterThan');
+    } else {
+        console.log('lessThan');
+    }
+}
+
+window.addEventListener('resize', resize);
+
+resize();
+
+
 //Event listeners for the container
 
 container.addEventListener("click", async (event) => {
@@ -149,7 +169,7 @@ async function loadProjectScroller(event) {
 
     setTimeout(() => {
         scrollerDiv.classList.add('fadeOut');
-    }, 100);
+    }, 200);
 
     originalScrollers[visibleSection.id] = scrollerDiv.innerHTML;
 
@@ -205,15 +225,18 @@ async function removeProjectScrollerContent(visibleSection) {
 
     const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
     projectScrollerDiv.classList.remove('fadeIn');
-    projectScrollerDiv.classList.add('fadeOut');
 
     restoreScroller(visibleSection);
     collapseSection(visibleSection);
 
     setTimeout(() => {
+        projectScrollerDiv.classList.add('fadeOut');
+    }, 200);
+
+    setTimeout(() => {
         projectScrollerDiv.classList.remove('fadeOut');
         projectScrollerDiv.innerHTML = '';
-    }, 400);
+    }, 500);
 }
 
 
@@ -228,6 +251,12 @@ function restoreScroller(visibleSection) {
     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
     scrollerDiv.classList.remove('fadeOut');
     scrollerDiv.classList.add('fadeIn');
+
+    // setTimeout(() => {
+    //     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
+    //     scrollerDiv.classList.remove('fadeOut');
+    //     scrollerDiv.classList.add('slideRight');
+    // }, 500);
 }
 
 
@@ -287,11 +316,20 @@ async function expandSection(visibleSection, targetImage) {
         cardText.classList.add('cardText');
         cardText.textContent = texts[clickedImageIndex];
     }, 100);
+
+    setTimeout(() => {
+        const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
+
+        for (const boxDiv of boxDivs) {
+            boxDiv.classList.add('enlargeBox');
+        }
+    }, 420);
 }
 function collapseSection(visibleSection) {
     if (!visibleSection) return;
 
     const titleDiv = visibleSection.querySelector('.title');
+    const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
 
     if (!titleDiv) return;
 
@@ -299,6 +337,10 @@ function collapseSection(visibleSection) {
     card.classList.add('cardHide');
     titleDiv.classList.remove('hideTitle');
     titleDiv.classList.add('showTitle');
+
+    for (const boxDiv of boxDivs) {
+        boxDiv.classList.remove('enlargeBox');
+    }
 
     setTimeout(() => {
         visibleSection.classList.add('sectionShrink');
