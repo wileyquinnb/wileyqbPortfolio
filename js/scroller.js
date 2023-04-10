@@ -11,6 +11,7 @@ let oldContent;
 let originalScrollers = {};
 let originalTitleContent = {};
 
+
 //Event listeners for the container
 
 container.addEventListener("click", async (event) => {
@@ -124,24 +125,24 @@ async function loadProjectScroller(event) {
     const response = await fetch(manifestUrl);
     const projects = await response.json();
 
-    // let newContent = '';
-    // for (let i = 0; i < projects.length; i++) {
-    //     const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
-    //     newContent += `
-    //         <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
-    //             <img src="./images/${secondaryParentFolder}/${projects[i]}">
-    //         </div>
-    //     `;
-    // }
-
-    const newContent = projects.map((project, i) => {
+    let newContent = '';
+    for (let i = 0; i < projects.length; i++) {
         const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
-        return `
-          <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
-            <img src="./images/${secondaryParentFolder}/${project}">
-          </div>
+        newContent += `
+            <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+                <img src="./images/${secondaryParentFolder}/${projects[i]}">
+            </div>
         `;
-    }).join()
+    }
+
+    // const newContent = projects.map((project, i) => {
+    //     const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
+    //     return `
+    //       <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+    //         <img src="./images/${secondaryParentFolder}/${project}">
+    //       </div>
+    //     `;
+    // }).join()
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.classList.remove('slideRight');
@@ -301,7 +302,7 @@ function collapseSection(visibleSection) {
 
     setTimeout(() => {
         visibleSection.classList.add('sectionShrink');
-    }, 250);
+    }, 100);
 
     setTimeout(() => {
         for (const section of sections) {
@@ -313,8 +314,7 @@ function collapseSection(visibleSection) {
         visibleSection.classList.remove('sectionGrow');
         visibleSection.classList.remove('sectionShrink');
         titleDiv.innerHTML = originalTitleContent[visibleSection.id];
-    }, 400);
-
+    }, 420);
 
     for (const scroller of scrollers) {
         scroller.classList.remove('scroller100');
