@@ -13,6 +13,8 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    border-bottom-right-radius: 2vh;
+    border-bottom-left-radius: 2vh;
 }
 
 .cardTitle {
@@ -29,7 +31,7 @@
 
 .cardText{
     width: 80%;
-    font-size: 2.25vh;
+    font-size: 2.4vh;
     font-family: Arial, Helvetica, sans-serif;
     opacity: 85%;
 }
@@ -37,7 +39,7 @@
 .cardShow {
     position: fixed;
     background-color: white;
-    opacity: 1;
+    opacity: 95%;
     top: 0px;
     left: 10vw;
     height: 40vh;
