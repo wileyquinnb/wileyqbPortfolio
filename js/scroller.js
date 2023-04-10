@@ -11,6 +11,7 @@ let oldContent;
 let originalScrollers = {};
 let originalTitleContent = {};
 
+//Event listeners for the container
 
 container.addEventListener("click", async (event) => {
     const targetElement = event.target;
@@ -27,6 +28,36 @@ container.addEventListener("click", async (event) => {
     }
 
 });
+container.addEventListener("scroll", async () => {
+    const calledSection = getCalledSection(sections);
+
+    if (calledSection !== visibleSection) {
+        visibleSection = calledSection;
+        const calledSectionId = visibleSection ? visibleSection.id : 'none';
+        console.log("Current visible section:", calledSectionId);
+        await loadScroller(visibleSection);
+    }
+});
+
+
+//Defines the section that is currently in view (visibleSection)
+
+function getCalledSection(sections, threshold = 0.5) {
+    const viewportHeight = window.innerHeight;
+
+    for (let section of sections) {
+        const sectionRect = section.getBoundingClientRect();
+
+        if (sectionRect.top < viewportHeight * (1 - threshold) && sectionRect.bottom > viewportHeight * threshold) {
+            return section;
+        }
+    }
+
+    return null;
+}
+
+
+//Loads the black and white images when scrolling over visibleSection
 
 async function loadScroller(visibleSection) {
     if (!visibleSection) {
@@ -71,31 +102,8 @@ async function loadScroller(visibleSection) {
 
 }
 
-function getCalledSection(sections, threshold = 0.5) {
-    const viewportHeight = window.innerHeight;
 
-    for (let section of sections) {
-        const sectionRect = section.getBoundingClientRect();
-
-        if (sectionRect.top < viewportHeight * (1 - threshold) && sectionRect.bottom > viewportHeight * threshold) {
-            return section;
-        }
-    }
-
-    return null;
-}
-
-container.addEventListener("scroll", async () => {
-    const calledSection = getCalledSection(sections);
-
-    if (calledSection !== visibleSection) {
-        visibleSection = calledSection;
-        const calledSectionId = visibleSection ? visibleSection.id : 'none';
-        console.log("Current visible section:", calledSectionId);
-        await loadScroller(visibleSection);
-    }
-});
-
+//Loads the colored images when clicking on a b&w image and runs expandSection function
 
 async function loadProjectScroller(event) {
     const targetImage = event.target;
@@ -104,7 +112,7 @@ async function loadProjectScroller(event) {
         return;
     }
 
-    expandTitleAndSection(visibleSection, targetImage);
+    expandSection(visibleSection, targetImage);
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
@@ -148,19 +156,8 @@ async function loadProjectScroller(event) {
     visibleSection.appendChild(projectScrollerDiv);
 }
 
-function hasProjectScrollerContent(visibleSection) {
-    if (!visibleSection) {
-        return false;
-    }
 
-    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
-
-    if (!projectScrollerDiv) {
-        return false;
-    }
-
-    return projectScrollerDiv.innerHTML.trim() !== '';
-}
+//Excludes sections without a scroller and projectScroller
 
 function hasScrollerContent(visibleSection) {
     if (!visibleSection) {
@@ -175,6 +172,22 @@ function hasScrollerContent(visibleSection) {
 
     return scrollerDiv.innerHTML.trim() !== '';
 }
+function hasProjectScrollerContent(visibleSection) {
+    if (!visibleSection) {
+        return false;
+    }
+
+    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+
+    if (!projectScrollerDiv) {
+        return false;
+    }
+
+    return projectScrollerDiv.innerHTML.trim() !== '';
+}
+
+
+//Removes projectScroller content
 
 async function removeProjectScrollerContent(visibleSection) {
     if (!visibleSection) {
@@ -186,13 +199,16 @@ async function removeProjectScrollerContent(visibleSection) {
     projectScrollerDiv.classList.add('fadeOut');
 
     restoreScroller(visibleSection);
-    collapseTitleAndSection(visibleSection);
+    collapseSection(visibleSection);
 
     setTimeout(() => {
         projectScrollerDiv.classList.remove('fadeOut');
         projectScrollerDiv.innerHTML = '';
     }, 400);
 }
+
+
+//Restores b&w scroller images
 
 function restoreScroller(visibleSection) {
     if (!visibleSection) {
@@ -205,7 +221,10 @@ function restoreScroller(visibleSection) {
     scrollerDiv.classList.add('fadeIn');
 }
 
-async function expandTitleAndSection(visibleSection, targetImage) {
+
+//Expands and collapses section
+
+async function expandSection(visibleSection, targetImage) {
     if (!visibleSection) {
         return;
     }
@@ -255,8 +274,7 @@ async function expandTitleAndSection(visibleSection, targetImage) {
         cardText.textContent = texts[clickedImageIndex];
     }, 100);
 }
-
-function collapseTitleAndSection(visibleSection) {
+function collapseSection(visibleSection) {
     if (!visibleSection) {
         return;
     }
