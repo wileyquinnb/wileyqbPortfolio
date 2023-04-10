@@ -124,16 +124,24 @@ async function loadProjectScroller(event) {
     const response = await fetch(manifestUrl);
     const projects = await response.json();
 
-    let newContent = '';
-    for (let i = 0; i < projects.length; i++) {
+    // let newContent = '';
+    // for (let i = 0; i < projects.length; i++) {
+    //     const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
+    //     newContent += `
+    //         <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+    //             <img src="./images/${secondaryParentFolder}/${projects[i]}">
+    //         </div>
+    //     `;
+    // }
+
+    const newContent = projects.map((project, i) => {
         const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
-        newContent += `
-            <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
-                <img src="./images/${secondaryParentFolder}/${projects[i]}">
-            </div>
+        return `
+          <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+            <img src="./images/${secondaryParentFolder}/${project}">
+          </div>
         `;
-        console.log(`Image URL: ./images/${secondaryParentFolder}/${projects[i]}`);
-    }
+    }).join()
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.classList.remove('slideRight');
@@ -259,10 +267,15 @@ async function expandSection(visibleSection, targetImage) {
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
 
-    const titlesResponse = await fetch(`./images/${primaryParentFolder}/titles.json`);
-    const titles = await titlesResponse.json();
-    const textResponse = await fetch(`./images/${primaryParentFolder}/text.json`);
-    const texts = await textResponse.json();
+    // const titlesResponse = await fetch(`./images/${primaryParentFolder}/titles.json`);
+    // const titles = await titlesResponse.json();
+    // const textResponse = await fetch(`./images/${primaryParentFolder}/text.json`);
+    // const texts = await textResponse.json();
+
+    const [titles, texts] = await Promise.all([
+        fetch(`./images/${primaryParentFolder}/titles.json`).then(r => r.json()),
+        fetch(`./images/${primaryParentFolder}/text.json`).then(r => r.json())
+    ]);
 
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
     const clickedImageIndex = parseInt(clickedImageName.replace('project', ''));
@@ -275,15 +288,11 @@ async function expandSection(visibleSection, targetImage) {
     }, 100);
 }
 function collapseSection(visibleSection) {
-    if (!visibleSection) {
-        return;
-    }
+    if (!visibleSection) return;
 
     const titleDiv = visibleSection.querySelector('.title');
 
-    if (!titleDiv) {
-        return;
-    }
+    if (!titleDiv) return;
 
     card.classList.remove('cardShow');
     card.classList.add('cardHide');
