@@ -47,10 +47,6 @@
     margin-right: calc(50vw - 15vw);
 }
 
-.slideRight {
-    animation: slideRight .4s ease-in-out;
-}
-
 .slideRightBack {
     animation: slideRightBack .2s ease-in-out;
 }
@@ -61,17 +57,6 @@
 
 .fadeOut {
     animation: fadeOut .4s ease-in-out;
-}
-
-@keyframes slideRight {
-    0%{
-        transform: translateX(100vw);
-        opacity: .1;
-    }
-    100%{
-        transform: translateX(0vw);
-        opacity: 1;
-    }
 }
 
 @keyframes slideRightBack {

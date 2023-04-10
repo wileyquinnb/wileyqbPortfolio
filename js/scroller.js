@@ -10,6 +10,7 @@ let visibleSection = getCalledSection(sections);
 let oldContent;
 let originalScrollers = {};
 let originalTitleContent = {};
+let proportions;
 
 
 //Checks window proportions
@@ -17,13 +18,15 @@ let originalTitleContent = {};
 function windowProportions() {
     const windowProportion = window.innerWidth / window.innerHeight;
 
-    return windowProportion > 5 / 6;
+    return windowProportion > 4.85 / 6;
 }
 function resize() {
     if (windowProportions()) {
         console.log('greaterThan');
+        proportions = true;
     } else {
         console.log('lessThan');
+        proportions = false;
     }
 }
 
@@ -114,13 +117,12 @@ async function loadScroller(visibleSection) {
                 <img src="./images/${primaryParentFolder}/${projects[i]}">
             </div>
         `;
-        console.log(`Image URL: ./images/${primaryParentFolder}/${projects[i]}`);
+        // console.log(`Image URL: ./images/${primaryParentFolder}/${projects[i]}`);
     }
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.classList.add('slideRight');
     scrollerDiv.innerHTML = newContent;
-
 }
 
 

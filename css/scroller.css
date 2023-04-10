@@ -1,0 +1,52 @@
+.scroller {
+    height: 70%;
+    z-index: 5;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    overflow-x: scroll;
+    -webkit-scroll-snap-type: x mandatory;
+    -ms-scroll-snap-type: x mandatory;
+        scroll-snap-type: x mandatory;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.scroller106 {
+    width: 106.4%;
+    left: -3.2%;
+}
+
+.scroller100 {
+    width: 100%;
+}
+
+.slideRight {
+    animation: slideRight .4s ease-in-out;
+}
+
+@keyframes slideRight {
+    0%{
+        transform: translateX(100vw);
+        opacity: .1;
+    }
+    100%{
+        transform: translateX(0vw);
+        opacity: 1;
+    }
+}
+
+.slideUp {
+    animation: slideUp .4s ease-in-out;
+}
+
+@keyframes slideUp {
+    0%{
+        transform: translateY(100vw);
+        opacity: .1;
+    }
+    100%{
+        transform: translateY(0vw);
+        opacity: 1;
+    }
+}
