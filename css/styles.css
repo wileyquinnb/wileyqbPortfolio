@@ -7,6 +7,8 @@
 #container {
     height: 100%;
     overflow-y: auto;
+    overflow-x: hidden;
+    scroll-snap-align: center;
     scrollbar-width: none;
     background-color: white;
 }
@@ -55,6 +57,7 @@
 }
 
 .title {
+    z-index: 5;
     height: 30%;
     width: 100%;
     font-size: 6vh;
@@ -105,5 +108,25 @@
     100%{
         transform: translateX(0vw);
         opacity: 1;
+    }
+}
+
+@media (min-aspect-ratio: 19/24){
+    #container {
+        overflow-y: hidden;
+    }
+    
+    .section {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+        border-radius: 0vw;
+        display: flex;
+        flex-direction: auto;
+    }
+
+    .title {
+        height: 100%;
+        width: 60%;
     }
 }

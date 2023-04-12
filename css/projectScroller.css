@@ -25,14 +25,17 @@
     height: 70%;
     width: 100%;
     z-index: 50;
+    /* position: absolute; */
     display: flex;
     align-items: center;
     overflow-x: scroll;
+    scroll-snap-align: center;
     -webkit-scroll-snap-type: x mandatory;
     -ms-scroll-snap-type: x mandatory;
         scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    pointer-events: none;
 }
 
 .grey {
@@ -40,11 +43,11 @@
 }
 
 .firstBox {
-    margin-left: calc(50vw - 15vw);
+    margin-left: calc(50vw);
 }
 
 .lastBox {
-    margin-right: calc(50vw - 15vw);
+    margin-right: calc(50vw);
 }
 
 .slideRightBack {
@@ -53,6 +56,7 @@
 
 .fadeIn {
     animation: fadeIn .4s ease-in-out;
+    pointer-events: all;
 }
 
 .fadeOut {
@@ -88,5 +92,44 @@
     }
     100%{
         opacity: 0;
+    }
+}
+
+@media (min-aspect-ratio: 19/24){
+    .projectScroller {
+        height: 100%;
+        width: 40%;
+        margin-right: 5%;
+        flex-direction: column;
+        /* justify-content: center; */
+        overflow-x: hidden;
+        overflow-y: scroll;
+        -webkit-scroll-snap-type: y mandatory;
+        -ms-scroll-snap-type: y mandatory;
+            scroll-snap-type: y mandatory;
+    }
+
+    .box {
+        width: 60vh;
+        height: 60vh;
+        margin-top: 0vh;
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
+    }
+
+    .firstBox {
+        margin-top: calc(50vh);
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
+    }
+
+    .lastBox {
+        margin-bottom: calc(50vh);
+        margin-top: 0vh;
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
     }
 }

@@ -18,7 +18,7 @@ let proportions;
 function windowProportions() {
     const windowProportion = window.innerWidth / window.innerHeight;
 
-    return windowProportion > 4.85 / 6;
+    return windowProportion > 19 / 24;
 }
 function resize() {
     if (windowProportions()) {
@@ -121,7 +121,9 @@ async function loadScroller(visibleSection) {
     }
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
+
     scrollerDiv.classList.add('slideRight');
+
     scrollerDiv.innerHTML = newContent;
 }
 
