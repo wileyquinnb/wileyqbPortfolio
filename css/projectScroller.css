@@ -29,7 +29,7 @@
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    scroll-snap-align: center;
+    /* scroll-snap-align: center; */
     -webkit-scroll-snap-type: x mandatory;
     -ms-scroll-snap-type: x mandatory;
         scroll-snap-type: x mandatory;
@@ -98,7 +98,7 @@
 @media (min-aspect-ratio: 19/24){
     .projectScroller {
         height: 100%;
-        width: 40%;
+        width: 43.7%;
         margin-right: 5%;
         flex-direction: column;
         /* justify-content: center; */
@@ -109,6 +109,32 @@
             scroll-snap-type: y mandatory;
     }
 
+    .box {
+        width: 40vh;
+        height: 40vh;
+        margin-top: 0vh;
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
+    }
+
+    .firstBox {
+        margin-top: calc(50vh);
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
+    }
+
+    .lastBox {
+        margin-bottom: calc(50vh);
+        margin-top: 0vh;
+        margin-right: 0vw;
+        margin-left: 0vw;
+        padding: 5vh;
+    }
+}
+
+@media (min-aspect-ratio: 4.5/3){
     .box {
         width: 60vh;
         height: 60vh;
@@ -133,3 +159,4 @@
         padding: 5vh;
     }
 }
+

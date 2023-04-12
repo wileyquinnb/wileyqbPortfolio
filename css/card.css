@@ -77,10 +77,10 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
     border-radius: 10vw;
-    position: relative;
+    /* position: relative;
     align-items: center;
     justify-content: center;
-    overflow: visible;
+    overflow: visible; */
     /* animation: sectionShrink .15s ease-in-out; */
 }
 

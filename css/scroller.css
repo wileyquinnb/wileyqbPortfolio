@@ -5,7 +5,7 @@
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    scroll-snap-align: center;
+    /* scroll-snap-align: center; */
     -webkit-scroll-snap-type: x mandatory;
     -ms-scroll-snap-type: x mandatory;
         scroll-snap-type: x mandatory;

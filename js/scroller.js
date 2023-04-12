@@ -280,7 +280,12 @@ async function expandSection(visibleSection, targetImage) {
     container.style.overflow = 'hidden';
     titleDiv.classList.add('hideTitle');
     card.classList.add('cardShow');
-    visibleSection.classList.add('sectionGrow');
+
+    if (proportions) {
+        return;
+    } else {
+        visibleSection.classList.add('sectionGrow');
+    }
 
     for (const section of sections) {
         if (section !== visibleSection) {
@@ -351,9 +356,13 @@ function collapseSection(visibleSection) {
         scroller.classList.add('scroller106');
     }
 
-    setTimeout(() => {
-        visibleSection.classList.add('sectionShrink');
-    }, 100);
+    if (proportions) {
+        return;
+    } else {
+        setTimeout(() => {
+            visibleSection.classList.add('sectionShrink');
+        }, 100);
+    }
 
     setTimeout(() => {
         for (const section of sections) {
