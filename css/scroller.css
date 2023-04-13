@@ -13,6 +13,10 @@
     scrollbar-width: none;
 }
 
+.scroller::-webkit-scrollbar {
+    display: none;
+}
+
 .scroller106 {
     width: 106.4%;
     left: -3.2%;

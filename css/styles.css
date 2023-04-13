@@ -114,7 +114,7 @@
 
 @media (min-aspect-ratio: 19/24){
     #container {
-        overflow-y: hidden;
+        /* overflow-y: hidden; */
     }
     
     .section {

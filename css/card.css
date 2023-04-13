@@ -84,6 +84,153 @@
     /* animation: sectionShrink .15s ease-in-out; */
 }
 
+@media (min-aspect-ratio: 2/3){
+    .cardShow {
+        position: fixed;
+        background-color: white;
+        opacity: 95%;
+        top: 0px;
+        left: 10vw;
+        height: 35vh;
+        width: 80vw;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardReveal .4s ease-in-out;
+    }
+    
+    .cardHide {
+        position: fixed;
+        background-color: white;
+        opacity: 0;
+        top: 0px;
+        left: 10vw;
+        height: 35vh;
+        width: 80vw;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardHide .4s ease-in-out;
+    }
+    
+}
+
+@media (min-aspect-ratio: 19/24){
+    .hideTitle {
+        height: 30vh;
+        /* animation: titleStretch .4s ease-in-out; */
+    }
+    
+    .showTitle {
+        height: 30vh;
+        /* animation: titleCompress .4s ease-in-out; */
+    }
+    
+    #card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-bottom-right-radius: 0vh;
+        border-bottom-left-radius: 0vh;
+    }
+    
+    .cardTitle {
+        height: 15%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 5vh;
+    }
+    
+    .cardText{
+        height: 80%;
+        width: 80%;
+        font-size: 2.4vh;
+    }
+    
+    .cardShow {
+        position: fixed;
+        background-color: white;
+        opacity: 95%;
+        top: 34vh;
+        left: 5vw;
+        height: 32vh;
+        width: 90vw;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardReveal2 .6s ease-in-out;
+    }
+    
+    .cardHide {
+        position: fixed;
+        background-color: white;
+        opacity: 95%;
+        top: 34vh;
+        left: 5vw;
+        height: 32vh;
+        width: 0vw;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardHide2 .6s ease-in-out;
+    }
+}
+
+@media (min-aspect-ratio: 4.5/3){
+    .hideTitle {
+        height: 30vh;
+        /* animation: titleStretch .4s ease-in-out; */
+    }
+    
+    .showTitle {
+        height: 30vh;
+        /* animation: titleCompress .4s ease-in-out; */
+    }
+    
+    #card {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border-bottom-right-radius: 0vh;
+        border-bottom-left-radius: 0vh;
+    }
+    
+    .cardTitle {
+        height: 15%;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 5vh;
+    }
+    
+    .cardText{
+        height: 80%;
+        width: 80%;
+        font-size: 2.4vh;
+    }
+    
+    .cardShow {
+        position: fixed;
+        background-color: white;
+        opacity: 95%;
+        top: 30vh;
+        left: 5vw;
+        height: 40vh;
+        width: 90vw;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardReveal2 .6s ease-in-out;
+    }
+    
+    .cardHide {
+        position: fixed;
+        background-color: white;
+        opacity: 95%;
+        top: 30vh;
+        left: 0vw;
+        width: 90vw;
+        height: 40vh;
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        animation: cardHide2 .5s ease-in-out;
+    }
+}
+
 @keyframes titleGrow {
     0%{
         height: 30%;
@@ -163,23 +310,47 @@
     }
 }
 
-/* @keyframes sectionShrink {
-    0% {
-        height: 100%;
-        border-radius: 0vw;
-        margin-right: 0%;
-        margin-left: 0%;
+
+@keyframes cardReveal2 {
+    0%{
+        opacity: 0;
+        background-color: none;
     }
-    5% {
-        height: 100%;
-        border-radius: 0vw;
-        margin-right: 0%;
-        margin-left: 0%;
+    50%{
+        opacity: 0;
+        background-color: none;
     }
-    100% {
-        height: 76vh;
-        border-radius: 10vw;
-        margin-right: 3%;
-        margin-left: 3%;
+    51%{
+        opacity: 1;
+        transform: translateX(-100%);
+        background-color: white;
     }
-} */
+    100%{
+        opacity: 1;
+        transform: translateX(0%);
+        background-color: white;
+    }
+}
+
+@keyframes cardHide2 {
+    0%{
+        opacity: 1;
+        transform: translateY(0%);
+        background-color: white;
+    }
+    51%{
+        opacity: 1;
+        transform: translateX(-100%);
+        background-color: white;
+    }
+    50%{
+        opacity: 1;
+        transform: translateX(-100%);
+        background-color: none;
+    }
+    100%{
+        opacity: 0;
+        transform: translateX(-100%);
+        background-color: none;
+    }
+}

@@ -357,27 +357,36 @@ function collapseSection(visibleSection) {
     }
 
     if (proportions) {
-        return;
+        setTimeout(() => {
+            card.classList.remove('cardHide');
+            titleDiv.classList.remove('showTitle');
+            visibleSection.classList.remove('sectionGrow');
+            visibleSection.classList.remove('sectionShrink');
+            titleDiv.innerHTML = originalTitleContent[visibleSection.id];
+            cardTitle.textContent = '';
+            cardText.textContent = '';
+            cardTitle.classList.remove('cardTitle');
+            cardText.classList.remove('cardText');
+        }, 420);
     } else {
         setTimeout(() => {
             visibleSection.classList.add('sectionShrink');
         }, 100);
+        setTimeout(() => {
+            for (const section of sections) {
+                section.classList.remove('hidden');
+            }
+            container.style.overflow = 'auto';
+            card.classList.remove('cardHide');
+            titleDiv.classList.remove('showTitle');
+            visibleSection.classList.remove('sectionGrow');
+            visibleSection.classList.remove('sectionShrink');
+            titleDiv.innerHTML = originalTitleContent[visibleSection.id];
+            cardTitle.textContent = '';
+            cardText.textContent = '';
+            cardTitle.classList.remove('cardTitle');
+            cardText.classList.remove('cardText');
+        }, 420);
     }
-
-    setTimeout(() => {
-        for (const section of sections) {
-            section.classList.remove('hidden');
-        }
-        container.style.overflow = 'auto';
-        card.classList.remove('cardHide');
-        titleDiv.classList.remove('showTitle');
-        visibleSection.classList.remove('sectionGrow');
-        visibleSection.classList.remove('sectionShrink');
-        titleDiv.innerHTML = originalTitleContent[visibleSection.id];
-        cardTitle.textContent = '';
-        cardText.textContent = '';
-        cardTitle.classList.remove('cardTitle');
-        cardText.classList.remove('cardText');
-    }, 420);
     //Lol
 }

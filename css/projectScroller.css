@@ -5,7 +5,7 @@
     color: white;
     width: 60vw;
     height: 60vw;
-    padding: 5vw;
+    padding: 6vw;
     transition: height .2s ease-in-out, width .2s ease-in-out;
 }
 
@@ -38,6 +38,10 @@
     pointer-events: none;
 }
 
+.projectScroller::-webkit-scrollbar {
+    display: none;
+}
+
 .grey {
     filter: grayscale(100%);
 }
@@ -47,7 +51,7 @@
 }
 
 .lastBox {
-    margin-right: calc(50vw);
+    padding: 10vw;
 }
 
 .slideRightBack {
@@ -92,6 +96,26 @@
     }
     100%{
         opacity: 0;
+    }
+}
+
+@media (min-aspect-ratio: 2/3){
+    .projectScroller {
+        height: 70%;
+        width: 100%;
+        z-index: 50;
+        /* position: absolute; */
+        display: flex;
+        align-items: center;
+        overflow-x: scroll;
+        /* scroll-snap-align: center; */
+        -webkit-scroll-snap-type: x mandatory;
+        -ms-scroll-snap-type: x mandatory;
+            scroll-snap-type: x mandatory;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+        pointer-events: none;
+        padding-bottom: 3vh;
     }
 }
 
