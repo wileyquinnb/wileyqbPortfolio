@@ -490,41 +490,41 @@ function createButtons(visibleSection) {
 
     if (calledSectionId === "section0") {
         buttonsHTML = `
-            <div id="hoverBox0" class="hoverBox">
-                <button id="button0" class="circle colorGreen"></button>
+            <div class="hoverBox0 hoverBox">
+                <button class="button0 circle colorGreen"></button>
             </div>
-            <div id="hoverBox1" class="hoverBox">
-                <button id="button1" class="circle colorYellow"></button>
+            <div class="hoverBox1 hoverBox">
+                <button class="button1 circle colorYellow"></button>
             </div>
-            <div id="hoverBox2" class="hoverBox">
-                <button id="button2" class="circle colorPurple"></button>
+            <div class="hoverBox2 hoverBox">
+                <button class="button2 circle colorPurple"></button>
             </div>
-            <div id="hoverBox3" class="hoverBox">
-                <button id="button3" class="circle colorRed"></button>
+            <div class="hoverBox3 hoverBox">
+                <button class="button3 circle colorRed"></button>
             </div>
         `;
     } else if (calledSectionId === "section1") {
         buttonsHTML = `
-            <div id="hoverBox2" class="hoverBox">
-                <button id="button2" class="circle colorWhite"></button>
+            <div class="hoverBox2 hoverBox">
+                <button class="button2 circle colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section2") {
         buttonsHTML = `
-            <div id="hoverBox1" class="hoverBox">
-                <button id="button1" class="circle colorWhite"></button>
+            <div class="hoverBox1 hoverBox">
+                <button class="button1 circle colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section3") {
         buttonsHTML = `
-            <div id="hoverBox0" class="hoverBox">
-                <button id="button0" class="circle colorWhite"></button>
+            <div class="hoverBox0 hoverBox">
+                <button class="button0 circle colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section4") {
         buttonsHTML = `
-            <div id="hoverBox3" class="hoverBox">
-                <button id="button3" class="circle colorWhite"></button>
+            <div class="hoverBox3 hoverBox">
+                <button class="button3 circle colorWhite"></button>
             </div>
         `;
     }

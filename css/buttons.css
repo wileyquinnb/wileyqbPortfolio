@@ -6,7 +6,7 @@
     width: 30vh;
     height: 30vh;
     border-radius: 50%;
-    position: fixed;
+    position: relative;
     cursor: pointer;
     background-color: magenta;
     box-shadow: 0 0 1vh rgb(0 0 0 / .15);
@@ -23,58 +23,58 @@
     display: block;
 }
 
-#hoverBox0 {
+.hoverBox0 {
     top: 0vh;
     left: 0vh;
     border-bottom-right-radius: 10vh;
 }
-#hoverBox0:hover #button0 {
+.hoverBox0:hover .button0 {
     transform: scale(2.8);
 }
 
-#hoverBox1 {
+.hoverBox1 {
     top: 0vh;
     right: 0vh;
     border-bottom-left-radius: 10vh;
 }
-#hoverBox1:hover #button1 {
+.hoverBox1:hover .button1 {
     transform: scale(2.8);
 }
 
-#hoverBox2 {
+.hoverBox2 {
     bottom: 0vh;
     left: 0vh;
     border-top-right-radius: 10vh;
 }
-#hoverBox2:hover #button2 {
+.hoverBox2:hover .button2 {
     transform: scale(2.8);
 }
 
-#hoverBox3 {
+.hoverBox3 {
     bottom: 0vh;
     right: 0vh;
     border-top-left-radius: 10vh;
 }
-#hoverBox3:hover #button3 {
+.hoverBox3:hover .button3 {
     transform: scale(2.8);
 }
 
-#button0 {
+.button0 {
     top: -15vh;
     left: -15vh;
 }
 
-#button1 {
+.button1 {
     top: -15vh;
     right: -15vh;
 }
 
-#button2 {
+.button2 {
     bottom: -15vh;
     left: -15vh;
 }
 
-#button3 {
+.button3 {
     bottom: -15vh;
     right: -15vh;
 }
