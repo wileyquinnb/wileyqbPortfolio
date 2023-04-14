@@ -6,13 +6,23 @@
     width: 30vh;
     height: 30vh;
     border-radius: 50%;
-    position: relative;
+    position: fixed;
     cursor: pointer;
     background-color: magenta;
     box-shadow: 0 0 1vh rgb(0 0 0 / .15);
     border: none;
     transition: all 0.2s ease-in-out;
+}
+
+.growIn {
     animation: growIn .5s 1;
+}
+
+.expandCircle {
+    /* width: 84vh; */
+    /* height: 84vh; */
+    /* transform: scale(2.8); */
+    animation: expandCircle .8s 1;
 }
 
 .hoverBox {
@@ -113,5 +123,14 @@
     }
     100%{
         transform: scale(1);
+    }
+}
+
+@keyframes expandCircle {
+    0%{
+        transform: scale(2.8);
+    }
+    100%{
+        transform: scale(15);
     }
 }

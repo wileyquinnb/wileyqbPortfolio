@@ -80,6 +80,8 @@ container.addEventListener("scroll", async () => {
         }
 
         await loadScroller(visibleSection);
+
+        updateSection(visibleSection);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
@@ -103,10 +105,37 @@ function getCalledSection(sections, threshold = 0.5) {
 
         if (sectionRect.top < viewportHeight * (1 - threshold) && sectionRect.bottom > viewportHeight * threshold) {
             return section;
+        } else {
+            const title = section.querySelector('.title');
+            if (title) {
+                title.classList.remove('slideIn');
+                title.classList.remove('slideOut');
+            }
         }
     }
 
     return null;
+}
+
+function updateSection(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
+
+    const title = visibleSection.querySelector('.title');
+    if (!title) {
+        return;
+    }
+
+    title.classList.add('slideIn');
+
+    title.addEventListener('animationend', () => {
+        title.classList.remove('slideIn');
+        title.classList.add('slideOut');
+        setTimeout(() => {
+            title.classList.remove('slideOut');
+        }, 500);
+    });
 }
 
 
@@ -177,16 +206,6 @@ async function loadProjectScroller(event) {
 
     const response = await fetch(manifestUrl);
     const projects = await response.json();
-
-    // let newContent = '';
-    // for (let i = 0; i < projects.length; i++) {
-    //     const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
-    //     newContent += `
-    //         <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
-    //             <img src="./images/${secondaryParentFolder}/${projects[i]}">
-    //         </div>
-    //     `;
-    // }
 
     const newContent = projects.map((project, i) => {
         const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
@@ -406,74 +425,8 @@ function collapseSection(visibleSection) {
 }
 
 
-
 //Handles buttons
 
-// function createButtons(visibleSection) {
-//     if (!visibleSection) {
-//         return;
-//     }
-
-//     const calledSectionId = visibleSection.id;
-
-//     if (calledSectionId === "section0") {
-//         const buttonsHTML = `
-//         <div id="hoverBox0" class="hoverBox">
-//             <button id="button0" class="circle colorGreen"></button>
-//         </div>
-//         <div id="hoverBox1" class="hoverBox">
-//             <button id="button1" class="circle colorYellow"></button>
-//         </div>
-//         <div id="hoverBox2" class="hoverBox">
-//             <button id="button2" class="circle colorPurple"></button>
-//         </div>
-//         <div id="hoverBox3" class="hoverBox">
-//             <button id="button3" class="circle colorRed"></button>
-//         </div>
-//     `;
-
-//         visibleSection.insertAdjacentHTML('beforeend', buttonsHTML);
-
-//     } else if (calledSectionId === "section1") {
-//         const buttonsHTML = `
-//         <div id="hoverBox2" class="hoverBox">
-//             <button id="button2" class="circle colorWhite"></button>
-//         </div>
-//     `;
-
-//         visibleSection.insertAdjacentHTML('beforeend', buttonsHTML);
-
-//     } else if (calledSectionId === "section2") {
-//         const buttonsHTML = `
-//         <div id="hoverBox1" class="hoverBox">
-//             <button id="button1" class="circle colorWhite"></button>
-//         </div>
-//     `;
-
-//         visibleSection.insertAdjacentHTML('beforeend', buttonsHTML);
-
-//     } else if (calledSectionId === "section3") {
-//         const buttonsHTML = `
-//         <div id="hoverBox0" class="hoverBox">
-//             <button id="button0" class="circle colorWhite"></button>
-//         </div>
-//     `;
-
-//         visibleSection.insertAdjacentHTML('beforeend', buttonsHTML);
-
-//     } else if (calledSectionId === "section4") {
-//         const buttonsHTML = `
-//         <div id="hoverBox3" class="hoverBox">
-//             <button id="button3" class="circle colorWhite"></button>
-//         </div>
-//     `;
-
-//         visibleSection.insertAdjacentHTML('beforeend', buttonsHTML);
-
-//     }
-
-
-// }
 function createButtons(visibleSection) {
     if (!visibleSection) {
         return;
@@ -491,45 +444,53 @@ function createButtons(visibleSection) {
     if (calledSectionId === "section0") {
         buttonsHTML = `
             <div class="hoverBox0 hoverBox">
-                <button class="button0 circle colorGreen"></button>
+                <button class="button0 circle growIn colorGreen"></button>
             </div>
             <div class="hoverBox1 hoverBox">
-                <button class="button1 circle colorYellow"></button>
+                <button class="button1 circle growIn colorYellow"></button>
             </div>
             <div class="hoverBox2 hoverBox">
-                <button class="button2 circle colorPurple"></button>
+                <button class="button2 circle growIn colorPurple"></button>
             </div>
             <div class="hoverBox3 hoverBox">
-                <button class="button3 circle colorRed"></button>
+                <button class="button3 circle growIn colorRed"></button>
             </div>
         `;
     } else if (calledSectionId === "section1") {
         buttonsHTML = `
             <div class="hoverBox2 hoverBox">
-                <button class="button2 circle colorWhite"></button>
+                <button class="button2 circle growIn colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section2") {
         buttonsHTML = `
             <div class="hoverBox1 hoverBox">
-                <button class="button1 circle colorWhite"></button>
+                <button class="button1 circle growIn colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section3") {
         buttonsHTML = `
             <div class="hoverBox0 hoverBox">
-                <button class="button0 circle colorWhite"></button>
+                <button class="button0 circle growIn colorWhite"></button>
             </div>
         `;
     } else if (calledSectionId === "section4") {
         buttonsHTML = `
             <div class="hoverBox3 hoverBox">
-                <button class="button3 circle colorWhite"></button>
+                <button class="button3 circle growIn colorWhite"></button>
             </div>
         `;
     }
 
     buttonContainer.insertAdjacentHTML('beforeend', buttonsHTML);
+
+    const buttons = buttonContainer.querySelectorAll('button');
+    for (const button of buttons) {
+        button.addEventListener('click', () => {
+            clickButton(visibleSection, button);
+        });
+    }
+
 }
 
 function removeButtons(visibleSection) {
@@ -544,4 +505,61 @@ function removeButtons(visibleSection) {
     }
 
     buttonContainer.innerHTML = '';
+}
+
+function clickButton(visibleSection, clickedButton) {
+    if (!visibleSection) {
+        return;
+    }
+
+    const buttonContainer = visibleSection.querySelector('.buttonContainer');
+
+    if (!buttonContainer) {
+        return;
+    }
+
+    buttonContainer.addEventListener('click', (event) => {
+        const targetElement = event.target;
+        if (targetElement.matches('.circle')) {
+            let buttonClone = buttonContainer.querySelector('.expandCircle');
+            if (!buttonClone) {
+                buttonClone = targetElement.cloneNode(true);
+                buttonClone.style.zIndex = '400';
+                buttonContainer.appendChild(buttonClone);
+            }
+            buttonClone.classList.add('expandCircle');
+            buttonClone.addEventListener('transitionend', () => {
+                buttonClone.remove();
+            });
+        }
+
+        setTimeout(() => {
+            const currentSectionId = visibleSection.id;
+            let targetSectionId;
+
+            if (currentSectionId !== 'section0') {
+                targetSectionId = 'section0';
+            } else {
+                const buttonClass = clickedButton.getAttribute('class');
+                const buttonNumber = buttonClass.match(/button(\d)/)[1];
+
+                if (buttonNumber === '0') {
+                    targetSectionId = 'section4';
+                } else {
+                    targetSectionId = `section${buttonNumber}`;
+                }
+            }
+
+            navigateToSection(targetSectionId);
+
+        }, 420);
+        //Lol again
+    });
+}
+
+function navigateToSection(targetSectionId) {
+    const targetSection = document.getElementById(targetSectionId);
+    const yOffset = targetSection.offsetTop;
+
+    container.scrollTo({ top: yOffset });
 }
