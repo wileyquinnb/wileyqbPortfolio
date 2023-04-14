@@ -332,11 +332,6 @@ async function expandSection(visibleSection, targetImage) {
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
 
-    // const titlesResponse = await fetch(`./images/${primaryParentFolder}/titles.json`);
-    // const titles = await titlesResponse.json();
-    // const textResponse = await fetch(`./images/${primaryParentFolder}/text.json`);
-    // const texts = await textResponse.json();
-
     const [titles, texts] = await Promise.all([
         fetch(`./images/${primaryParentFolder}/titles.json`).then(r => r.json()),
         fetch(`./images/${primaryParentFolder}/text.json`).then(r => r.json())
