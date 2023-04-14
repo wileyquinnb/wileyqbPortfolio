@@ -103,7 +103,7 @@
         opacity: 0;
         top: 0px;
         left: 10vw;
-        height: 35vh;
+        height: 40vh;
         width: 80vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardHide .4s ease-in-out;
@@ -114,36 +114,41 @@
 @media (min-aspect-ratio: 19/24){
     .hideTitle {
         height: 30vh;
-        /* animation: titleStretch .4s ease-in-out; */
+        opacity: 0%;
+        animation: fadeOut .2s ease-in-out;
     }
     
     .showTitle {
         height: 30vh;
-        /* animation: titleCompress .4s ease-in-out; */
+        opacity: 100%;
+        animation: none;
     }
     
     #card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: inline;
+        flex-direction: auto;
+        justify-content: auto;
         border-bottom-right-radius: 0vh;
         border-bottom-left-radius: 0vh;
     }
     
     .cardTitle {
+        display: inline-block;
+        justify-content: auto;
+        align-items: auto;
         height: 15%;
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 5vh;
+        width: 30vw;
+        font-size: 7vh;
+        margin-left: 3vh;
+        margin-top: 2vh;
     }
     
     .cardText{
         height: 80%;
-        width: 80%;
+        width: 50%;
         font-size: 2.4vh;
+        margin-left: 3vh;
+        margin-top: 2vh;
     }
     
     .cardShow {
@@ -155,7 +160,7 @@
         height: 32vh;
         width: 90vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-        animation: cardReveal2 .6s ease-in-out;
+        animation: cardReveal2 .5s ease-in-out;
     }
     
     .cardHide {
@@ -163,47 +168,60 @@
         background-color: white;
         opacity: 95%;
         top: 34vh;
-        left: 5vw;
+        left: 0vw;
+        width: 90vw;
         height: 32vh;
-        width: 0vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-        animation: cardHide2 .6s ease-in-out;
+        animation: cardHide2 .5s ease-in-out;
+    }
+    
+    .sectionShrink {
+        height: 100vh;
+        margin-right: 0%;
+        margin-left: 0%;
+        margin-top: 0vh;
+        margin-bottom: 0vh;
+        border-radius: 0vw;
     }
 }
 
-@media (min-aspect-ratio: 4.5/3){
+@media (min-aspect-ratio: 4.5/3) {
     .hideTitle {
         height: 30vh;
-        /* animation: titleStretch .4s ease-in-out; */
+        opacity: 0%;
+        animation: fadeOut .2s ease-in-out;
     }
     
     .showTitle {
         height: 30vh;
-        /* animation: titleCompress .4s ease-in-out; */
+        opacity: 100%;
     }
     
     #card {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        display: inline;
+        flex-direction: auto;
+        justify-content: auto;
         border-bottom-right-radius: 0vh;
         border-bottom-left-radius: 0vh;
     }
     
     .cardTitle {
+        display: inline-block;
+        justify-content: auto;
+        align-items: auto;
         height: 15%;
-        width: 80%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        font-size: 5vh;
+        width: 30vw;
+        font-size: 7vh;
+        margin-left: 3vh;
+        margin-top: 2vh;
     }
     
     .cardText{
         height: 80%;
-        width: 80%;
-        font-size: 2.4vh;
+        width: 50%;
+        font-size: 3vh;
+        margin-left: 3vh;
+        margin-top: 2vh;
     }
     
     .cardShow {
@@ -215,7 +233,7 @@
         height: 40vh;
         width: 90vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-        animation: cardReveal2 .6s ease-in-out;
+        animation: cardReveal2 .5s ease-in-out;
     }
     
     .cardHide {
@@ -310,7 +328,6 @@
     }
 }
 
-
 @keyframes cardReveal2 {
     0%{
         opacity: 0;
@@ -346,7 +363,7 @@
     50%{
         opacity: 1;
         transform: translateX(-100%);
-        background-color: none;
+        background-color: white;
     }
     100%{
         opacity: 0;

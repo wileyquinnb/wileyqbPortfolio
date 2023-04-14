@@ -281,11 +281,8 @@ async function expandSection(visibleSection, targetImage) {
     titleDiv.classList.add('hideTitle');
     card.classList.add('cardShow');
 
-    if (proportions) {
-        return;
-    } else {
-        visibleSection.classList.add('sectionGrow');
-    }
+    visibleSection.classList.add('sectionGrow');
+
 
     for (const section of sections) {
         if (section !== visibleSection) {
@@ -319,12 +316,14 @@ async function expandSection(visibleSection, targetImage) {
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
     const clickedImageIndex = parseInt(clickedImageName.replace('project', ''));
 
+
     setTimeout(() => {
         cardTitle.classList.add('cardTitle');
         cardTitle.textContent = titles[clickedImageIndex];
         cardText.classList.add('cardText');
         cardText.textContent = texts[clickedImageIndex];
     }, 100);
+
 
     setTimeout(() => {
         const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
@@ -344,8 +343,11 @@ function collapseSection(visibleSection) {
 
     card.classList.remove('cardShow');
     card.classList.add('cardHide');
+
+
     titleDiv.classList.remove('hideTitle');
     titleDiv.classList.add('showTitle');
+
 
     for (const boxDiv of boxDivs) {
         boxDiv.classList.remove('enlargeBox');
@@ -356,37 +358,25 @@ function collapseSection(visibleSection) {
         scroller.classList.add('scroller106');
     }
 
-    if (proportions) {
-        setTimeout(() => {
-            card.classList.remove('cardHide');
-            titleDiv.classList.remove('showTitle');
-            visibleSection.classList.remove('sectionGrow');
-            visibleSection.classList.remove('sectionShrink');
-            titleDiv.innerHTML = originalTitleContent[visibleSection.id];
-            cardTitle.textContent = '';
-            cardText.textContent = '';
-            cardTitle.classList.remove('cardTitle');
-            cardText.classList.remove('cardText');
-        }, 420);
-    } else {
-        setTimeout(() => {
-            visibleSection.classList.add('sectionShrink');
-        }, 100);
-        setTimeout(() => {
-            for (const section of sections) {
-                section.classList.remove('hidden');
-            }
-            container.style.overflow = 'auto';
-            card.classList.remove('cardHide');
-            titleDiv.classList.remove('showTitle');
-            visibleSection.classList.remove('sectionGrow');
-            visibleSection.classList.remove('sectionShrink');
-            titleDiv.innerHTML = originalTitleContent[visibleSection.id];
-            cardTitle.textContent = '';
-            cardText.textContent = '';
-            cardTitle.classList.remove('cardTitle');
-            cardText.classList.remove('cardText');
-        }, 420);
-    }
+
+    setTimeout(() => {
+        visibleSection.classList.add('sectionShrink');
+    }, 100);
+
+    setTimeout(() => {
+        for (const section of sections) {
+            section.classList.remove('hidden');
+        }
+        container.style.overflow = 'auto';
+        card.classList.remove('cardHide');
+        titleDiv.classList.remove('showTitle');
+        visibleSection.classList.remove('sectionGrow');
+        visibleSection.classList.remove('sectionShrink');
+        titleDiv.innerHTML = originalTitleContent[visibleSection.id];
+        cardTitle.textContent = '';
+        cardText.textContent = '';
+        cardTitle.classList.remove('cardTitle');
+        cardText.classList.remove('cardText');
+    }, 420);
     //Lol
 }

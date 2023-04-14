@@ -73,6 +73,8 @@
     }
     .scroller100 {
         width: 40%;
+        left: auto;
+        right: 0px;
     }
     .slideRight {
         animation: slideUp .4s ease-in-out;
