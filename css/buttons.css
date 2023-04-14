@@ -1,0 +1,114 @@
+
+.circle {
+    width: 30vh;
+    height: 30vh;
+    border-radius: 50%;
+    position: fixed;
+    cursor: pointer;
+    background-color: magenta;
+    box-shadow: 0 0 1vh rgb(0 0 0 / .15);
+    border: none;
+    transition: all 0.2s ease-in-out;
+    animation: growIn .5s 1;
+}
+
+.hoverBox {
+    z-index: 200;
+    width: 30vh;
+    height: 30vh;
+    position: fixed;
+    display: block;
+}
+
+#hoverBox0 {
+    top: 0vh;
+    left: 0vh;
+    border-bottom-right-radius: 10vh;
+}
+#hoverBox0:hover #button0 {
+    transform: scale(2.8);
+}
+
+#hoverBox1 {
+    top: 0vh;
+    right: 0vh;
+    border-bottom-left-radius: 10vh;
+}
+#hoverBox1:hover #button1 {
+    transform: scale(2.8);
+}
+
+#hoverBox2 {
+    bottom: 0vh;
+    left: 0vh;
+    border-top-right-radius: 10vh;
+}
+#hoverBox2:hover #button2 {
+    transform: scale(2.8);
+}
+
+#hoverBox3 {
+    bottom: 0vh;
+    right: 0vh;
+    border-top-left-radius: 10vh;
+}
+#hoverBox3:hover #button3 {
+    transform: scale(2.8);
+}
+
+#button0 {
+    top: -15vh;
+    left: -15vh;
+}
+
+#button1 {
+    top: -15vh;
+    right: -15vh;
+}
+
+#button2 {
+    bottom: -15vh;
+    left: -15vh;
+}
+
+#button3 {
+    bottom: -15vh;
+    right: -15vh;
+}
+
+/* color mods */
+
+.colorGreen {
+    background-color: rgb(25, 152, 80);
+}
+
+.colorYellow {
+    background-color: rgb(255, 183, 0);
+}
+
+.colorPurple {
+    background-color: rgb(150, 52, 150);
+}
+
+.colorRed {
+    background-color: rgb(203, 54, 54);
+}
+
+.colorWhite {
+    background-color: white;
+}
+
+@keyframes growIn {
+    0%{
+        transform: scale(0);
+    }
+    30%{
+        transform: scale(.0);
+    }
+    75%{
+        transform: scale(.95);
+    }
+    100%{
+        transform: scale(1);
+    }
+}
