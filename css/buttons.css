@@ -22,7 +22,7 @@
     /* width: 84vh; */
     /* height: 84vh; */
     /* transform: scale(2.8); */
-    animation: expandCircle .8s 1;
+    animation: expandCircle 1s 1;
 }
 
 .hoverBox {
@@ -131,6 +131,8 @@
         transform: scale(2.8);
     }
     100%{
-        transform: scale(15);
+        transform: scale(5.8);
+        height: 60vw;
+        width: 60vw;
     }
 }

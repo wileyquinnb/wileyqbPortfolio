@@ -12,6 +12,7 @@ let originalScrollers = {};
 let originalTitleContent = {};
 let proportions;
 let previousProportions = false;
+let previousVisibleSection = null;
 
 
 //onLoad
@@ -69,6 +70,7 @@ container.addEventListener("scroll", async () => {
 
     if (calledSection !== visibleSection) {
         removeButtons(visibleSection);
+        previousVisibleSection = visibleSection;
         visibleSection = calledSection;
         const calledSectionId = visibleSection ? visibleSection.id : 'none';
         console.log("Current visible section:", calledSectionId);
@@ -81,7 +83,7 @@ container.addEventListener("scroll", async () => {
 
         await loadScroller(visibleSection);
 
-        updateSection(visibleSection);
+        updateSection(visibleSection, previousVisibleSection);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
@@ -117,7 +119,7 @@ function getCalledSection(sections, threshold = 0.5) {
     return null;
 }
 
-function updateSection(visibleSection) {
+function updateSection(visibleSection, previousSection) {
     if (!visibleSection) {
         return;
     }
@@ -129,13 +131,16 @@ function updateSection(visibleSection) {
 
     title.classList.add('slideIn');
 
-    title.addEventListener('animationend', () => {
-        title.classList.remove('slideIn');
-        title.classList.add('slideOut');
-        setTimeout(() => {
-            title.classList.remove('slideOut');
-        }, 500);
-    });
+    if (previousSection) {
+        const previousTitle = previousSection.querySelector('.title');
+        if (previousTitle) {
+            previousTitle.classList.add('slideOut');
+            setTimeout(() => {
+                previousTitle.classList.remove('slideOut');
+                previousTitle.classList.remove('slideIn');
+            }, 700);
+        }
+    }
 }
 
 
