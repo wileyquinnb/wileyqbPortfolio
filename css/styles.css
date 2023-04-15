@@ -65,7 +65,7 @@
     font-size: 6vh;
     font-family: Arial, Helvetica, sans-serif;
     color: white;
-    opacity: 0;
+    opacity: 0%;
     font-weight: bold;
     text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
     display: flex;
@@ -185,7 +185,7 @@
         width: 60%;
         font-size: 8vh;
         font-family: Arial, Helvetica, sans-serif;
-        opacity: 95%;
+        opacity: 0%;
         font-weight: bold;
         text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
         display: flex;
@@ -244,7 +244,7 @@
         width: 60%;
         font-size: 8vh;
         font-family: Arial, Helvetica, sans-serif;
-        opacity: 95%;
+        opacity: 0%;
         font-weight: bold;
         text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
         display: flex;
