@@ -11,6 +11,7 @@
         scroll-snap-type: x mandatory;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    opacity: 0;
 }
 
 .scroller::-webkit-scrollbar {
@@ -28,6 +29,16 @@
 
 .slideRight {
     animation: slideRight .4s ease-in-out;
+    opacity: 100%;
+}
+
+.scrollerOut {
+    animation: scrollerOutS .4s ease-in-out;
+    opacity: 100%
+}
+
+.visible {
+    opacity: 100%;
 }
 
 @media (min-aspect-ratio: 19/24){
@@ -57,6 +68,9 @@
     .slideRight {
         animation: slideUp .4s ease-in-out;
         }
+    .scrollerOut {
+        animation: scrollerOutB .4s ease-in-out;
+    }
 }
 
 @keyframes slideRight {
@@ -72,11 +86,33 @@
 
 @keyframes slideUp {
     0%{
-        transform: translateY(100vw);
+        transform: translateY(100vh);
         opacity: .1;
     }
     100%{
-        transform: translateY(0vw);
+        transform: translateY(0vh);
+        opacity: 1;
+    }
+}
+
+@keyframes scrollerOutS {
+    0%{
+        transform: translateX(0vw);
+        opacity: .1;
+    }
+    100%{
+        transform: translateX(100vw);
+        opacity: 1;
+    }
+}
+
+@keyframes scrollerOutB {
+    0%{
+        transform: translateY(0vh);
+        opacity: .1;
+    }
+    100%{
+        transform: translateY(100vh);
         opacity: 1;
     }
 }

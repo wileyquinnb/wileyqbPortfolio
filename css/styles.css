@@ -84,11 +84,9 @@
     align-items: center;
 }
 
-/* .hidden {
-    opacity: 0;
-    background-color: none;
-    box-shadow: none;
-} */
+.hidden {
+    display: none;
+}
 
 .slideIn {
     animation: slideIn .4s ease-in-out;

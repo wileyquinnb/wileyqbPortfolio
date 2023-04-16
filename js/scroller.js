@@ -20,7 +20,12 @@ let previousVisibleSection = null;
 window.addEventListener("load", function () {
     const yOffset = (window.innerHeight / 1.23);
     container.scrollTo({ top: yOffset, behavior: "auto" });
-    createButtons(visibleSection);
+    if (proportions) {
+        createButtons(visibleSection);
+    } else {
+        return;
+    }
+
 });
 
 
@@ -45,6 +50,22 @@ function resize() {
 window.addEventListener('resize', resize);
 
 resize();
+
+
+//Debouncer
+
+function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+        const context = this;
+        clearTimeout(timeout);
+        timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+}
+
+const debouncedUpdateSection = debounce((visibleSection, previousVisibleSection) => {
+    updateSection(visibleSection, previousVisibleSection);
+}, 100);
 
 
 //Event listeners for the container
@@ -83,7 +104,10 @@ container.addEventListener("scroll", async () => {
 
         await loadScroller(visibleSection);
 
-        updateSection(visibleSection, previousVisibleSection);
+        // setTimeout(() => {
+        //     updateSection(visibleSection, previousVisibleSection);
+        // }, 5);
+        debouncedUpdateSection(visibleSection, previousVisibleSection);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
@@ -119,27 +143,51 @@ function getCalledSection(sections, threshold = 0.5) {
     return null;
 }
 
-function updateSection(visibleSection, previousSection) {
+function waitForNextFrame() {
+    return new Promise((resolve) => requestAnimationFrame(resolve));
+}
+
+async function updateSection(visibleSection, previousSection) {
     if (!visibleSection) {
         return;
     }
 
-    const title = visibleSection.querySelector('.title');
-    if (!title) {
-        return;
-    }
-
-    title.classList.add('slideIn');
+    const title = visibleSection.querySelector(".title");
+    const bwScroller = visibleSection.querySelector(".scroller");
 
     if (previousSection) {
-        const previousTitle = previousSection.querySelector('.title');
+        const previousTitle = previousSection.querySelector(".title");
+        const previousScroller = previousSection.querySelector(".scroller");
+
         if (previousTitle) {
-            previousTitle.classList.add('slideOut');
-            setTimeout(() => {
-                previousTitle.classList.remove('slideOut');
-                previousTitle.classList.remove('slideIn');
-            }, 700);
+            previousTitle.classList.add("slideOut");
         }
+
+        if (previousScroller) {
+            previousScroller.classList.add("scrollerOut");
+        }
+
+        await waitForNextFrame();
+
+        if (previousTitle) {
+            previousTitle.classList.remove("slideOut");
+            previousTitle.classList.remove("slideIn");
+        }
+
+        if (previousScroller) {
+            previousScroller.classList.remove("scrollerOut");
+            previousScroller.classList.remove("slideRight");
+            previousScroller.classList.remove("visible");
+        }
+    }
+
+    if (title) {
+        title.classList.add("slideIn");
+    }
+
+    if (bwScroller) {
+        bwScroller.classList.add("slideRight");
+        bwScroller.classList.add("visible");
     }
 }
 
@@ -186,6 +234,7 @@ async function loadScroller(visibleSection) {
     const scrollerDiv = visibleSection.querySelector('.scroller');
 
     scrollerDiv.classList.add('slideRight');
+    scrollerDiv.classList.add('visible');
 
     scrollerDiv.innerHTML = newContent;
 }
@@ -308,12 +357,8 @@ function restoreScroller(visibleSection) {
     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
     scrollerDiv.classList.remove('fadeOut');
     scrollerDiv.classList.add('fadeIn');
+    scrollerDiv.classList.add('visible');
 
-    // setTimeout(() => {
-    //     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
-    //     scrollerDiv.classList.remove('fadeOut');
-    //     scrollerDiv.classList.add('slideRight');
-    // }, 500);
 }
 
 
