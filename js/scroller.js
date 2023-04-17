@@ -115,12 +115,11 @@ container.addEventListener("scroll", async () => {
 });
 function handleWheelScroll(e) {
     if (!proportions) {
-        // Prevent the default behavior of the wheel event
+
         e.preventDefault();
 
         const scrollFactor = 3;
 
-        // Scroll the element horizontally using the deltaY value of the wheel event
         e.currentTarget.scrollBy({ top: 0, left: e.deltaY * scrollFactor, behavior: 'smooth' });
     }
 }
