@@ -65,7 +65,7 @@
     margin-right: 0;
     margin-left: 0;
     margin-top: 5vh;
-    margin-bottom: 10vh;
+    margin-bottom: 5vh;
     border-radius: 0;
     /* animation: sectionGrow .15s ease-in-out; */
 }
@@ -77,11 +77,11 @@
     margin-top: 5vh;
     margin-bottom: 5vh;
     border-radius: 10vw;
-    /* position: relative;
+    position: relative;
     align-items: center;
     justify-content: center;
-    overflow: visible; */
-    /* animation: sectionShrink .15s ease-in-out; */
+    overflow: visible;
+    animation: sectionShrink .15s ease-in-out;
 }
 
 @media (min-aspect-ratio: 2/3){
@@ -138,7 +138,7 @@
         align-items: auto;
         height: 15%;
         width: 30vw;
-        font-size: 7vh;
+        font-size: 6.5vh;
         margin-left: 3vh;
         margin-top: 2vh;
     }
@@ -148,7 +148,7 @@
         width: 50%;
         font-size: 2.4vh;
         margin-left: 3vh;
-        margin-top: 2vh;
+        margin-top: 1.5vh;
     }
     
     .cardShow {
@@ -212,15 +212,15 @@
         height: 15%;
         width: 30vw;
         font-size: 7vh;
-        margin-left: 3vh;
-        margin-top: 2vh;
+        margin-left: 4vh;
+        margin-top: 3vh;
     }
     
     .cardText{
         height: 80%;
         width: 50%;
         font-size: 3vh;
-        margin-left: 3vh;
+        margin-left: 4vh;
         margin-top: 2vh;
     }
     
@@ -323,10 +323,19 @@
     100%{
         height: 100%;
         border-radius: 0vw;
-        margin-top: 50;
-        margin-bottom: 50;
     }
 }
+
+/* @keyframes sectionShrink {
+    0%{
+        margin-top: 10vh;
+        margin-bottom: 10vh;
+    }
+    100%{
+        margin-top: 5vh;
+        margin-bottom: 5vh;
+    }
+} */
 
 @keyframes cardReveal2 {
     0%{

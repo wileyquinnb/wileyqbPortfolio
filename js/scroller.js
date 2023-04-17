@@ -64,13 +64,6 @@ function debounce(func, wait) {
     };
 }
 
-//Commented below is updateSection related 
-
-// const debouncedUpdateSection = debounce((visibleSection, previousVisibleSection) => {
-//     updateSection(visibleSection, previousVisibleSection);
-// }, 100);
-
-
 //Event listeners for the container
 
 container.addEventListener("click", async (event) => {
@@ -106,13 +99,6 @@ container.addEventListener("scroll", async () => {
         }
 
         await loadScroller(visibleSection);
-
-        //Commented below is updateSection related 
-
-        // setTimeout(() => {
-        //     updateSection(visibleSection, previousVisibleSection);
-        // }, 5);
-        // debouncedUpdateSection(visibleSection, previousVisibleSection);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
@@ -148,16 +134,19 @@ function getCalledSection(sections, threshold = 0.5) {
     return null;
 }
 
-function waitForNextFrame() {
-    return new Promise((resolve) => requestAnimationFrame(resolve));
-}
+// function waitForNextFrame() {
+//     return new Promise((resolve) => requestAnimationFrame(resolve));
+// }
 
-//Where updateSection function was (now in testingScroller.js)
 
 
 //Loads the black and white images when scrolling over visibleSection
 
 async function loadScroller(visibleSection) {
+    if (!visibleSection) {
+        return;
+    }
+
     let hasVisibleScroller = false;
 
     if (visibleSection) {
