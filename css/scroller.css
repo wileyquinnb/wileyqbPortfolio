@@ -5,11 +5,13 @@
     display: flex;
     align-items: center;
     overflow-x: scroll;
+    overflow-y: hidden;
+    overscroll-behavior: contain;
     /* scroll-snap-align: center; */
     -webkit-scroll-snap-type: x mandatory;
     -ms-scroll-snap-type: x mandatory;
         scroll-snap-type: x mandatory;
-    -ms-overflow-style: none;
+    -ms-overflow-style: auto;
     scrollbar-width: none;
     opacity: 0;
 }

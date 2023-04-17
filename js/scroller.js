@@ -67,7 +67,7 @@ function debounce(func, wait) {
     };
 }
 
-//Event listeners for the container
+//Event listeners
 
 container.addEventListener("click", async (event) => {
     const targetElement = event.target;
@@ -113,6 +113,21 @@ container.addEventListener("scroll", async () => {
     previousProportions = proportions;
 
 });
+function handleWheelScroll(e) {
+    if (!proportions) {
+        // Prevent the default behavior of the wheel event
+        e.preventDefault();
+
+        const scrollFactor = 3;
+
+        // Scroll the element horizontally using the deltaY value of the wheel event
+        e.currentTarget.scrollBy({ top: 0, left: e.deltaY * scrollFactor, behavior: 'smooth' });
+    }
+}
+
+document.querySelectorAll('.scroller').forEach(scroller => {
+    scroller.addEventListener('wheel', handleWheelScroll, { passive: false });
+});
 
 
 //Defines the section that is currently in view (visibleSection)
@@ -137,11 +152,6 @@ function getCalledSection(sections, threshold = 0.5) {
     return null;
 }
 
-// function waitForNextFrame() {
-//     return new Promise((resolve) => requestAnimationFrame(resolve));
-// }
-
-
 
 //Loads the black and white images when scrolling over visibleSection
 
@@ -150,11 +160,11 @@ async function loadScroller(visibleSection) {
         return;
     }
 
-    let hasVisibleScroller = false;
+    let scrollerVisible = false;
 
     if (visibleSection) {
         if (hasScrollerContent(visibleSection)) {
-            hasVisibleScroller = true;
+            scrollerVisible = true;
         }
 
         const calledSectionId = visibleSection.id;
@@ -183,7 +193,7 @@ async function loadScroller(visibleSection) {
                 scrollerDiv.classList.add('visible');
                 scrollerDiv.innerHTML = newContent;
 
-                hasVisibleScroller = true;
+                scrollerVisible = true;
             }
         }
     }
@@ -198,7 +208,7 @@ async function loadScroller(visibleSection) {
                 otherScrollerDiv.className = 'scroller scroller106';
                 otherTitleDiv.classList.remove('slideIn');
             } else {
-                console.log('hasVisibleScroller:', hasVisibleScroller);
+                console.log('scrollerVisible:', scrollerVisible);
                 console.log('section.id:', section.id);
                 otherTitleDiv.classList.add('slideIn');
             }
@@ -226,7 +236,6 @@ async function loadScroller(visibleSection) {
 
     addSlideInToTitle(visibleSection);
 }
-
 function addSlideInToTitle(visibleSection) {
 
     if (visibleSection && (visibleSection.id === "section0" || visibleSection.id === "section4")) {

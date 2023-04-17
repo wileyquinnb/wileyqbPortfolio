@@ -26,7 +26,7 @@
     border-radius: 10vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
     position: relative;
-    scroll-snap-type: none;
+    scroll-snap-type: auto;
     align-items: center;
     justify-content: center;
     overflow: visible;
