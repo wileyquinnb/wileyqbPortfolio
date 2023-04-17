@@ -7,6 +7,9 @@ const card = document.getElementById('card');
 const cardTitle = document.getElementById('cardTitle');
 const cardText = document.getElementById('cardText');
 
+const scrollPositionsX = {};
+const scrollPositionsY = {};
+
 let visibleSection = getCalledSection(sections);
 let oldContent;
 let originalScrollers = {};
@@ -249,10 +252,20 @@ function addSlideInToTitle(visibleSection) {
 
 async function loadProjectScroller(event) {
     const targetImage = event.target;
-
     if (!targetImage.matches('.scroller img')) {
         return;
     }
+
+    const scroller = visibleSection.querySelector('.scroller');
+    if (!scroller) {
+        console.warn('Scroller not found in the visible section:', visibleSection);
+        return;
+    }
+
+    const sectionId = visibleSection.id;
+
+    scrollPositionsX[sectionId] = scroller.scrollLeft;
+    scrollPositionsY[sectionId] = scroller.scrollTop;
 
     expandSection(visibleSection, targetImage);
 
@@ -358,12 +371,20 @@ function restoreScroller(visibleSection) {
         return;
     }
 
+    const sectionId = visibleSection.id;
+    const scrollPositionX = scrollPositionsX[sectionId] || 0;
+    const scrollPositionY = scrollPositionsY[sectionId] || 0;
+
+    setTimeout(() => {
+        const scroller = visibleSection.querySelector('.scroller');
+        scroller.scrollTo({ top: scrollPositionY, left: scrollPositionX, behavior: 'instant' });
+    }, 50);
+
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
     scrollerDiv.classList.remove('fadeOut');
     scrollerDiv.classList.add('fadeIn');
     scrollerDiv.classList.add('visible');
-
 }
 
 
