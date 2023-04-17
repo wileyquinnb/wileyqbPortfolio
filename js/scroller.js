@@ -2,6 +2,7 @@ const container = document.getElementById("container");
 const sections = document.querySelectorAll('.section');
 const scrollers = document.querySelectorAll('.scroller');
 const sectionTitles = document.querySelectorAll('.title');
+const infos = document.querySelectorAll('.info');
 
 const card = document.getElementById('card');
 const cardTitle = document.getElementById('cardTitle');
@@ -67,6 +68,7 @@ function debounce(func, wait) {
     };
 }
 
+
 //Event listeners
 
 container.addEventListener("click", async (event) => {
@@ -123,8 +125,10 @@ function handleWheelScroll(e) {
         e.currentTarget.scrollBy({ top: 0, left: e.deltaY * scrollFactor, behavior: 'smooth' });
     }
 }
-
 document.querySelectorAll('.scroller').forEach(scroller => {
+    scroller.addEventListener('wheel', handleWheelScroll, { passive: false });
+});
+document.querySelectorAll('.projectScroller').forEach(scroller => {
     scroller.addEventListener('wheel', handleWheelScroll, { passive: false });
 });
 
@@ -244,17 +248,31 @@ function addSlideInToTitle(visibleSection) {
         }
     }
 
+    // if (visibleSection && (visibleSection.id === "section4")) {
+    //     const infoDivs = visibleSection.querySelectorAll('.info')
+    //     if (infoDivs) {
+    //         for (let infoDiv of infoDivs) {
+    //             infoDiv.classList.add('slideText');
+    //         }
+    //     }
+    // }
+
     for (let section of sections) {
         const titleDiv = section.querySelector('.title');
+        // const infoDivs = section.querySelector('.info')
         if (section !== visibleSection) {
             titleDiv.classList.add('slideOut');
             setTimeout(() => {
                 titleDiv.classList.remove('slideIn');
                 titleDiv.classList.remove('slideOut');
+                // for (let infoDiv of infoDivs) {
+                //     infoDiv.classList.remove('slideText');
+                // }
             }, 500);
         }
     }
 }
+
 
 //Loads the colored images when clicking on a b&w image and runs expandSection function
 
@@ -576,7 +594,6 @@ function createButtons(visibleSection) {
     }
 
 }
-
 function removeButtons(visibleSection) {
     if (!visibleSection) {
         return;
@@ -590,7 +607,6 @@ function removeButtons(visibleSection) {
 
     buttonContainer.innerHTML = '';
 }
-
 function clickButton(visibleSection, clickedButton) {
     if (!visibleSection) {
         return;
@@ -640,7 +656,6 @@ function clickButton(visibleSection, clickedButton) {
         //Lol again
     });
 }
-
 function navigateToSection(targetSectionId) {
     const targetSection = document.getElementById(targetSectionId);
     const yOffset = targetSection.offsetTop;

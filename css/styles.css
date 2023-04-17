@@ -81,6 +81,7 @@
 .info {
     height: 20vh;
     font-size: 3vh;
+    opacity: 0%;
     margin-top: 2vh;
     margin-left: 10vw;
     margin-right: 10vw;
@@ -90,7 +91,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    animation: slideInText .5s ease-in-out;
 }
 
 .mainTitle {
@@ -115,6 +115,11 @@
 
 .slideOut {
     animation: slideOut .4s ease-in-out;
+    opacity: 95%;
+}
+
+.slideText {
+    animation: slideInText .4s ease-in-out;
     opacity: 95%;
 }
 
@@ -223,15 +228,18 @@
 
     .email {
         font-size: 4.5vh;
-        width: 50vw;
-        margin-left: 0;
-        animation: slideInBig .5s ease-in-out;
+        margin-left: 10vw;
+        margin-right: 10vw;
     }
     
     .info {
         margin-left: 0;
         margin-right: 10vw;
-        animation: slideInTextBig .5s ease-in-out;
+    }
+
+    .slideText {
+        animation: slideInTextBig .4s ease-in-out;
+        opacity: 95%;
     }
 
     #section4 {
@@ -298,16 +306,21 @@
         animation: slideOut .4s ease-in-out;
         opacity: 95%;
     }
+
     .email {
         font-size: 4.5vh;
-        margin-left: 0;
-        animation: slideInBig .5s ease-in-out;
+        margin-left: 10vw;
+        margin-right: 10vw;
     }
     
     .info {
         margin-left: 0;
         margin-right: 10vw;
-        animation: slideInTextBig .5s ease-in-out;
+    }
+
+    .slideText {
+        animation: slideInTextBig .4s ease-in-out;
+        opacity: 95%;
     }
 }
 
