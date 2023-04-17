@@ -41,6 +41,10 @@
     opacity: 100%;
 }
 
+@media (min-aspect-ratio: 2/3) {
+
+}
+
 @media (min-aspect-ratio: 19/24){
     .scroller {
         height: 100%;

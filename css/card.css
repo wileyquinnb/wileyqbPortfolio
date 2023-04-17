@@ -91,7 +91,7 @@
         opacity: 95%;
         top: 0px;
         left: 10vw;
-        height: 35vh;
+        height: 32vh;
         width: 80vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardReveal .4s ease-in-out;
@@ -109,6 +109,12 @@
         animation: cardHide .4s ease-in-out;
     }
     
+    .hideTitle {
+        height: 30vh;
+        opacity: 0%;
+        animation: fadeOut .2s ease-in-out;
+        transition: all .5s;
+    }
 }
 
 @media (min-aspect-ratio: 19/24){
@@ -137,10 +143,11 @@
         justify-content: auto;
         align-items: auto;
         height: 15%;
-        width: 30vw;
+        width: 40vw;
         font-size: 6.5vh;
         margin-left: 3vh;
         margin-top: 2vh;
+        animation: textReveal .8s ease-in-out;
     }
     
     .cardText{
@@ -149,6 +156,7 @@
         font-size: 2.4vh;
         margin-left: 3vh;
         margin-top: 1.5vh;
+        animation: textReveal .8s ease-in-out;
     }
     
     .cardShow {
@@ -214,6 +222,7 @@
         font-size: 7vh;
         margin-left: 4vh;
         margin-top: 3vh;
+        animation: textReveal .8s ease-in-out;
     }
     
     .cardText{
@@ -222,6 +231,7 @@
         font-size: 3vh;
         margin-left: 4vh;
         margin-top: 2vh;
+        animation: textReveal .8s ease-in-out;
     }
     
     .cardShow {
@@ -326,34 +336,25 @@
     }
 }
 
-/* @keyframes sectionShrink {
-    0%{
-        margin-top: 10vh;
-        margin-bottom: 10vh;
-    }
-    100%{
-        margin-top: 5vh;
-        margin-bottom: 5vh;
-    }
-} */
-
 @keyframes cardReveal2 {
     0%{
         opacity: 0;
         background-color: none;
     }
-    50%{
+    20%{
         opacity: 0;
         background-color: none;
     }
-    51%{
-        opacity: 1;
-        transform: translateX(-100%);
+    21%{
+        opacity: .7;
+        width: 0vw;
+        /* transform: translateX(-100%); */
         background-color: white;
     }
     100%{
-        opacity: 1;
-        transform: translateX(0%);
+        opacity: .95;
+        width: 90vw;
+        /* transform: translateX(0%); */
         background-color: white;
     }
 }
@@ -378,5 +379,20 @@
         opacity: 0;
         transform: translateX(-100%);
         background-color: none;
+    }
+}
+
+@keyframes textReveal {
+    0%{
+        opacity: 0;
+    }
+    60%{
+        opacity: 0;
+    }
+    70%{
+        opacity: .8;
+    }
+    100%{
+        opacity: 1;
     }
 }
