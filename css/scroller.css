@@ -98,7 +98,7 @@
 @keyframes scrollerOutS {
     0%{
         transform: translateX(0vw);
-        opacity: .1;
+        opacity: .6;
     }
     100%{
         transform: translateX(100vw);
@@ -109,7 +109,7 @@
 @keyframes scrollerOutB {
     0%{
         transform: translateY(0vh);
-        opacity: .1;
+        opacity: .6;
     }
     100%{
         transform: translateY(100vh);

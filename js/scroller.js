@@ -1,6 +1,7 @@
 const container = document.getElementById("container");
 const sections = document.querySelectorAll('.section');
 const scrollers = document.querySelectorAll('.scroller');
+const sectionTitles = document.querySelectorAll('.title');
 
 const card = document.getElementById('card');
 const cardTitle = document.getElementById('cardTitle');
@@ -63,9 +64,11 @@ function debounce(func, wait) {
     };
 }
 
-const debouncedUpdateSection = debounce((visibleSection, previousVisibleSection) => {
-    updateSection(visibleSection, previousVisibleSection);
-}, 100);
+//Commented below is updateSection related 
+
+// const debouncedUpdateSection = debounce((visibleSection, previousVisibleSection) => {
+//     updateSection(visibleSection, previousVisibleSection);
+// }, 100);
 
 
 //Event listeners for the container
@@ -104,10 +107,12 @@ container.addEventListener("scroll", async () => {
 
         await loadScroller(visibleSection);
 
+        //Commented below is updateSection related 
+
         // setTimeout(() => {
         //     updateSection(visibleSection, previousVisibleSection);
         // }, 5);
-        debouncedUpdateSection(visibleSection, previousVisibleSection);
+        // debouncedUpdateSection(visibleSection, previousVisibleSection);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
@@ -147,98 +152,109 @@ function waitForNextFrame() {
     return new Promise((resolve) => requestAnimationFrame(resolve));
 }
 
-async function updateSection(visibleSection, previousSection) {
-    if (!visibleSection) {
-        return;
-    }
-
-    const title = visibleSection.querySelector(".title");
-    const bwScroller = visibleSection.querySelector(".scroller");
-
-    if (previousSection) {
-        const previousTitle = previousSection.querySelector(".title");
-        const previousScroller = previousSection.querySelector(".scroller");
-
-        if (previousTitle) {
-            previousTitle.classList.add("slideOut");
-        }
-
-        if (previousScroller) {
-            previousScroller.classList.add("scrollerOut");
-        }
-
-        await waitForNextFrame();
-
-        if (previousTitle) {
-            previousTitle.classList.remove("slideOut");
-            previousTitle.classList.remove("slideIn");
-        }
-
-        if (previousScroller) {
-            previousScroller.classList.remove("scrollerOut");
-            previousScroller.classList.remove("slideRight");
-            previousScroller.classList.remove("visible");
-        }
-    }
-
-    if (title) {
-        title.classList.add("slideIn");
-    }
-
-    if (bwScroller) {
-        bwScroller.classList.add("slideRight");
-        bwScroller.classList.add("visible");
-    }
-}
+//Where updateSection function was (now in testingScroller.js)
 
 
 //Loads the black and white images when scrolling over visibleSection
 
 async function loadScroller(visibleSection) {
-    if (!visibleSection) {
-        return;
+    let hasVisibleScroller = false;
+
+    if (visibleSection) {
+        if (hasScrollerContent(visibleSection)) {
+            hasVisibleScroller = true;
+        }
+
+        const calledSectionId = visibleSection.id;
+
+        if (!(calledSectionId === "section0" || calledSectionId === "section4")) {
+            const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+            if (projectScrollerDiv.innerHTML.trim() === '') {
+                const primaryParentFolder = calledSectionId.replace("section", "") + "img";
+                const manifestUrl = `./images/${primaryParentFolder}/manifest.json`;
+
+                const response = await fetch(manifestUrl);
+                const projects = await response.json();
+
+                let newContent = '';
+                for (let i = 0; i < projects.length; i++) {
+                    const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
+                    newContent += `
+                        <div class="box grey ${firstOrLast}">
+                            <img src="./images/${primaryParentFolder}/${projects[i]}">
+                        </div>
+                    `;
+                }
+
+                const scrollerDiv = visibleSection.querySelector('.scroller');
+                scrollerDiv.classList.add('slideRight');
+                scrollerDiv.classList.add('visible');
+                scrollerDiv.innerHTML = newContent;
+
+                hasVisibleScroller = true;
+            }
+        }
     }
 
-    if (hasScrollerContent(visibleSection)) {
-        return;
+    for (let section of sections) {
+        const otherScrollerDiv = section.querySelector('.scroller');
+        const otherTitleDiv = section.querySelector('.title');
+        const calledSectionId = visibleSection.id;
+
+        if (otherScrollerDiv) {
+            if (section !== visibleSection) {
+                otherScrollerDiv.className = 'scroller scroller106';
+                otherTitleDiv.classList.remove('slideIn');
+            } else {
+                console.log('hasVisibleScroller:', hasVisibleScroller);
+                console.log('section.id:', section.id);
+                otherTitleDiv.classList.add('slideIn');
+            }
+        }
     }
 
-    const calledSectionId = visibleSection.id;
+    for (let section of sections) {
+        const otherScrollerDiv = section.querySelector('.scroller');
+        const otherTitleDiv = section.querySelector('.title');
 
-    if (calledSectionId === "section0" || calledSectionId === "section4") {
-        return;
+        if (otherScrollerDiv && section !== visibleSection) {
+            otherScrollerDiv.classList.add('scrollerOut');
+            otherTitleDiv.classList.add('slideOut');
+
+            setTimeout(() => {
+                otherScrollerDiv.className = 'scroller scroller106';
+                otherTitleDiv.classList.remove('slideIn');
+                otherTitleDiv.classList.remove('slideOut');
+                otherScrollerDiv.classList.remove('scrollerOut');
+                otherScrollerDiv.classList.remove('visible');
+                otherScrollerDiv.innerHTML = '';
+            }, 500);
+        }
     }
 
-    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
-    if (projectScrollerDiv.innerHTML.trim() !== '') {
-        return;
-    }
-
-    const primaryParentFolder = calledSectionId.replace("section", "") + "img";
-    const manifestUrl = `./images/${primaryParentFolder}/manifest.json`;
-
-    const response = await fetch(manifestUrl);
-    const projects = await response.json();
-
-    let newContent = '';
-    for (let i = 0; i < projects.length; i++) {
-        const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
-        newContent += `
-            <div class="box grey ${firstOrLast}">
-                <img src="./images/${primaryParentFolder}/${projects[i]}">
-            </div>
-        `;
-        // console.log(`Image URL: ./images/${primaryParentFolder}/${projects[i]}`);
-    }
-
-    const scrollerDiv = visibleSection.querySelector('.scroller');
-
-    scrollerDiv.classList.add('slideRight');
-    scrollerDiv.classList.add('visible');
-
-    scrollerDiv.innerHTML = newContent;
+    addSlideInToTitle(visibleSection);
 }
 
+function addSlideInToTitle(visibleSection) {
+
+    if (visibleSection && (visibleSection.id === "section0" || visibleSection.id === "section4")) {
+        const titleDiv = visibleSection.querySelector('.title');
+        if (titleDiv) {
+            titleDiv.classList.add('slideIn');
+        }
+    }
+
+    for (let section of sections) {
+        const titleDiv = section.querySelector('.title');
+        if (section !== visibleSection) {
+            titleDiv.classList.add('slideOut');
+            setTimeout(() => {
+                titleDiv.classList.remove('slideIn');
+                titleDiv.classList.remove('slideOut');
+            }, 500);
+        }
+    }
+}
 
 //Loads the colored images when clicking on a b&w image and runs expandSection function
 
