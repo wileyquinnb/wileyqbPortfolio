@@ -23,7 +23,7 @@ let previousVisibleSection = null;
 //onLoad
 
 window.addEventListener("load", function () {
-    const yOffset = (window.innerHeight / 1.23);
+    const yOffset = (window.innerHeight / .8);
     container.scrollTo({ top: yOffset, behavior: "auto" });
     if (proportions) {
         createButtons(visibleSection);
@@ -130,7 +130,7 @@ function handleWheelScrollY(e) {
     if (!proportions) {
         e.preventDefault();
 
-        const scrollFactor = 5;
+        const scrollFactor = 6;
 
         e.currentTarget.scrollBy({
             top: e.deltaY * scrollFactor,
