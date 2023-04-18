@@ -30,7 +30,7 @@
     align-items: center;
     justify-content: center;
     overflow: visible;
-    animation: sectionSlide .4s ease-in-out;
+    /* animation: sectionSlide .4s ease-in-out; */
     transition: height 0.15s ease-in-out, margin 0.15s ease-in-out, border-radius 0.15s ease-in-out;
 }
 
@@ -149,7 +149,7 @@
         align-items: center;
         justify-content: center;
         overflow: visible;
-        animation: sectionSlide .4s ease-in-out;
+        /* animation: sectionSlide .4s ease-in-out; */
         transition: height 0.15s ease-in-out, margin 0.15s ease-in-out, border-radius 0.15s ease-in-out;
     }
 
@@ -198,7 +198,7 @@
         align-items: center;
         justify-content: center;
         overflow: visible;
-        animation: sectionSlide .4s ease-in-out;
+        /* animation: sectionSlide .4s ease-in-out; */
         transition: none;
     }
 
@@ -279,7 +279,7 @@
         align-items: center;
         justify-content: center;
         overflow: visible;
-        animation: sectionSlide .4s ease-in-out;
+        /* animation: sectionSlide .4s ease-in-out; */
         transition: none;
     }
 

@@ -424,7 +424,7 @@ function restoreScroller(visibleSection) {
 
     setTimeout(() => {
         const scroller = visibleSection.querySelector('.scroller');
-        scroller.scrollTo({ top: scrollPositionY, left: scrollPositionX, behavior: 'instant' });
+        scroller.scrollTo({ top: scrollPositionY, left: scrollPositionX, behavior: 'auto' });
     }, 50);
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
@@ -448,7 +448,6 @@ async function expandSection(visibleSection, targetImage) {
         return;
     }
 
-    container.style.overflow = 'hidden';
     titleDiv.classList.add('hideTitle');
     card.classList.add('cardShow');
 
@@ -533,7 +532,6 @@ function collapseSection(visibleSection) {
         for (const section of sections) {
             section.classList.remove('hidden');
         }
-        container.style.overflow = 'auto';
         card.classList.remove('cardHide');
         titleDiv.classList.remove('showTitle');
         visibleSection.classList.remove('sectionGrow');
