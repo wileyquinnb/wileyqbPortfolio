@@ -51,7 +51,8 @@
 }
 
 .lastBox {
-    margin-right: calc(100vw);
+    margin-right: calc(50vw);
+    padding-right: calc(5vw);
 }
 
 .slideRightBack {
