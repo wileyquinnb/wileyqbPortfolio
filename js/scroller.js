@@ -12,12 +12,12 @@ const scrollPositionsX = {};
 const scrollPositionsY = {};
 
 let visibleSection = getCalledSection(sections);
-let oldContent;
 let originalScrollers = {};
 let originalTitleContent = {};
 let proportions;
 let previousProportions = false;
 let previousVisibleSection = null;
+let isSectionExpanded = false;
 
 
 //onLoad
@@ -118,16 +118,35 @@ container.addEventListener("scroll", async () => {
 
 function handleWheelScroll(e) {
     if (!proportions) {
-
         e.preventDefault();
 
         const scrollFactor = 3;
 
-        e.currentTarget.scrollBy({ top: 0, left: e.deltaY * scrollFactor, behavior: 'smooth' });
+        e.currentTarget.scrollBy({
+            top: 0,
+            left: e.deltaY * scrollFactor,
+            behavior: 'smooth'
+        });
+
+    } else {
+        e.preventDefault();
+
+        const scrollFactor = 6;
+
+        e.currentTarget.scrollBy({
+            top: e.deltaY * scrollFactor,
+            left: 0,
+            behavior: 'smooth'
+        });
     }
 }
 function handleWheelScrollY(e) {
-    if (!proportions) {
+    const isInsideScroller = e.target.closest('.scroller') !== null;
+    if (isSectionExpanded) {
+        return;
+    }
+
+    if (!proportions && !isInsideScroller) {
         e.preventDefault();
 
         const scrollFactor = 6;
@@ -442,6 +461,8 @@ async function expandSection(visibleSection, targetImage) {
         return;
     }
 
+    isSectionExpanded = true;
+
     const titleDiv = visibleSection.querySelector('.title');
 
     if (!titleDiv) {
@@ -500,6 +521,8 @@ async function expandSection(visibleSection, targetImage) {
 }
 function collapseSection(visibleSection) {
     if (!visibleSection) return;
+
+    isSectionExpanded = false;
 
     const titleDiv = visibleSection.querySelector('.title');
     const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
