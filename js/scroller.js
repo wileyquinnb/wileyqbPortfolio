@@ -115,6 +115,7 @@ container.addEventListener("scroll", async () => {
     previousProportions = proportions;
 
 });
+
 function handleWheelScroll(e) {
     if (!proportions) {
 
@@ -125,12 +126,29 @@ function handleWheelScroll(e) {
         e.currentTarget.scrollBy({ top: 0, left: e.deltaY * scrollFactor, behavior: 'smooth' });
     }
 }
+function handleWheelScrollY(e) {
+    if (!proportions) {
+        e.preventDefault();
+
+        const scrollFactor = 5;
+
+        e.currentTarget.scrollBy({
+            top: e.deltaY * scrollFactor,
+            left: 0,
+            behavior: 'smooth'
+        });
+    }
+}
 document.querySelectorAll('.scroller').forEach(scroller => {
     scroller.addEventListener('wheel', handleWheelScroll, { passive: false });
 });
 document.querySelectorAll('.projectScroller').forEach(scroller => {
     scroller.addEventListener('wheel', handleWheelScroll, { passive: false });
 });
+
+if (!proportions) {
+    container.addEventListener('wheel', handleWheelScrollY);
+}
 
 
 //Defines the section that is currently in view (visibleSection)
@@ -192,9 +210,12 @@ async function loadScroller(visibleSection) {
                 }
 
                 const scrollerDiv = visibleSection.querySelector('.scroller');
-                scrollerDiv.classList.add('slideRight');
-                scrollerDiv.classList.add('visible');
-                scrollerDiv.innerHTML = newContent;
+                setTimeout(() => {
+                    scrollerDiv.classList.add('slideRight');
+                    scrollerDiv.classList.add('visible');
+                    scrollerDiv.innerHTML = newContent;
+                }, 200);
+
 
                 scrollerVisible = true;
             }
