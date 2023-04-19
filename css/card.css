@@ -163,7 +163,7 @@
     .cardShow {
         position: fixed;
         background-color: white;
-        opacity: 95%;
+        opacity: 100%;
         top: 34vh;
         left: 5vw;
         height: 32vh;
@@ -238,7 +238,7 @@
     .cardShow {
         position: fixed;
         background-color: white;
-        opacity: 95%;
+        opacity: 100%;
         top: 30vh;
         left: 5vw;
         height: 40vh;

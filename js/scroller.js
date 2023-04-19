@@ -113,6 +113,10 @@ container.addEventListener("scroll", async () => {
         location.reload();
     }
 
+    if (previousProportions && !proportions) {
+        location.reload();
+    }
+
     previousProportions = proportions;
 
 });
