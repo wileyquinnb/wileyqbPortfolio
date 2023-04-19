@@ -125,7 +125,7 @@
 @media (min-aspect-ratio: 2/3){
     #container {
         height: 100%;
-        overflow-y: auto;
+        /* overflow-y: auto; */
         overflow-x: hidden;
         scroll-snap-align: center;
         scrollbar-width: none;

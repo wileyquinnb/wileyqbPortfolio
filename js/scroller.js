@@ -552,10 +552,11 @@ function collapseSection(visibleSection) {
         scroller.classList.add('scroller106');
     }
 
-
-    setTimeout(() => {
-        visibleSection.classList.add('sectionShrink');
-    }, 100);
+    if (!proportions) {
+        setTimeout(() => {
+            visibleSection.classList.add('sectionShrink');
+        }, 100);
+    }
 
     setTimeout(() => {
         for (const section of sections) {
