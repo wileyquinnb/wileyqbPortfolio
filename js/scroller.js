@@ -110,6 +110,7 @@ container.addEventListener("scroll", async () => {
 
     if (!previousProportions && proportions) {
         createButtons(visibleSection);
+        location.reload();
     }
 
     previousProportions = proportions;
@@ -147,6 +148,7 @@ function handleWheelScrollY(e) {
         return;
         // e.preventDefault();
     }
+
 
     if (!proportions && !isInsideScroller) {
         e.preventDefault();
@@ -289,15 +291,6 @@ function addSlideInToTitle(visibleSection) {
             titleDiv.classList.add('slideIn');
         }
     }
-
-    // if (visibleSection && (visibleSection.id === "section4")) {
-    //     const infoDivs = visibleSection.querySelectorAll('.info')
-    //     if (infoDivs) {
-    //         for (let infoDiv of infoDivs) {
-    //             infoDiv.classList.add('slideText');
-    //         }
-    //     }
-    // }
 
     for (let section of sections) {
         const titleDiv = section.querySelector('.title');
@@ -463,6 +456,10 @@ async function expandSection(visibleSection, targetImage) {
         return;
     }
 
+    if (isSectionExpanded && !proportions) {
+        document.body.style.overflowY = 'hidden';
+    }
+
     isSectionExpanded = true;
 
     const titleDiv = visibleSection.querySelector('.title');
@@ -472,10 +469,12 @@ async function expandSection(visibleSection, targetImage) {
     }
 
     titleDiv.classList.add('hideTitle');
+    titleDiv.classList.add('stopScroll');
     card.classList.add('cardShow');
+    container.classList.add('stopScroll');
 
     visibleSection.classList.add('sectionGrow');
-
+    // visibleSection.classList.add('stopScroll');
 
     for (const section of sections) {
         if (section !== visibleSection) {
@@ -524,6 +523,10 @@ async function expandSection(visibleSection, targetImage) {
 function collapseSection(visibleSection) {
     if (!visibleSection) return;
 
+    if (isSectionExpanded && !proportions) {
+        document.body.style.overflowY = 'hidden';
+    }
+
     isSectionExpanded = false;
 
     const titleDiv = visibleSection.querySelector('.title');
@@ -533,10 +536,11 @@ function collapseSection(visibleSection) {
 
     card.classList.remove('cardShow');
     card.classList.add('cardHide');
-
-
+    container.classList.remove('stopScroll');
+    titleDiv.classList.remove('stopScroll');
     titleDiv.classList.remove('hideTitle');
     titleDiv.classList.add('showTitle');
+    // visibleSection.classList.remove('stopScroll');
 
 
     for (const boxDiv of boxDivs) {
@@ -569,6 +573,7 @@ function collapseSection(visibleSection) {
     }, 420);
     //Lol
 }
+
 
 
 //Handles buttons
