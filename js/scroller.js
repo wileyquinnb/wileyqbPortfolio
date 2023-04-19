@@ -281,7 +281,7 @@ async function loadScroller(visibleSection) {
                 otherScrollerDiv.classList.remove('scrollerOut');
                 otherScrollerDiv.classList.remove('visible');
                 otherScrollerDiv.innerHTML = '';
-            }, 500);
+            }, 400);
         }
     }
 
