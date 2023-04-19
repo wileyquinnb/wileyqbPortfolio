@@ -575,7 +575,6 @@ function collapseSection(visibleSection) {
 }
 
 
-
 //Handles buttons
 
 function createButtons(visibleSection) {

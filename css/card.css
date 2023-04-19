@@ -89,7 +89,7 @@
     .cardShow {
         position: fixed;
         background-color: white;
-        opacity: 95%;
+        opacity: 100%;
         top: 0px;
         left: 10vw;
         height: 32vh;
