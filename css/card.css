@@ -40,10 +40,10 @@
 .cardShow {
     position: fixed;
     background-color: white;
-    opacity: 95%;
+    opacity: 100%;
     top: 0px;
     left: 10vw;
-    height: 35vh;
+    height: 37vh;
     width: 80vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
     animation: cardReveal .4s ease-in-out;
