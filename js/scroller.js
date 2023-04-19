@@ -142,8 +142,10 @@ function handleWheelScroll(e) {
 }
 function handleWheelScrollY(e) {
     const isInsideScroller = e.target.closest('.scroller') !== null;
+    // const isInsideContainer = e.target.closest('.container') !== null;
     if (isSectionExpanded) {
         return;
+        // e.preventDefault();
     }
 
     if (!proportions && !isInsideScroller) {
