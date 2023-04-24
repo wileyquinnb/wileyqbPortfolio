@@ -46,7 +46,7 @@
     height: 37vh;
     width: 80vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-    animation: cardReveal .4s ease-in-out;
+    animation: cardReveal .5s ease-in-out;
 }
 
 .cardHide {
@@ -62,27 +62,26 @@
 }
 
 .sectionGrow {
+    transform: translateY(calc(0vh + 0%));
+    position: fixed;
+    top: 0vh;
     height: 101%;
-    margin-right: 0;
+    width: 100%;
     margin-left: 0;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
     border-radius: 0;
     /* animation: sectionGrow .15s ease-in-out; */
 }
 
 .sectionShrink {
-    height: 76vh;
-    margin-right: 3%;
-    margin-left: 3%;
+    height: 68vh;
     margin-top: 5vh;
     margin-bottom: 5vh;
     border-radius: 10vw;
-    position: relative;
+    position: fixed;
     align-items: center;
     justify-content: center;
     overflow: visible;
-    animation: sectionShrink .15s ease-in-out;
+    /* animation: sectionShrink .15s ease-in-out; */
 }
 
 @media (min-aspect-ratio: 2/3){
@@ -324,7 +323,7 @@
 
 @keyframes sectionGrow {
     0%{
-        height: 76vh;
+        height: 60vh;
         border-radius: 10vw;
     }
     80%{
@@ -336,6 +335,17 @@
         border-radius: 0vw;
     }
 }
+
+/* @keyframes sectionShrink {
+    0%{
+        height: 100vh;
+        border-radius: 0vw;
+    }
+    80%{
+        height: 900vh;
+        border-radius: 10vw;
+    }
+} */
 
 @keyframes cardReveal2 {
     0%{

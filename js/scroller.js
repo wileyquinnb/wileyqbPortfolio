@@ -11,7 +11,7 @@ const cardText = document.getElementById('cardText');
 const scrollPositionsX = {};
 const scrollPositionsY = {};
 
-let visibleSection = getCalledSection(sections);
+let sectionElement = getCalledSection(sections);
 let originalScrollers = {};
 let originalTitleContent = {};
 let proportions;
@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
     const yOffset = (window.innerHeight / .95);
     container.scrollTo({ top: yOffset, behavior: "auto" });
     if (proportions) {
-        createButtons(visibleSection);
+        createButtons(sectionElement);
     } else {
         return;
     }
@@ -48,7 +48,7 @@ function resize() {
     } else {
         console.log('lessThan');
         proportions = false;
-        removeButtons(visibleSection);
+        removeButtons(sectionElement);
     }
 }
 
@@ -74,12 +74,12 @@ function debounce(func, wait) {
 container.addEventListener("click", async (event) => {
     const targetElement = event.target;
 
-    if (hasProjectScrollerContent(visibleSection)) {
-        const boxDivs = visibleSection.querySelectorAll(".projectScroller .box");
+    if (hasProjectScrollerContent(sectionElement)) {
+        const boxDivs = sectionElement.querySelectorAll(".projectScroller .box");
         const outsideClick = !Array.from(boxDivs).some((boxDiv) => boxDiv.contains(targetElement));
 
         if (outsideClick) {
-            await removeProjectScrollerContent(visibleSection);
+            await removeProjectScrollerContent(sectionElement);
         }
     } else {
         await loadProjectScroller(event);
@@ -90,26 +90,26 @@ container.addEventListener("click", async (event) => {
 container.addEventListener("scroll", async () => {
     const calledSection = getCalledSection(sections);
 
-    if (calledSection !== visibleSection) {
-        removeButtons(visibleSection);
-        previousVisibleSection = visibleSection;
-        visibleSection = calledSection;
-        const calledSectionId = visibleSection ? visibleSection.id : 'none';
+    if (calledSection !== sectionElement) {
+        removeButtons(sectionElement);
+        previousVisibleSection = sectionElement;
+        sectionElement = calledSection;
+        const calledSectionId = sectionElement ? sectionElement.id : 'none';
         console.log("Current visible section:", calledSectionId);
 
         previousProportions = proportions;
 
         if (proportions) {
-            createButtons(visibleSection);
+            createButtons(sectionElement);
         }
 
-        await loadScroller(visibleSection);
+        await loadScroller(sectionElement);
     }
 
     //runs createButtons in the event the user goes from proportions being false to true
 
     if (!previousProportions && proportions) {
-        createButtons(visibleSection);
+        createButtons(sectionElement);
         location.reload();
     }
 
@@ -321,20 +321,20 @@ async function loadProjectScroller(event) {
         return;
     }
 
-    const scroller = visibleSection.querySelector('.scroller');
+    const scroller = sectionElement.querySelector('.scroller');
     if (!scroller) {
-        console.warn('Scroller not found in the visible section:', visibleSection);
+        console.warn('Scroller not found in the visible section:', sectionElement);
         return;
     }
 
-    const sectionId = visibleSection.id;
+    const sectionId = sectionElement.id;
 
     scrollPositionsX[sectionId] = scroller.scrollLeft;
     scrollPositionsY[sectionId] = scroller.scrollTop;
 
-    expandSection(visibleSection, targetImage);
+    expandSection(sectionElement, targetImage);
 
-    const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
+    const primaryParentFolder = sectionElement.id.replace("section", "") + "img";
     const clickedImageName = targetImage.src.split('/').pop().split('.')[0];
     const clickedImageIndex = clickedImageName.replace('project', '');
     const secondaryParentFolder = primaryParentFolder + "/img" + clickedImageIndex;
@@ -353,25 +353,25 @@ async function loadProjectScroller(event) {
         `;
     }).join('');
 
-    const scrollerDiv = visibleSection.querySelector('.scroller');
+    const scrollerDiv = sectionElement.querySelector('.scroller');
     scrollerDiv.classList.remove('slideRight');
 
     setTimeout(() => {
         scrollerDiv.classList.add('fadeOut');
     }, 200);
 
-    originalScrollers[visibleSection.id] = scrollerDiv.innerHTML;
+    originalScrollers[sectionElement.id] = scrollerDiv.innerHTML;
 
     setTimeout(() => {
         scrollerDiv.innerHTML = '';
         scrollerDiv.className = 'scroller';
     }, 400);
 
-    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+    const projectScrollerDiv = sectionElement.querySelector('.projectScroller');
     projectScrollerDiv.classList.add('fadeIn');
     projectScrollerDiv.innerHTML = newContent;
 
-    visibleSection.appendChild(projectScrollerDiv);
+    sectionElement.appendChild(projectScrollerDiv);
 }
 
 

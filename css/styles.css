@@ -6,10 +6,13 @@
 
 #container {
     height: 100%;
+    position: relative;
     overflow-x: hidden;
-    scroll-snap-align: center;
+    overflow: hidden;
+    /* scroll-snap-align: center; */
     scrollbar-width: none;
     background-color: white;
+    flex-grow: 1;
 }
 
 #container::-webkit-scrollbar {
@@ -17,44 +20,42 @@
 }
 
 .section {
-    height: 69vh;
+    height: 68vh;
+    width: 94%;
     margin-right: 3%;
     margin-left: 3%;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
     border-radius: 10vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
-    position: relative;
-    scroll-snap-type: auto;
-    align-items: center;
-    justify-content: center;
-    overflow: visible;
+    position: absolute;
+    box-sizing: border-box;
+    /* scroll-snap-type: auto; */
+    /* align-items: center; */
+    /* justify-content: center; */
+    /* overflow: visible; */
     /* animation: sectionSlide .4s ease-in-out; */
-    transition: height 0.15s ease-in-out, margin 0.15s ease-in-out, border-radius 0.15s ease-in-out;
-}
-
-#section4 {
-    background-color: rgb(25, 152, 80);
-    margin-top: calc(50vh);
+    transition: transform 0.5s ease, height 0.25s ease, margin 0.0s ease-in-out, width 0.0s ease-in-out, border-radius 0.15s ease-in-out;
 }
 
 #section0 {
+    background-color: rgb(25, 152, 80);
+}
+
+#section1 {
     background-color: rgb(255, 255, 255);
     box-shadow: none;
     color: black;
 }
 
-#section1 {
+#section2 {
     background-color: rgb(255, 183, 0);
 }
 
-#section2 {
+#section3 {
     background-color: rgb(150, 52, 150);
 }
 
-#section3 {
+#section4 {
     background-color: rgb(203, 54, 54);
-    margin-bottom: calc(50vh);
 }
 
 .title {

@@ -1,12 +1,14 @@
 .box {
+    position: absolute;
     overflow: visible;
-    scroll-snap-align: center;
+    /* scroll-snap-align: center; */
     display: flex;
     color: white;
     width: 60vw;
     height: 60vw;
-    padding: 6vw;
-    transition: height .2s ease-in-out, width .2s ease-in-out;
+    box-sizing: border-box;
+    /* padding: 6vw; */
+    transition: transform 0.5s ease, height .2s ease-in-out, width .2s ease-in-out;
 }
 
 .enlargeBox {
@@ -30,9 +32,9 @@
     align-items: center;
     overflow-x: scroll;
     /* scroll-snap-align: center; */
-    -webkit-scroll-snap-type: x mandatory;
-    -ms-scroll-snap-type: x mandatory;
-        scroll-snap-type: x mandatory;
+    /* -webkit-scroll-snap-type: x mandatory; */
+    /* -ms-scroll-snap-type: x mandatory; */
+        /* scroll-snap-type: x mandatory; */
     -ms-overflow-style: none;
     scrollbar-width: none;
     pointer-events: none;
@@ -47,11 +49,11 @@
 }
 
 .firstBox {
-    margin-left: calc(50vw);
+    /* margin-left: calc(50vw); */
 }
 
 .lastBox {
-    margin-right: calc(100% + 80vw);
+    /* margin-right: calc(100% + 80vw); */
 }
 
 .slideRightBack {

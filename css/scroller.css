@@ -6,11 +6,11 @@
     align-items: center;
     overflow-x: scroll;
     overflow-y: hidden;
-    overscroll-behavior: contain;
+    /* overscroll-behavior: contain; */
     /* scroll-snap-align: center; */
-    -webkit-scroll-snap-type: x mandatory;
-    -ms-scroll-snap-type: x mandatory;
-        scroll-snap-type: x mandatory;
+    /* -webkit-scroll-snap-type: x mandatory; */
+    /* -ms-scroll-snap-type: x mandatory; */
+        /* scroll-snap-type: x mandatory; */
     -ms-overflow-style: auto;
     scrollbar-width: none;
     opacity: 0;
@@ -104,7 +104,7 @@
 @keyframes scrollerOutS {
     0%{
         transform: translateX(0vw);
-        opacity: .6;
+        opacity: 1;
     }
     100%{
         transform: translateX(100vw);
@@ -115,7 +115,7 @@
 @keyframes scrollerOutB {
     0%{
         transform: translateY(0vh);
-        opacity: .6;
+        opacity: 1;
     }
     100%{
         transform: translateY(100vh);

@@ -1,4 +1,4 @@
-.sectionScroller {
+/* .sectionScroller {
     -webkit-scroll-snap-type: y mandatory;
         -ms-scroll-snap-type: y mandatory;
             scroll-snap-type: y mandatory;
@@ -28,4 +28,4 @@
 
 @media (min-aspect-ratio: 4.5/3){
 
-}
+} */
