@@ -189,7 +189,7 @@ class Carousel {
         const axis = this.isHorizontal ? "X" : "Y";
         this.items.forEach((item, index) => {
             const offset = ((index - this.index) - progress) * (this.itemHeight + this.itemSpacing);
-            item.style.transform = `translate${axis}(calc(${offset}${this.unit} + ${this.initialOffset}%))`;
+            item.style.transform = `translate${axis}(calc(${offset}${this.unit} + ${this.initialOffset}${this.unit}))`;
         });
     }
 }
