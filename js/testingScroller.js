@@ -91,12 +91,6 @@ class Carousel {
         this.#positionItems();
     }
 
-    handleTouchStart(e) {
-        // e.stopPropagation();
-        this.touchStartY = e.touches[0].clientY;
-        this.touchStartIndex = this.index;
-    }
-
     // handleTouchMove(e) {
     //     // e.stopPropagation();
     //     e.preventDefault();
@@ -126,19 +120,39 @@ class Carousel {
     // }
 
 
+    handleTouchStart(e) {
+        e.stopPropagation();
+        this.touchStartY = e.touches[0].clientY;
+        this.touchStartIndex = this.index;
+    }
+
     handleTouchMove(e) {
         e.stopPropagation();
-        e.preventDefault(); // Prevent default scrolling behavior
+        e.preventDefault();
 
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
         const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
 
-        this.index = Math.min(Math.max(Math.round(this.touchStartIndex + touchProgress), 0), this.items.length - 1);
-        this.#positionItems(touchProgress - Math.floor(touchProgress));
+        this.#positionItems(touchProgress);
     }
 
     handleTouchEnd(e) {
-        // e.stopPropagation();
+        e.stopPropagation();
+
+        const touchDeltaY = this.touchStartY - e.changedTouches[0].clientY;
+        const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
+        const newIndex = Math.min(Math.max(Math.round(this.touchStartIndex + touchProgress), 0), this.items.length - 1);
+
+        if (this.index !== newIndex) {
+            this.index = newIndex;
+            if (this.isSections) {
+                const sectionElement = this.items[this.index];
+                console.log(this.index);
+                loadScroller(sectionElement);
+            }
+        }
+
+        this.#positionItems(0);
         this.touchStartY = null;
         this.touchStartIndex = null;
     }
@@ -146,7 +160,7 @@ class Carousel {
     #positionItems(progress = 0) {
         const axis = this.isHorizontal ? "X" : "Y";
         this.items.forEach((item, index) => {
-            const offset = ((index - this.index) + progress) * (this.itemHeight + this.itemSpacing);
+            const offset = ((index - this.touchStartIndex) - progress) * (this.itemHeight + this.itemSpacing);
             item.style.transform = `translate${axis}(calc(${offset}${this.unit} + ${this.initialOffset}%))`;
         });
     }
