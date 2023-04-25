@@ -102,7 +102,7 @@ class Carousel {
         e.preventDefault();
 
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
-        const touchMoveThreshold = 200;
+        const touchMoveThreshold = 80;
 
         if (touchDeltaY > touchMoveThreshold && this.index < this.items.length - 1) {
             this.index++;
