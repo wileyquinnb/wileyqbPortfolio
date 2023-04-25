@@ -144,12 +144,9 @@ class Carousel {
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
         const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
 
-        const currentTime = performance.now();
-        const deltaTime = currentTime - this.touchStartTime;
-        this.touchStartTime = currentTime;
-        this.velocity = (touchProgress - this.velocity) / deltaTime;
+        this.index = this.touchStartIndex - touchProgress;
 
-        this.#positionItems(touchProgress);
+        this.#positionItems();
     }
 
     handleTouchEnd(e) {
@@ -158,9 +155,13 @@ class Carousel {
         this.touchStartIndex = null;
         this.touchStartTime = null;
 
-        const newIndex = Math.min(Math.max(Math.round(this.index + this.velocity), 0), this.items.length - 1);
-        this.velocity = newIndex - this.index;
-        this.index = newIndex;
+        this.index = Math.round(this.index);
+
+        if (this.index < 0) {
+            this.index = 0;
+        } else if (this.index > this.items.length - 1) {
+            this.index = this.items.length - 1;
+        }
 
         if (this.isSections) {
             const sectionElement = this.items[this.index];
@@ -168,7 +169,9 @@ class Carousel {
             loadScroller(sectionElement);
         }
 
-        this.animationFrameId = requestAnimationFrame(this.animateMomentum.bind(this));
+        this.#positionItems();
+        this.velocity = 0;
+        this.animationFrameId = null;
     }
 
     animateMomentum() {
