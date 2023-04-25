@@ -61,6 +61,13 @@ class Carousel {
         this.initialOffset = options.initialOffset;
         this.unit = options.unit;
 
+        this.container.addEventListener("touchstart", this.handleTouchStart.bind(this));
+        this.container.addEventListener("touchmove", this.handleTouchMove.bind(this));
+        this.container.addEventListener("touchend", this.handleTouchEnd.bind(this));
+
+        this.touchStartY = null;
+        this.touchStartIndex = null;
+
         this.#positionItems();
     }
 
@@ -82,6 +89,46 @@ class Carousel {
         }
 
         this.#positionItems();
+    }
+
+    handleTouchStart(e) {
+        e.stopPropagation();
+        this.touchStartY = e.touches[0].clientY;
+        this.touchStartIndex = this.index;
+    }
+
+    handleTouchMove(e) {
+        e.stopPropagation();
+        e.preventDefault();
+
+        const touchDeltaY = this.touchStartY - e.touches[0].clientY;
+        const touchMoveThreshold = 30;
+
+        if (touchDeltaY > touchMoveThreshold && this.index < this.items.length - 1) {
+            this.index++;
+        } else if (touchDeltaY < -touchMoveThreshold && this.index > 0) {
+            this.index--;
+        }
+
+        if (this.index !== this.touchStartIndex) {
+            const sectionElement = this.items[this.index];
+
+            if (this.isSections) {
+                e.stopPropagation();
+                console.log(this.index);
+                loadScroller(sectionElement);
+            }
+
+            this.#positionItems();
+            this.touchStartY = e.touches[0].clientY;
+            this.touchStartIndex = this.index;
+        }
+    }
+
+    handleTouchEnd(e) {
+        e.stopPropagation();
+        this.touchStartY = null;
+        this.touchStartIndex = null;
     }
 
     #positionItems() {
