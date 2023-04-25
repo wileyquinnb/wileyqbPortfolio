@@ -92,49 +92,61 @@ class Carousel {
     }
 
     handleTouchStart(e) {
-        e.stopPropagation();
+        // e.stopPropagation();
         this.touchStartY = e.touches[0].clientY;
         this.touchStartIndex = this.index;
     }
 
+    // handleTouchMove(e) {
+    //     // e.stopPropagation();
+    //     e.preventDefault();
+
+    //     const touchDeltaY = this.touchStartY - e.touches[0].clientY;
+    //     const touchMoveThreshold = 80;
+
+    //     if (touchDeltaY > touchMoveThreshold && this.index < this.items.length - 1) {
+    //         this.index++;
+    //     } else if (touchDeltaY < -touchMoveThreshold && this.index > 0) {
+    //         this.index--;
+    //     }
+
+    //     if (this.index !== this.touchStartIndex) {
+    //         const sectionElement = this.items[this.index];
+
+    //         if (this.isSections) {
+    //             e.stopPropagation();
+    //             console.log(this.index);
+    //             loadScroller(sectionElement);
+    //         }
+
+    //         this.#positionItems();
+    //         this.touchStartY = e.touches[0].clientY;
+    //         this.touchStartIndex = this.index;
+    //     }
+    // }
+
+
     handleTouchMove(e) {
         e.stopPropagation();
-        e.preventDefault();
+        e.preventDefault(); // Prevent default scrolling behavior
 
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
-        const touchMoveThreshold = 80;
+        const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
 
-        if (touchDeltaY > touchMoveThreshold && this.index < this.items.length - 1) {
-            this.index++;
-        } else if (touchDeltaY < -touchMoveThreshold && this.index > 0) {
-            this.index--;
-        }
-
-        if (this.index !== this.touchStartIndex) {
-            const sectionElement = this.items[this.index];
-
-            if (this.isSections) {
-                e.stopPropagation();
-                console.log(this.index);
-                loadScroller(sectionElement);
-            }
-
-            this.#positionItems();
-            this.touchStartY = e.touches[0].clientY;
-            this.touchStartIndex = this.index;
-        }
+        this.index = Math.min(Math.max(Math.round(this.touchStartIndex + touchProgress), 0), this.items.length - 1);
+        this.#positionItems(touchProgress - Math.floor(touchProgress));
     }
 
     handleTouchEnd(e) {
-        e.stopPropagation();
+        // e.stopPropagation();
         this.touchStartY = null;
         this.touchStartIndex = null;
     }
 
-    #positionItems() {
+    #positionItems(progress = 0) {
         const axis = this.isHorizontal ? "X" : "Y";
         this.items.forEach((item, index) => {
-            const offset = (index - this.index) * (this.itemHeight + this.itemSpacing);
+            const offset = ((index - this.index) + progress) * (this.itemHeight + this.itemSpacing);
             item.style.transform = `translate${axis}(calc(${offset}${this.unit} + ${this.initialOffset}%))`;
         });
     }
