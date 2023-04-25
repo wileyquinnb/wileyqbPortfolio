@@ -27,14 +27,9 @@
     height: 70%;
     width: 100%;
     z-index: 50;
-    /* position: absolute; */
     display: flex;
     align-items: center;
     overflow-x: scroll;
-    /* scroll-snap-align: center; */
-    /* -webkit-scroll-snap-type: x mandatory; */
-    /* -ms-scroll-snap-type: x mandatory; */
-        /* scroll-snap-type: x mandatory; */
     -ms-overflow-style: none;
     scrollbar-width: none;
     pointer-events: none;
@@ -65,8 +60,17 @@
     pointer-events: all;
 }
 
+.fadeInPS {
+    animation: fadeInPS .5s ease;
+    pointer-events: all;
+}
+
 .fadeOut {
-    animation: fadeOut .4s ease-in-out;
+    animation: fadeOut .42s ease-in-out;
+}
+
+.fadeOutPS {
+    animation: fadeOutPS .42s ease;
 }
 
 @keyframes slideRightBack {
@@ -89,12 +93,40 @@
     }
 }
 
+@keyframes fadeInPS {
+    0%{
+        opacity: 1;
+        left: 10vw;
+        width: 60vw;
+    }
+    60%{
+        left: 3vw;
+    }
+    100%{
+        opacity: 1;
+        left: 0vw;
+        width: 80vw;
+    }
+}
+
 @keyframes fadeOut {
     0%{
         opacity: 1;
     }
     80%{
         opacity: .5;
+    }
+    100%{
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOutPS {
+    0%{
+        opacity: 1;
+    }
+    70%{
+        opacity: 0;
     }
     100%{
         opacity: 0;

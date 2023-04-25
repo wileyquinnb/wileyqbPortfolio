@@ -93,7 +93,6 @@ class Carousel {
     }
 }
 
-
 for (const container of containers) {
     new Carousel({ container, isHorizontal: false, isSections: true, itemHeight: sectionHeight, itemSpacing: sectionSpacing, initialOffset: initialOffset, unit: 'vh' });
 }
@@ -297,7 +296,7 @@ async function loadProjectScroller(target, sectionElement) {
     const newContent = projects.map((project, i) => {
         const firstOrLast = i === 0 ? 'firstBox' : (i === projects.length - 1 ? 'lastBox' : '');
         return `
-          <div class="box fadeIn ${firstOrLast}" style="z-index: 100;">
+          <div class="box fadeInPS ${firstOrLast}" style="z-index: 100;">
             <img src="./images/${secondaryParentFolder}/${project}">
           </div>
         `;
@@ -309,7 +308,7 @@ async function loadProjectScroller(target, sectionElement) {
 
     setTimeout(() => {
         const projectScrollerDiv = sectionElement.querySelector('.projectScroller');
-        projectScrollerDiv.classList.add('fadeIn');
+        projectScrollerDiv.classList.add('fadeInPS');
         projectScrollerDiv.innerHTML = newContent;
         for (const projectScroller of projectScrollers) {
             if (projectScroller.childNodes.length) {
@@ -373,17 +372,17 @@ async function removeProjectScrollerContent(sectionElement) {
     }
 
     const projectScrollerDiv = sectionElement.querySelector('.projectScroller');
-    projectScrollerDiv.classList.remove('fadeIn');
+    projectScrollerDiv.classList.remove('fadeInPS');
 
     restoreScroller(sectionElement);
     collapseSection(sectionElement);
 
     setTimeout(() => {
-        projectScrollerDiv.classList.add('fadeOut');
+        projectScrollerDiv.classList.add('fadeOutPS');
     }, 200);
 
     setTimeout(() => {
-        projectScrollerDiv.classList.remove('fadeOut');
+        projectScrollerDiv.classList.remove('fadeOutPS');
         projectScrollerDiv.innerHTML = '';
     }, 500);
 }
@@ -495,7 +494,7 @@ function collapseSection(sectionElement) {
 
     isSectionExpanded = false;
 
-    sectionElement.style.transform = `translateY(calc(0vh + 23%))`;
+    sectionElement.style.transform = `translateY(calc(0vh + 24%))`;
 
     const titleDiv = sectionElement.querySelector('.title');
     const boxDivs = sectionElement.querySelectorAll('.projectScroller .box');
@@ -532,6 +531,11 @@ function collapseSection(sectionElement) {
         cardText.textContent = '';
         cardTitle.classList.remove('cardTitle');
         cardText.classList.remove('cardText');
+        for (const scroller of scrollers) {
+            if (scroller.childNodes.length) {
+                new Carousel({ container: scroller, isHorizontal: true, isSections: false, itemHeight: boxHeight, itemSpacing: boxSpacing, initialOffset: boxOffset, unit: 'vw' });
+            }
+        }
     }, 100);
     //Lol
 }
