@@ -69,7 +69,7 @@ class Carousel {
         this.touchStartIndex = null;
         this.touchStartTime = null;
         this.easing = 0.9;
-        this.velocity = 10;
+        this.velocity = 0;
         this.animationFrameId = null;
 
         this.#positionItems();
@@ -139,7 +139,7 @@ class Carousel {
 
     handleTouchMove(e) {
         e.stopPropagation();
-        e.preventDefault(); // Prevent default scrolling behavior
+        e.preventDefault();
 
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
         const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
@@ -158,29 +158,27 @@ class Carousel {
         this.touchStartIndex = null;
         this.touchStartTime = null;
 
+        const newIndex = Math.min(Math.max(Math.round(this.index + this.velocity), 0), this.items.length - 1);
+        this.velocity = newIndex - this.index;
+        this.index = newIndex;
+
+        if (this.isSections) {
+            const sectionElement = this.items[this.index];
+            console.log(this.index);
+            loadScroller(sectionElement);
+        }
+
         this.animationFrameId = requestAnimationFrame(this.animateMomentum.bind(this));
     }
 
     animateMomentum() {
         this.velocity *= this.easing;
-        const progress = this.index + this.velocity;
-        const clampedProgress = Math.min(Math.max(progress, 0), this.items.length - 1);
-        this.#positionItems(clampedProgress - this.index);
+        const progress = this.velocity;
+        this.#positionItems(progress);
 
         if (Math.abs(this.velocity) > 0.001) {
             this.animationFrameId = requestAnimationFrame(this.animateMomentum.bind(this));
         } else {
-            const newIndex = Math.min(Math.max(Math.round(clampedProgress), 0), this.items.length - 1);
-
-            if (this.index !== newIndex) {
-                this.index = newIndex;
-                if (this.isSections) {
-                    const sectionElement = this.items[this.index];
-                    console.log(this.index);
-                    loadScroller(sectionElement);
-                }
-            }
-
             this.#positionItems(0);
             this.velocity = 0;
             this.animationFrameId = null;
