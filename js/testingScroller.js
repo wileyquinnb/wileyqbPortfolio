@@ -69,7 +69,7 @@ class Carousel {
         this.touchStartIndex = null;
         this.touchStartTime = null;
         this.easing = 0.9;
-        this.velocity = 0;
+        this.velocity = 1;
         this.animationFrameId = null;
 
         this.#positionItems();
