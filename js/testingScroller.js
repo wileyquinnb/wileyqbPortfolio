@@ -67,6 +67,10 @@ class Carousel {
 
         this.touchStartY = null;
         this.touchStartIndex = null;
+        this.touchStartTime = null;
+        this.easing = 0.9;
+        this.velocity = 0;
+        this.animationFrameId = null;
 
         this.#positionItems();
     }
@@ -124,43 +128,69 @@ class Carousel {
         e.stopPropagation();
         this.touchStartY = e.touches[0].clientY;
         this.touchStartIndex = this.index;
+        this.touchStartTime = performance.now();
+        this.velocity = 0;
+
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
     }
 
     handleTouchMove(e) {
         e.stopPropagation();
-        e.preventDefault();
+        e.preventDefault(); // Prevent default scrolling behavior
 
         const touchDeltaY = this.touchStartY - e.touches[0].clientY;
         const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
+
+        const currentTime = performance.now();
+        const deltaTime = currentTime - this.touchStartTime;
+        this.touchStartTime = currentTime;
+        this.velocity = (touchProgress - this.velocity) / deltaTime;
 
         this.#positionItems(touchProgress);
     }
 
     handleTouchEnd(e) {
         e.stopPropagation();
-
-        const touchDeltaY = this.touchStartY - e.changedTouches[0].clientY;
-        const touchProgress = touchDeltaY / (this.itemHeight + this.itemSpacing);
-        const newIndex = Math.min(Math.max(Math.round(this.touchStartIndex + touchProgress), 0), this.items.length - 1);
-
-        if (this.index !== newIndex) {
-            this.index = newIndex;
-            if (this.isSections) {
-                const sectionElement = this.items[this.index];
-                console.log(this.index);
-                loadScroller(sectionElement);
-            }
-        }
-
-        this.#positionItems(0);
         this.touchStartY = null;
         this.touchStartIndex = null;
+        this.touchStartTime = null;
+
+        this.animationFrameId = requestAnimationFrame(this.animateMomentum.bind(this));
+    }
+
+    animateMomentum() {
+        this.velocity *= this.easing;
+        const progress = this.index + this.velocity;
+        const clampedProgress = Math.min(Math.max(progress, 0), this.items.length - 1);
+        this.#positionItems(clampedProgress - this.index);
+
+        if (Math.abs(this.velocity) > 0.001) {
+            this.animationFrameId = requestAnimationFrame(this.animateMomentum.bind(this));
+        } else {
+            const newIndex = Math.min(Math.max(Math.round(clampedProgress), 0), this.items.length - 1);
+
+            if (this.index !== newIndex) {
+                this.index = newIndex;
+                if (this.isSections) {
+                    const sectionElement = this.items[this.index];
+                    console.log(this.index);
+                    loadScroller(sectionElement);
+                }
+            }
+
+            this.#positionItems(0);
+            this.velocity = 0;
+            this.animationFrameId = null;
+        }
     }
 
     #positionItems(progress = 0) {
         const axis = this.isHorizontal ? "X" : "Y";
         this.items.forEach((item, index) => {
-            const offset = ((index - this.touchStartIndex) - progress) * (this.itemHeight + this.itemSpacing);
+            const offset = ((index - this.index) - progress) * (this.itemHeight + this.itemSpacing);
             item.style.transform = `translate${axis}(calc(${offset}${this.unit} + ${this.initialOffset}%))`;
         });
     }
