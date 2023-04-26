@@ -8,7 +8,7 @@
     height: 100%;
     position: relative;
     overflow-x: hidden;
-    overflow: hidden;
+    overflow: scroll;
     scrollbar-width: none;
     background-color: white;
     flex-grow: 1;
