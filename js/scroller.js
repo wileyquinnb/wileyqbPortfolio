@@ -374,6 +374,7 @@ async function loadProjectScroller(event) {
     visibleSection.appendChild(projectScrollerDiv);
 }
 
+//test
 
 //Excludes sections without a scroller and projectScroller
 
