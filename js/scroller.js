@@ -294,20 +294,28 @@ function addSlideInToTitle(visibleSection) {
         if (titleDiv) {
             titleDiv.classList.add('slideIn');
         }
+        const infoDivs = visibleSection.querySelectorAll('.info');
+        for (let infoDiv of infoDivs) {
+            infoDiv.classList.add('slideText');
+        }
     }
 
     for (let section of sections) {
         const titleDiv = section.querySelector('.title');
-        // const infoDivs = section.querySelector('.info')
+        const infoDivs = section.querySelectorAll('.info');
         if (section !== visibleSection) {
             titleDiv.classList.add('slideOut');
+            for (let infoDiv of infoDivs) {
+                infoDiv.classList.add('slideOutText');
+            }
             setTimeout(() => {
                 titleDiv.classList.remove('slideIn');
                 titleDiv.classList.remove('slideOut');
-                // for (let infoDiv of infoDivs) {
-                //     infoDiv.classList.remove('slideText');
-                // }
-            }, 500);
+                for (let infoDiv of infoDivs) {
+                    infoDiv.classList.remove('slideText');
+                    infoDiv.classList.remove('slideOutText');
+                }
+            }, 300);
         }
     }
 }
@@ -496,7 +504,7 @@ async function expandSection(visibleSection, targetImage) {
 
     setTimeout(() => {
         titleDiv.innerHTML = '';
-    }, 400);
+    }, 300);
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
 
