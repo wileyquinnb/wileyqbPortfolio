@@ -221,6 +221,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-top: 0%;
     }
 
     .slideIn {
@@ -237,11 +238,14 @@
         font-size: 4.5vh;
         margin-left: 10vw;
         margin-right: 10vw;
+        height: 20vh;
+        padding-top: 0vh;
     }
     
     .info {
-        margin-left: 0;
-        margin-right: 10vw;
+        margin-top: 0;
+        margin-left: 5vw;
+        margin-right: 5vw;
     }
 
     .slideText {
@@ -303,6 +307,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        padding-top: 0%;
     }
 
     .slideIn {
@@ -319,11 +324,14 @@
         font-size: 4.5vh;
         margin-left: 10vw;
         margin-right: 10vw;
+        height: 20vh;
+        padding-top: 0vh;
     }
     
     .info {
-        margin-left: 0;
-        margin-right: 10vw;
+        margin-top: 0;
+        margin-left: 5vw;
+        margin-right: 5vw;
     }
 
     .slideText {
