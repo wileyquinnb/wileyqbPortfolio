@@ -145,7 +145,7 @@
     }
     
     .section {
-        height: 76vh;
+        height: 69vh;
         margin-right: 3%;
         margin-left: 3%;
         margin-top: 5vh;
@@ -163,9 +163,9 @@
 
     .title {
         z-index: 5;
-        height: 30%;
+        height: 13%;
         width: 100%;
-        font-size: 6vh;
+        font-size: 7vh;
         font-family: Arial, Helvetica, sans-serif;
         opacity: 95%;
         font-weight: bold;
