@@ -168,11 +168,10 @@
 
     .title {
         z-index: 5;
-        height: 13%;
+        height: 10%;
         width: 100%;
         font-size: 7vh;
         font-family: Arial, Helvetica, sans-serif;
-        opacity: 95%;
         font-weight: bold;
         text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
         display: flex;

@@ -23,7 +23,7 @@ let isSectionExpanded = false;
 //onLoad
 
 window.addEventListener("load", function () {
-    const yOffset = (window.innerHeight / .95);
+    const yOffset = (window.innerHeight / .96);
     container.scrollTo({ top: yOffset, behavior: "auto" });
     if (proportions) {
         createButtons(visibleSection);
