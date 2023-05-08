@@ -110,7 +110,7 @@
         opacity: 100%;
         top: 0px;
         left: 10vw;
-        height: 32vh;
+        height: 30vh;
         width: 80vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardReveal .4s ease-in-out;
@@ -136,7 +136,7 @@
     }
 }
 
-@media (min-aspect-ratio: 19/24){
+@media (min-aspect-ratio: 21/24){
     .hideTitle {
         height: 30vh;
         opacity: 0%;

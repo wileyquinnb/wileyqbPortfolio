@@ -47,7 +47,7 @@
 
 }
 
-@media (min-aspect-ratio: 19/24){
+@media (min-aspect-ratio: 21/24){
     .scroller {
         height: 100%;
         width: 40%;

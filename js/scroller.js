@@ -39,7 +39,7 @@ window.addEventListener("load", function () {
 function windowProportions() {
     const windowProportion = window.innerWidth / window.innerHeight;
 
-    return windowProportion > 19 / 24;
+    return windowProportion > 21 / 24;
 }
 function resize() {
     if (windowProportions()) {
