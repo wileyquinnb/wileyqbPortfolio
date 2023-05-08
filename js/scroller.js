@@ -571,10 +571,15 @@ function collapseSection(visibleSection) {
         }, 100);
     }
 
+    for (const section of sections) {
+        section.classList.remove('hidden');
+        // section.classList.add('paddingChange');
+    }
+
     setTimeout(() => {
-        for (const section of sections) {
-            section.classList.remove('hidden');
-        }
+        // for (const section of sections) {
+        //     section.classList.remove('hidden');
+        // }
         card.classList.remove('cardHide');
         titleDiv.classList.remove('showTitle');
         visibleSection.classList.remove('sectionGrow');

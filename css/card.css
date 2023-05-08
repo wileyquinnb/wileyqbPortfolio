@@ -87,6 +87,10 @@
     animation: sectionShrink .15s ease-in-out;
 }
 
+.paddingChange {
+    animation: paddingChange .4s ease;
+}
+
 @media (min-aspect-ratio: 2/3){
     .hideTitle {
         padding-top: 13%;
@@ -435,5 +439,16 @@
     }
     100%{
         opacity: 1;
+    }
+}
+
+@keyframes paddingChange {
+    0%{
+        padding-bottom: 15vh;
+        padding-top: 15vh;
+    }
+    100%{
+        padding-top: 0vh;
+        padding-bottom: 0vh;
     }
 }
