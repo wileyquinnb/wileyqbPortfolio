@@ -77,7 +77,12 @@
 .email {
     font-size: 3.5vh;
     text-decoration: none;
-    height: 15%
+    height: 10%;
+    padding-bottom: 5vw;
+}
+
+.icon {
+    padding: 2vw;
 }
 
 .info {
@@ -239,7 +244,7 @@
         font-size: 4.5vh;
         margin-left: 10vw;
         margin-right: 10vw;
-        height: 20vh;
+        height: 10vh;
         padding-top: 0vh;
     }
     
@@ -325,7 +330,7 @@
         font-size: 4.5vh;
         margin-left: 10vw;
         margin-right: 10vw;
-        height: 20vh;
+        height: 10vh;
         padding-top: 0vh;
     }
     
