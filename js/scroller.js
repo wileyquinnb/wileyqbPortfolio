@@ -125,7 +125,7 @@ function handleWheelScroll(e) {
     if (!proportions) {
         e.preventDefault();
 
-        const scrollFactor = 3;
+        const scrollFactor = 1;
 
         e.currentTarget.scrollBy({
             top: 0,
@@ -136,7 +136,7 @@ function handleWheelScroll(e) {
     } else {
         e.preventDefault();
 
-        const scrollFactor = 6;
+        const scrollFactor = 4;
 
         e.currentTarget.scrollBy({
             top: e.deltaY * scrollFactor,
