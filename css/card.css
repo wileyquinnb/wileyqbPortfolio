@@ -91,7 +91,7 @@
     animation: paddingChange .4s ease;
 }
 
-@media (min-aspect-ratio: 2/3){
+@media (min-aspect-ratio: 1.8/3){
     .hideTitle {
         padding-top: 13%;
         height: 25%;

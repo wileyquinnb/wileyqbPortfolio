@@ -99,7 +99,7 @@
     }
 }
 
-@media (min-aspect-ratio: 2/3){
+@media (min-aspect-ratio: 1.8/3){
     .projectScroller {
         height: 70%;
         width: 100%;
