@@ -10,12 +10,12 @@
     scroll-snap-align: center;
     scrollbar-width: none;
     background-color: white;
-    
 }
 
 #container::-webkit-scrollbar {
     display: none;
 }
+
 
 .section {
     height: 69vh;
@@ -73,6 +73,7 @@
     align-items: center;
     padding-top: 15%;
     transition: padding-top .3s ease-in-out;
+    cursor: default;
 }
 
 .email {
@@ -104,6 +105,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: default;
 }
 
 .blacktext {
@@ -112,6 +114,7 @@
     font-size: 2vh;
     padding-right: 15vw;
     padding-left: 15vw;
+    cursor: default;
 }
 
 .mainTitle {
