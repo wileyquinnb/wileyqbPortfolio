@@ -185,7 +185,7 @@
         top: 34vh;
         left: 5vw;
         height: 32vh;
-        width: 90vw;
+        width: 87vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardReveal2 .5s ease-in-out;
     }
@@ -196,7 +196,7 @@
         opacity: 95%;
         top: 34vh;
         left: 0vw;
-        width: 90vw;
+        width: 87vw;
         height: 32vh;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardHide2 .5s ease-in-out;
@@ -212,7 +212,7 @@
     }
 }
 
-@media (min-aspect-ratio: 4.5/3) {
+@media (min-aspect-ratio: 4.8/3) {
     .hideTitle {
         height: 30vh;
         opacity: 0%;
@@ -260,7 +260,7 @@
         top: 30vh;
         left: 5vw;
         height: 40vh;
-        width: 90vw;
+        width: 87vw;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardReveal2 .5s ease-in-out;
     }
@@ -271,7 +271,7 @@
         opacity: 95%;
         top: 30vh;
         left: 0vw;
-        width: 90vw;
+        width: 87vw;
         height: 40vh;
         box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
         animation: cardHide2 .5s ease-in-out;

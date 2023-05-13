@@ -12,12 +12,25 @@
     -ms-scroll-snap-type: x mandatory;
         scroll-snap-type: x mandatory;
     -ms-overflow-style: auto;
-    scrollbar-width: none;
+    /* scrollbar-width: none; */
     opacity: 0;
 }
 
 .scroller::-webkit-scrollbar {
     display: none;
+    width: 1vw;
+}
+.scroller::-webkit-scrollbar-track {
+    margin-block: 21vh;
+    border-radius: 4px;
+}
+.scroller::-webkit-scrollbar-track:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+.scroller::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255);
+    margin-block: 21vh;
+    border-radius: 4px;
 }
 
 .scroller106 {
@@ -60,6 +73,10 @@
         -webkit-scroll-snap-type: y mandatory;
         -ms-scroll-snap-type: y mandatory;
             scroll-snap-type: y mandatory;
+        /* scrollbar-width: 10px; */
+    }
+    .scroller::-webkit-scrollbar {
+        display: block;
     }
     .scroller106 {
         width: 40%;

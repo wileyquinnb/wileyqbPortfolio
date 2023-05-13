@@ -40,6 +40,19 @@
 
 .projectScroller::-webkit-scrollbar {
     display: none;
+    width: 1vw;
+}
+.projectScroller::-webkit-scrollbar-track {
+    margin-block: 21vh;
+    border-radius: 4px;
+}
+.projectScroller::-webkit-scrollbar-track:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+.projectScroller::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255);
+    margin-block: 21vh;
+    border-radius: 4px;
 }
 
 .grey {
@@ -122,6 +135,10 @@
             scroll-snap-type: y mandatory;
     }
 
+    .projectScroller::-webkit-scrollbar {
+        display: block;
+    }
+
     .box {
         width: 40vh;
         height: 40vh;
@@ -147,7 +164,7 @@
     }
 }
 
-@media (min-aspect-ratio: 4.5/3){
+@media (min-aspect-ratio: 4.8/3){
     .box {
         width: 60vh;
         height: 60vh;
