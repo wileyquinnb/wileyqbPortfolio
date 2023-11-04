@@ -66,11 +66,11 @@
 }
 
 .sectionGrow {
-    height: 101%;
+    height: 102%;
     margin-right: 0;
     margin-left: 0;
-    margin-top: 5vh;
-    margin-bottom: 5vh;
+    margin-top: 0vh;
+    margin-bottom: 0vh;
     border-radius: 0;
     /* animation: sectionGrow .15s ease-in-out; */
 }
