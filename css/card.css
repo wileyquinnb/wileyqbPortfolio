@@ -18,6 +18,7 @@
     border-bottom-right-radius: 2vh;
     border-bottom-left-radius: 2vh;
     position: fixed;
+    cursor: pointer;   
 }
 
 .cardTitle {
@@ -49,6 +50,7 @@
     width: 80vw;
     box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
     animation: cardReveal .4s ease-in-out;
+    cursor: pointer;
 }
 
 .cardHide {
