@@ -532,6 +532,7 @@ async function expandSection(visibleSection, targetImage) {
             boxDiv.classList.add('enlargeBox');
         }
     }, 420);
+    //Lol
 }
 function collapseSection(visibleSection) {
     if (!visibleSection) return;
@@ -590,7 +591,7 @@ function collapseSection(visibleSection) {
         cardTitle.classList.remove('cardTitle');
         cardText.classList.remove('cardText');
     }, 420);
-    //Lol
+    //Lol again
 }
 
 
@@ -720,7 +721,7 @@ function clickButton(visibleSection, clickedButton) {
             navigateToSection(targetSectionId);
 
         }, 420);
-        //Lol again
+        //Lol again again
     });
 }
 function navigateToSection(targetSectionId) {
