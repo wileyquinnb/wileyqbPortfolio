@@ -78,7 +78,7 @@
     color: rgb(252, 242, 224);
     opacity: 0%;
     font-weight: bold;
-    text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+    text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -112,7 +112,7 @@
     font-family: Arial, Helvetica, sans-serif;
     color: rgb(252, 242, 224);
     font-weight: bold;
-    text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+    text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,7 +202,7 @@
         font-size: 7vh;
         font-family: "evolver-variable", sans-serif;
         font-weight: bold;
-        text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+        text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -279,7 +279,7 @@
         font-family: "evolver-variable", sans-serif;
         opacity: 0%;
         font-weight: bold;
-        text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+        text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
         display: flex;
         justify-content: center;
         align-items: center;
@@ -373,7 +373,7 @@
         font-family: "evolver-variable", sans-serif;
         opacity: 0%;
         font-weight: bold;
-        text-shadow: 2px 1px 3px rgb(0 0 0 / .2);
+        text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
         display: flex;
         justify-content: center;
         align-items: center;
