@@ -108,14 +108,14 @@ container.addEventListener("scroll", async () => {
 
     //runs createButtons in the event the user goes from proportions being false to true
 
-    if (!previousProportions && proportions) {
-        createButtons(visibleSection);
-        location.reload();
-    }
+    // if (!previousProportions && proportions) {
+    //     createButtons(visibleSection);
+    //     location.reload();
+    // }
 
-    if (previousProportions && !proportions) {
-        location.reload();
-    }
+    // if (previousProportions && !proportions) {
+    //     location.reload();
+    // }
 
     previousProportions = proportions;
 

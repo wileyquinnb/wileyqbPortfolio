@@ -42,26 +42,26 @@
 
 .cardShow {
     position: fixed;
-    background-color: white;
+    background-color: rgb(252, 242, 224);
     opacity: 100%;
     top: 0px;
     left: 10vw;
     height: 37vh;
     width: 80vw;
-    box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+    box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
     animation: cardReveal .4s ease-in-out;
     cursor: pointer;
 }
 
 .cardHide {
     position: fixed;
-    background-color: white;
+    background-color: rgb(252, 242, 224);
     opacity: 0;
     top: 0px;
     left: 10vw;
     height: 40vh;
     width: 80vw;
-    box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+    box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
     animation: cardHide .4s ease-in-out;
 }
 
@@ -108,25 +108,25 @@
 
     .cardShow {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 100%;
         top: 0px;
         left: 10vw;
         height: 30vh;
         width: 80vw;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardReveal .4s ease-in-out;
     }
     
     .cardHide {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 0;
         top: 0px;
         left: 10vw;
         height: 40vh;
         width: 80vw;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardHide .4s ease-in-out;
     }
     
@@ -182,25 +182,25 @@
     
     .cardShow {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 100%;
         top: 34vh;
         left: 5vw;
         height: 32vh;
         width: 87vw;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardReveal2 .5s ease-in-out;
     }
     
     .cardHide {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 95%;
         top: 34vh;
         left: 0vw;
         width: 87vw;
         height: 32vh;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardHide2 .5s ease-in-out;
     }
     
@@ -257,25 +257,25 @@
     
     .cardShow {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 100%;
         top: 30vh;
         left: 5vw;
         height: 40vh;
         width: 87vw;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardReveal2 .5s ease-in-out;
     }
     
     .cardHide {
         position: fixed;
-        background-color: white;
+        background-color: rgb(252, 242, 224);
         opacity: 95%;
         top: 30vh;
         left: 0vw;
         width: 87vw;
         height: 40vh;
-        box-shadow: 2px 1px 3px rgb(0 0 0 / .15);
+        box-shadow: 2px 1px 3px rgb(0 0 0 / .09);
         animation: cardHide2 .5s ease-in-out;
     }
 }
@@ -336,12 +336,12 @@
     51%{
         opacity: 1;
         transform: translateY(-200%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     100%{
         opacity: 1;
         transform: translateY(0%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
 }
 
@@ -349,12 +349,12 @@
     0%{
         opacity: 1;
         transform: translateY(0%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     51%{
         opacity: 1;
         transform: translateY(-200%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     50%{
         opacity: 0;
@@ -396,13 +396,13 @@
         opacity: .7;
         width: 0vw;
         /* transform: translateX(-100%); */
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     100%{
         opacity: .95;
         width: 87vw;
         /* transform: translateX(0%); */
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
 }
 
@@ -410,17 +410,17 @@
     0%{
         opacity: 1;
         transform: translateY(0%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     51%{
         opacity: 1;
         transform: translateX(-100%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     50%{
         opacity: 1;
         transform: translateX(-100%);
-        background-color: white;
+        background-color: rgb(252, 242, 224);
     }
     100%{
         opacity: 0;
