@@ -99,9 +99,12 @@ container.addEventListener("scroll", async () => {
 
         previousProportions = proportions;
 
-        if (proportions) {
-            createButtons(visibleSection);
-        }
+        setTimeout(() => {
+            if (proportions) {
+                createButtons(visibleSection);
+            }
+
+        }, 100);
 
         await loadScroller(visibleSection);
     }
