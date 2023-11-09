@@ -19,6 +19,7 @@ let previousProportions = false;
 let previousVisibleSection = null;
 let isSectionExpanded = false;
 
+const hasBeenExpanded = new Set()
 
 //onLoad
 
@@ -43,10 +44,10 @@ function windowProportions() {
 }
 function resize() {
     if (windowProportions()) {
-        console.log('greaterThan');
+        // console.log('greaterThan');
         proportions = true;
     } else {
-        console.log('lessThan');
+        // console.log('lessThan');
         proportions = false;
         removeButtons(visibleSection);
     }
@@ -79,7 +80,7 @@ container.addEventListener("click", async (event) => {
         const outsideClick = !Array.from(boxDivs).some((boxDiv) => boxDiv.contains(targetElement));
 
         if (outsideClick) {
-            await removeProjectScrollerContent(visibleSection);
+            removeProjectScrollerContent(visibleSection);
         }
     } else {
         await loadProjectScroller(event);
@@ -95,7 +96,7 @@ container.addEventListener("scroll", async () => {
         previousVisibleSection = visibleSection;
         visibleSection = calledSection;
         const calledSectionId = visibleSection ? visibleSection.id : 'none';
-        console.log("Current visible section:", calledSectionId);
+        // console.log("Current visible section:", calledSectionId);
 
         previousProportions = proportions;
 
@@ -206,10 +207,32 @@ function getCalledSection(sections, threshold = 0.5) {
 
 //Loads the black and white images when scrolling over visibleSection
 
+const timeouts = {};
+
+function addTimeout(timeoutBundleName, timeoutId) {
+    if (Array.isArray(timeouts[timeoutBundleName])) {
+        timeouts[timeoutBundleName].push(timeoutId);
+    } else {
+        timeouts[timeoutBundleName] = [timeoutId];
+    }
+
+    // console.log(`Adding ${timeoutId} to ${timeoutBundleName}`, timeouts);
+}
+
+function clearTimeouts(timeoutBundleName) {
+    for (const timeout of (timeouts[timeoutBundleName] ?? [])) clearTimeout(timeout);
+    delete timeouts[timeoutBundleName];
+    // console.log(`Clearing ${timeoutBundleName}`, timeouts);
+}
+
 async function loadScroller(visibleSection) {
+
     if (!visibleSection) {
         return;
     }
+
+
+    clearTimeouts("loadScroller");
 
     let scrollerVisible = false;
 
@@ -240,11 +263,11 @@ async function loadScroller(visibleSection) {
                 }
 
                 const scrollerDiv = visibleSection.querySelector('.scroller');
-                setTimeout(() => {
+                addTimeout("loadScroller", setTimeout(() => {
                     scrollerDiv.classList.add('slideRight');
                     scrollerDiv.classList.add('visible');
                     scrollerDiv.innerHTML = newContent;
-                }, 200);
+                }, 200));
 
 
                 scrollerVisible = true;
@@ -259,11 +282,13 @@ async function loadScroller(visibleSection) {
 
         if (otherScrollerDiv) {
             if (section !== visibleSection) {
-                otherScrollerDiv.className = 'scroller scroller106';
+                otherScrollerDiv.classList.add('scroller');
+                otherScrollerDiv.classList.add('scroller106');
+                otherScrollerDiv.classList.remove('slideRight');
                 otherTitleDiv.classList.remove('slideIn');
             } else {
-                console.log('scrollerVisible:', scrollerVisible);
-                console.log('section.id:', section.id);
+                // console.log('scrollerVisible:', scrollerVisible);
+                // console.log('section.id:', section.id);
                 otherTitleDiv.classList.add('slideIn');
             }
         }
@@ -277,20 +302,24 @@ async function loadScroller(visibleSection) {
             otherScrollerDiv.classList.add('scrollerOut');
             otherTitleDiv.classList.add('slideOut');
 
-            setTimeout(() => {
-                otherScrollerDiv.className = 'scroller scroller106';
+            addTimeout("loadScroller", setTimeout(() => {
+                otherScrollerDiv.classList.add('scroller');
+                otherScrollerDiv.classList.add('scroller106')
                 otherTitleDiv.classList.remove('slideIn');
                 otherTitleDiv.classList.remove('slideOut');
+                otherScrollerDiv.classList.remove('slideRight');
                 otherScrollerDiv.classList.remove('scrollerOut');
                 otherScrollerDiv.classList.remove('visible');
                 otherScrollerDiv.innerHTML = '';
-            }, 400);
+            }, 300));
         }
     }
 
     addSlideInToTitle(visibleSection);
 }
 function addSlideInToTitle(visibleSection) {
+
+    clearTimeouts("addSlideInToTitle");
 
     if (visibleSection && (visibleSection.id === "section0" || visibleSection.id === "section4")) {
         const titleDiv = visibleSection.querySelector('.title');
@@ -311,14 +340,14 @@ function addSlideInToTitle(visibleSection) {
             for (let infoDiv of infoDivs) {
                 infoDiv.classList.add('slideOutText');
             }
-            setTimeout(() => {
+            addTimeout("addSlideInToTitle", setTimeout(() => {
                 titleDiv.classList.remove('slideIn');
                 titleDiv.classList.remove('slideOut');
                 for (let infoDiv of infoDivs) {
                     infoDiv.classList.remove('slideText');
                     infoDiv.classList.remove('slideOutText');
                 }
-            }, 300);
+            }, 300));
         }
     }
 }
@@ -337,6 +366,8 @@ async function loadProjectScroller(event) {
         console.warn('Scroller not found in the visible section:', visibleSection);
         return;
     }
+
+    clearTimeouts("loadProjectScroller");
 
     const sectionId = visibleSection.id;
 
@@ -367,16 +398,16 @@ async function loadProjectScroller(event) {
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.classList.remove('slideRight');
 
-    setTimeout(() => {
+    addTimeout("loadProjectScroller", setTimeout(() => {
         scrollerDiv.classList.add('fadeOut');
-    }, 200);
+    }, 200));
 
     originalScrollers[visibleSection.id] = scrollerDiv.innerHTML;
 
-    setTimeout(() => {
+    addTimeout("loadProjectScroller", setTimeout(() => {
         scrollerDiv.innerHTML = '';
         scrollerDiv.className = 'scroller';
-    }, 400);
+    }, 400));
 
     const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
     projectScrollerDiv.classList.add('fadeIn');
@@ -420,24 +451,32 @@ function hasProjectScrollerContent(visibleSection) {
 //Removes projectScroller content
 
 async function removeProjectScrollerContent(visibleSection) {
-    if (!visibleSection) {
-        return;
-    }
+    return new Promise((resolve) => {
+        if (!visibleSection) {
+            return resolve();
+        }
 
-    const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
-    projectScrollerDiv.classList.remove('fadeIn');
+        clearTimeouts("removeProjectScrollerContent")
 
-    restoreScroller(visibleSection);
-    collapseSection(visibleSection);
+        const projectScrollerDiv = visibleSection.querySelector('.projectScroller');
+        if (!projectScrollerDiv) return resolve()
 
-    setTimeout(() => {
-        projectScrollerDiv.classList.add('fadeOut');
-    }, 200);
+        projectScrollerDiv.classList.remove('fadeIn');
 
-    setTimeout(() => {
-        projectScrollerDiv.classList.remove('fadeOut');
-        projectScrollerDiv.innerHTML = '';
-    }, 500);
+        restoreScroller(visibleSection);
+        collapseSection(visibleSection);
+
+        addTimeout("removeProjectScrollerContent", setTimeout(() => {
+            resolve()
+            projectScrollerDiv.classList.add('fadeOut');
+        }, 200));
+
+        addTimeout("removeProjectScrollerContent", setTimeout(() => {
+            projectScrollerDiv.classList.remove('fadeOut');
+            projectScrollerDiv.innerHTML = '';
+        }, 500));
+    })
+
 }
 
 
@@ -448,14 +487,16 @@ function restoreScroller(visibleSection) {
         return;
     }
 
+    clearTimeouts("restoreScroller");
+
     const sectionId = visibleSection.id;
     const scrollPositionX = scrollPositionsX[sectionId] || 0;
     const scrollPositionY = scrollPositionsY[sectionId] || 0;
 
-    setTimeout(() => {
+    addTimeout("restoreScroller", setTimeout(() => {
         const scroller = visibleSection.querySelector('.scroller');
         scroller.scrollTo({ top: scrollPositionY, left: scrollPositionX, behavior: 'auto' });
-    }, 50);
+    }, 50));
 
     const scrollerDiv = visibleSection.querySelector('.scroller');
     scrollerDiv.innerHTML = originalScrollers[visibleSection.id];
@@ -484,6 +525,10 @@ async function expandSection(visibleSection, targetImage) {
         return;
     }
 
+    hasBeenExpanded.add(visibleSection.id)
+
+    clearTimeouts("expandSection")
+
     titleDiv.classList.add('hideTitle');
     titleDiv.classList.add('stopScroll');
     card.classList.add('cardShow');
@@ -505,9 +550,9 @@ async function expandSection(visibleSection, targetImage) {
 
     originalTitleContent[visibleSection.id] = titleDiv.innerHTML;
 
-    setTimeout(() => {
+    addTimeout("expandSection", setTimeout(() => {
         titleDiv.innerHTML = '';
-    }, 300);
+    }, 300));
 
     const primaryParentFolder = visibleSection.id.replace("section", "") + "img";
 
@@ -520,22 +565,22 @@ async function expandSection(visibleSection, targetImage) {
     const clickedImageIndex = parseInt(clickedImageName.replace('project', ''));
 
 
-    setTimeout(() => {
+    addTimeout("expandSection", setTimeout(() => {
         cardTitle.classList.add('cardTitle');
         cardTitle.textContent = titles[clickedImageIndex];
         cardText.classList.add('cardText');
         cardText.textContent = texts[clickedImageIndex];
-    }, 100);
+    }, 100));
 
 
-    setTimeout(() => {
+    addTimeout("expandSection", setTimeout(() => {
         const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
 
         for (const boxDiv of boxDivs) {
             boxDiv.classList.add('enlargeBox');
         }
-    }, 420);
-    //Lol
+    }, 420));
+    // 🌿 lol
 }
 function collapseSection(visibleSection) {
     if (!visibleSection) return;
@@ -550,6 +595,8 @@ function collapseSection(visibleSection) {
     const boxDivs = visibleSection.querySelectorAll('.projectScroller .box');
 
     if (!titleDiv) return;
+
+    clearTimeouts("collapseSection")
 
     card.classList.remove('cardShow');
     card.classList.add('cardHide');
@@ -570,9 +617,9 @@ function collapseSection(visibleSection) {
     }
 
     if (!proportions) {
-        setTimeout(() => {
+        addTimeout("collapseSection", setTimeout(() => {
             visibleSection.classList.add('sectionShrink');
-        }, 100);
+        }, 100));
     }
 
     for (const section of sections) {
@@ -580,7 +627,7 @@ function collapseSection(visibleSection) {
         // section.classList.add('paddingChange');
     }
 
-    setTimeout(() => {
+    addTimeout("collapseSection", setTimeout(() => {
         // for (const section of sections) {
         //     section.classList.remove('hidden');
         // }
@@ -593,7 +640,7 @@ function collapseSection(visibleSection) {
         cardText.textContent = '';
         cardTitle.classList.remove('cardTitle');
         cardText.classList.remove('cardText');
-    }, 420);
+    }, 420));
     //Lol again
 }
 
@@ -601,6 +648,8 @@ function collapseSection(visibleSection) {
 //Handles buttons
 
 function createButtons(visibleSection) {
+    // console.log("createButtons has been called", visibleSection.id)
+
     if (!visibleSection) {
         return;
     }
@@ -678,6 +727,7 @@ function removeButtons(visibleSection) {
 
     buttonContainer.innerHTML = '';
 }
+
 function clickButton(visibleSection, clickedButton) {
     if (!visibleSection) {
         return;
@@ -689,7 +739,17 @@ function clickButton(visibleSection, clickedButton) {
         return;
     }
 
-    buttonContainer.addEventListener('click', (event) => {
+    // // 'recreates' the buttons
+    // const clone = buttonContainer.cloneNode(true);
+    // buttonContainer.parentNode.replaceChild(clone, buttonContainer);
+
+    const myClickHandler = (event) => {
+        event.stopPropagation();
+
+        // console.log(`Clicked button ${clickedButton.className}`)
+
+        clearTimeouts("clickButton");
+
         const targetElement = event.target;
         if (targetElement.matches('.circle')) {
             let buttonClone = buttonContainer.querySelector('.expandCircle');
@@ -704,7 +764,9 @@ function clickButton(visibleSection, clickedButton) {
             });
         }
 
-        setTimeout(() => {
+        addTimeout("clickButton", setTimeout(async () => {
+            buttonContainer.removeEventListener("click", myClickHandler);
+
             const currentSectionId = visibleSection.id;
             let targetSectionId;
 
@@ -721,11 +783,18 @@ function clickButton(visibleSection, clickedButton) {
                 }
             }
 
+            if (hasBeenExpanded.has(visibleSection.id)) {
+                await removeProjectScrollerContent(visibleSection)
+            }
+
+            console.log("visibleSection:", visibleSection)
             navigateToSection(targetSectionId);
 
-        }, 420);
+        }, 420));
         //Lol again again
-    });
+    }
+
+    buttonContainer.addEventListener('click', myClickHandler);
 }
 function navigateToSection(targetSectionId) {
     const targetSection = document.getElementById(targetSectionId);

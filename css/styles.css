@@ -85,6 +85,10 @@
     padding-top: 15%;
     transition: padding-top .3s ease-in-out;
     cursor: default;
+    user-select: none; 
+    -moz-user-select: none; 
+    -webkit-text-select: none; 
+    -webkit-user-select: none; 
 }
 
 .email {
@@ -117,6 +121,10 @@
     justify-content: center;
     align-items: center;
     cursor: default;
+    user-select: none; 
+    -moz-user-select: none; 
+    -webkit-text-select: none; 
+    -webkit-user-select: none; 
 }
 
 .blacktext {
@@ -127,6 +135,10 @@
     padding-left: 15vw;
     cursor: default;
     text-align: center;
+    user-select: none; 
+    -moz-user-select: none; 
+    -webkit-text-select: none; 
+    -webkit-user-select: none; 
 }
 
 .mainTitle {
