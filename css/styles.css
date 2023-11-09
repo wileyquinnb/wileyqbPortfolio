@@ -19,7 +19,7 @@
     overflow-x: hidden;
     scroll-snap-align: center;
     scrollbar-width: none;
-    background-color: rgb(252, 242, 224);
+    background-color: rgb(253, 250, 245);
 }
 
 #container::-webkit-scrollbar {
@@ -50,7 +50,7 @@
 }
 
 #section0 {
-    background-color: rgb(252, 242, 224);
+    background-color: rgb(253, 250, 245);
     flex-direction: column;
     box-shadow: none;
     color: rgb(35, 16, 3);
@@ -75,7 +75,7 @@
     font-size: 6vh;
     font-family: "evolver-variable", sans-serif;
     font-variation-settings: 'wght' 600, 'slnt' -4;
-    color: rgb(252, 242, 224);
+    color: rgb(253, 250, 245);
     opacity: 0%;
     font-weight: bold;
     text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
@@ -114,7 +114,7 @@
     padding-left: 10vw;
     padding-right: 10vw;
     font-family: Arial, Helvetica, sans-serif;
-    color: rgb(252, 242, 224);
+    color: rgb(253, 250, 245);
     font-weight: bold;
     text-shadow: 2px 1px 3px rgb(0 0 0 / .1);
     display: flex;
@@ -256,7 +256,7 @@
         overflow-x: hidden;
         scroll-snap-align: center;
         scrollbar-width: none;
-        background-color: rgb(252, 242, 224);
+        background-color: rgb(253, 250, 245);
     }
     
     #container::-webkit-scrollbar {
@@ -350,7 +350,7 @@
         overflow-x: hidden;
         scroll-snap-align: center;
         scrollbar-width: none;
-        background-color: rgb(252, 242, 224);
+        background-color: rgb(253, 250, 245);
     }
     
     #container::-webkit-scrollbar {
