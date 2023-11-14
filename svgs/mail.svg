@@ -3,11 +3,15 @@
 <svg version="1.1" id="Layer_4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 87 87" style="enable-background:new 0 0 87 87;" xml:space="preserve">
 <style type="text/css">
-	.st0{fill:#FCF2E0;}
+	.st0{fill:url(#SVGID_1_);}
 	.st1{fill:none;stroke:#FCF2E0;stroke-width:6.47;stroke-linecap:round;stroke-linejoin:round;}
 </style>
-<path class="st0" d="M65.2,12.7c10.6,0,15.3,4.8,15.3,15.6v30.9c0,10.8-4.7,15.6-15.3,15.6H21.8c-10.6,0-15.3-4.8-15.3-15.6V28.3
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="43.55" y1="81.3" x2="43.55" y2="6.2">
+	<stop  offset="0" style="stop-color:#FDFAF5"/>
+	<stop  offset="1" style="stop-color:#FCF2E0"/>
+</linearGradient>
+<path class="st0" d="M65.2,12.7c10.6,0,15.3,4.8,15.3,15.6v30.9c0,10.8-4.7,15.6-15.3,15.6H21.8C11.2,74.8,6.5,70,6.5,59.2V28.3
 	c0-10.8,4.7-15.6,15.3-15.6L65.2,12.7 M65.2,6.2H21.8C8.7,6.2,0,12.8,0,28.3v30.9c0,15.4,8.7,22.1,21.8,22.1h43.5
-	c13.1,0,21.8-6.6,21.8-22V28.3C87,12.8,78.3,6.2,65.2,6.2C65.2,6.2,65.2,6.2,65.2,6.2z"/>
+	c13.1,0,21.8-6.6,21.8-22v-31C87,12.8,78.3,6.2,65.2,6.2L65.2,6.2z"/>
 <path class="st1" d="M65.1,30L51.6,40.7c-4.4,3.5-11.7,3.5-16.2,0L21.9,30"/>
 </svg>
