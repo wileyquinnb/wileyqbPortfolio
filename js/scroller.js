@@ -416,7 +416,6 @@ async function loadProjectScroller(event) {
     visibleSection.appendChild(projectScrollerDiv);
 }
 
-//test
 
 //Excludes sections without a scroller and projectScroller
 
@@ -640,8 +639,7 @@ function collapseSection(visibleSection) {
         cardText.textContent = '';
         cardTitle.classList.remove('cardTitle');
         cardText.classList.remove('cardText');
-    }, 420));
-    //Lol again
+    }, 200));
 }
 
 
@@ -791,7 +789,7 @@ function clickButton(visibleSection, clickedButton) {
             navigateToSection(targetSectionId);
 
         }, 420));
-        //Lol again again
+        //Lol again
     }
 
     buttonContainer.addEventListener('click', myClickHandler);
