@@ -95,6 +95,18 @@
     animation: paddingChange .4s ease;
 }
 
+.closeIcon {
+    position: absolute;
+    right: 2vh;
+    bottom: 2vh;
+    height: 2vh;
+    width: 2vh;
+    border-radius: 50%;
+    cursor: pointer;
+    background-color: rgb(240, 229, 225);
+    animation: textReveal 3s ease-in;
+}
+
 @media (min-aspect-ratio: 1.8/3){
     .hideTitle {
         padding-top: 13%;
@@ -213,6 +225,11 @@
         margin-top: 0vh;
         margin-bottom: 0vh;
         border-radius: 0vw;
+    }
+
+    .closeIcon {
+        left: 3vh;
+        bottom: 3vh;
     }
 }
 

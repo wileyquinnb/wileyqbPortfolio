@@ -7,6 +7,7 @@ const infos = document.querySelectorAll('.info');
 const card = document.getElementById('card');
 const cardTitle = document.getElementById('cardTitle');
 const cardText = document.getElementById('cardText');
+const closeIcon = document.getElementById('closeIcon');
 
 const scrollPositionsX = {};
 const scrollPositionsY = {};
@@ -569,6 +570,7 @@ async function expandSection(visibleSection, targetImage) {
         cardTitle.textContent = titles[clickedImageIndex];
         cardText.classList.add('cardText');
         cardText.textContent = texts[clickedImageIndex];
+        closeIcon.classList.add('closeIcon');
     }, 100));
 
 
@@ -639,6 +641,7 @@ function collapseSection(visibleSection) {
         cardText.textContent = '';
         cardTitle.classList.remove('cardTitle');
         cardText.classList.remove('cardText');
+        closeIcon.classList.remove('closeIcon');
     }, 200));
 }
 
