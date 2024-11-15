@@ -103,7 +103,7 @@
     width: 2vh;
     border-radius: 50%;
     cursor: pointer;
-    background-color: rgb(240, 229, 225);
+    background-color: rgb(108, 104, 103);
     animation: textReveal 3s ease-in;
 }
 
