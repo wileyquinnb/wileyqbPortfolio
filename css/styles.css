@@ -121,7 +121,7 @@
 }
 
 .info {
-    height: 3vh !important;
+    height: 5vh !important;
     width: 60vw !important;
     display: flex !important;
     flex-direction: column !important;
